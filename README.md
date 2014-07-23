@@ -13,7 +13,7 @@ Duplication-of-work
 
 >commons-io-2.4.jar
 
-##[2014-07-23	Spide163News] {https://github.com/Glacier759/Duplication-of-work/tree/master/Spider163News}
+##[2014-07-23	Spide163News] (https://github.com/Glacier759/Duplication-of-work/tree/master/Spider163News)
 
 >网易新闻国内新闻的抓取
 
