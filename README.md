@@ -1,7 +1,7 @@
 Duplication-of-work
 ===================
 
-##2014-07-22	SpiderBlog
+##[2014-07-22	SpiderBlog] (https://github.com/Glacier759/Duplication-of-work/tree/master/SpiderBlog)
 
 >依据给定的一组URL抓取新浪博客正文
 
@@ -13,7 +13,7 @@ Duplication-of-work
 
 >commons-io-2.4.jar
 
-##2014-07-23	Spide163News
+##[2014-07-23	Spide163News] {https://github.com/Glacier759/Duplication-of-work/tree/master/Spider163News}
 
 >网易新闻国内新闻的抓取
 
