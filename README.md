@@ -28,3 +28,12 @@ Duplication-of-work
 >jsoup-1.7.2.jar
 
 >commons-io-2.4.jar
+
+##[2014-08-06	SpiderPaper] (https://github.com/Glacier759/Duplication-of-work/tree/master/SpiderPaper)
+
+>抓取中国搜索报刊中全国性报刊
+
+>获取电子版报刊中的正文内容
+
+>采用统计的抽取算法进行正文抽取
+
