@@ -94,7 +94,7 @@ public class Spider {
 			}
 			
 			for ( String NodeLink:NodeMap.keySet() ) {
-				getLayout( NodeLink, NodeMap.get(NodeLink), Link, Name );
+				getLayout( NodeLink, NodeMap.get(NodeLink), Link, Name, getDate(Link) );
 			}
 				
 		} catch( Exception e ) {
@@ -102,14 +102,23 @@ public class Spider {
 		}
 	}
 	
-	public void getLayout( String NodeLink, String NodeTitle, String PageLink, String PageName ) {
+	public void getLayout( String NodeLink, String NodeTitle, String PageLink, String PageName, String Date ) {
 		try {
 			Document Doc = Jsoup.connect(NodeLink)
 					  .userAgent("Mozilla")
 					  .cookie("auth", "token")
 					  .timeout(3000)
 					  .get();
-			
+			Elements Areas = Doc.select("area");
+			for ( Element Area:Areas ) {
+				String AreaLink = Area.attr("abs:href");
+				Document doc = Jsoup.connect(AreaLink)
+						  .userAgent("Mozilla")
+						  .cookie("auth", "token")
+						  .timeout(3000)
+						  .get();
+				String Text = extractor.parse(doc.toString());
+			}
 		} catch( Exception e ) {
 			
 		}
