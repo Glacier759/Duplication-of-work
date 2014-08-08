@@ -15,6 +15,7 @@ import org.jsoup.select.Elements;
 public class Spider {
 
 	Extractor extractor = new Extractor();
+	static HashMap<String,String> PaperLink = new HashMap<String,String>();
 	
 	private HashMap<String,String> paperMap = new HashMap<String,String>(); {
 		paperMap.put("http://rmfyb.chinacourt.org/", "paper/");
@@ -24,8 +25,26 @@ public class Spider {
 		
 		String SeedURL = "http://paper.chinaso.com/quanbubaokan.html";
 		Spider obj = new Spider();
-		obj.firstFilter(SeedURL);
+		
+		obj.getAllLink(SeedURL);
+		for ( String Link:PaperLink.keySet() ) {
+			System.out.println(PaperLink.get(Link)+"\t\t"+Link);
+			obj.secondFilter(Link);
+		}
+		//obj.firstFilter(SeedURL);
 		//obj.secondFilter("http://paper.chinaso.com/rmzxb.html");
+	}
+	
+	public void getAllLink( String Url )  {
+		try {
+			Document Doc = Jsoup.connect(Url).get();
+			Elements AllLinks = Doc.select("div[class=bk_cd_zmxz]").select("a[href]");
+			for ( Element AllLink:AllLinks ) {
+				PaperLink.put(AllLink.attr("abs:href"), AllLink.text());
+			}
+		} catch( Exception e ) {
+			System.out.println(e);
+		}
 	}
 	
 	public void firstFilter( String Url ) throws Exception {
@@ -93,15 +112,30 @@ public class Spider {
 			}
 			System.out.println("URL = " + Url);
 			Elements Areas = Doc.select("Area");
-			/*
-			 * 获取下一版
+			if ( Areas.size() == 0 )
+				return;		
+			
+			String UrlPath = new URL(Url).getPath();
+			int firstindex = UrlPath.indexOf("2");
+			String Date = UrlPath.substring(firstindex, firstindex+10);
+			Date = Date.replace('/', '-');
+			System.out.println("UrlPath = " + UrlPath+"\t"+"firstindex = " + firstindex);
+			System.out.println("Date = " + Date);
+			
 			Elements Nexts = Doc.select("a[href]");
 			for ( Element Next:Nexts ) {
 				if ( Next.text().contains("下一版") || Next.text().contains("下一页") ) {
 					System.out.println("Next = " + Next.attr("abs:href"));
+					String Layout = Next.parent().parent().parent().text();
+					firstindex = Layout.indexOf("版");
+					String LayoutTag = Layout.substring(firstindex-2, firstindex);
+					System.out.println(Layout);
+					System.out.println("第几版 = " + LayoutTag);
+					break;
 				}
 			}
-			*/
+			
+			
 			forthFilter( Areas );
 		} catch( Exception e ) {
 			System.out.println(e);
@@ -121,7 +155,7 @@ public class Spider {
 			try {
 				System.out.println(Area.attr("abs:href"));
 				Document Doc = Jsoup.connect(Area.attr("abs:href")).get();
-				System.out.println(extractor.parse(Doc.toString()));
+				//System.out.println(extractor.parse(Doc.toString()));
 			} catch( Exception e ) {
 				System.out.println(e);
 			}
