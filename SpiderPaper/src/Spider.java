@@ -2,10 +2,6 @@
 import java.net.URL;
 import java.util.HashMap;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,176 +11,97 @@ import org.jsoup.select.Elements;
 public class Spider {
 
 	Extractor extractor = new Extractor();
-	static HashMap<String,String> PaperLink = new HashMap<String,String>();
-	
-	private HashMap<String,String> paperMap = new HashMap<String,String>(); {
-		paperMap.put("http://rmfyb.chinacourt.org/", "paper/");
-	}
+	HashMap<String,String> PaperLink = new HashMap<String,String>();
 	
 	public static void main(String[] args) throws Exception {
 		
 		String SeedURL = "http://paper.chinaso.com/quanbubaokan.html";
 		Spider obj = new Spider();
 		
-		obj.getAllLink(SeedURL);
+		obj.getAllURL(SeedURL);
+		obj.updateAllURL();
+		//obj.getAllPage();
+	}
+	
+	//从首页获取所有报刊的链接与报刊名
+	public void getAllURL( String Url )  { 	
+		try {
+			Document Doc = Jsoup.connect(Url).get();
+			Elements URLs = Doc.select("div[class=bk_cd_zmxz]").select("a[href]");
+			for ( Element URL:URLs ) {
+				PaperLink.put(URL.attr("abs:href"), URL.text());
+			}
+		} catch( Exception e ) {
+			System.out.println(e);
+		}
+	} 
+
+	//更新所有报刊对应的URL
+	public void updateAllURL() throws Exception {
+		HashMap<String,String> TempMap = (HashMap<String, String>) PaperLink.clone();
+		PaperLink.clear();
+		for ( String Link:TempMap.keySet() ) {
+			System.out.println("Old Link = " + Link);
+			URL LINK = new URL(Link);
+			if ( LINK.getHost().equals("paper.chinaso.com") ) {
+				try {
+					Document Doc = Jsoup.connect(Link).get();
+					Element JumpEle = Doc.select("div[class=newpaper_con]").first();
+					String JumpLink = JumpEle.select("a[href]").attr("abs:href");
+					String TrueLink = getTrueLink( JumpLink );
+					String PageName = TempMap.get(Link);
+					PaperLink.put(TrueLink, PageName);
+					System.out.println("New Link = " + TrueLink);
+				} catch( Exception e ) {
+					e.printStackTrace();
+				}
+			} 
+			else {
+				String TrueLink = getTrueLink( Link );
+				String PageName = TempMap.get(Link);
+				PaperLink.put(TrueLink, PageName);
+				System.out.println("New Link = " + TrueLink);
+			}
+		}
+		// 	获得所有跳转后的页面连接	
+	}
+	
+	public void getAllPage() {
 		for ( String Link:PaperLink.keySet() ) {
 			System.out.println(PaperLink.get(Link)+"\t\t"+Link);
-			obj.secondFilter(Link);
-		}
-		//obj.firstFilter(SeedURL);
-		//obj.secondFilter("http://paper.chinaso.com/rmzxb.html");
-	}
-	
-	public void getAllLink( String Url )  {
-		try {
-			Document Doc = Jsoup.connect(Url).get();
-			Elements AllLinks = Doc.select("div[class=bk_cd_zmxz]").select("a[href]");
-			for ( Element AllLink:AllLinks ) {
-				PaperLink.put(AllLink.attr("abs:href"), AllLink.text());
-			}
-		} catch( Exception e ) {
-			System.out.println(e);
 		}
 	}
 	
-	public void firstFilter( String Url ) throws Exception {
-		
+	//获取Link对应的最终跳转链接，返回最终链接
+	public String getTrueLink( String Link ) {
 		try {
-			String Host = new URL(Url).getHost();
-			Document Doc = Jsoup.connect(Url).get();
-			Elements qgbz = Doc.select("div[class=bk_cd_qgbz]");
-			Elements links = qgbz.select("a[href]");
-			for ( Element link : links ) {
-				String url = link.attr("abs:href");
-				String host = new URL(url).getHost();
-				if ( Host.equals(host) ) {
-					//System.out.println(url);
-					secondFilter( url );
-				}
-			}
-		} catch( Exception e ) {
-			System.out.println(e);
-		}
-	}
-	
-	public void secondFilter( String Url ) throws Exception {
-		
-		try {
-			Document Doc = Jsoup.connect(Url).get();
-			Elements electronic = Doc.select("div[class=newpaper_con]");
-			String url = electronic.select("a[href]").attr("abs:href");
-			//System.out.println(url);
-			thirdFilter( url );
-		} catch( Exception e ) {
-			System.out.println(e);
-		}
-	}
-	
-	public void thirdFilter( String Url ) {
-		
-		if ( paperMap.containsKey(Url) )
-			Url = Url + paperMap.get(Url);
-		try {
-			Document Doc = null;
-			while(true) {
-				Doc = Jsoup.connect(Url).get();
-				/*
-				Elements Scripts = Doc.select("script");
-				String script = "";
-				for ( Element Script:Scripts ) {
-					if ( Script.html().length() > script.length() )
-						script = Script.html();
-				}
-				getScriptAns(script);
-				*/
-				Elements Meta = Doc.select("meta[http-equiv=REFRESH]");
-				if ( Meta.size() > 0 ) {
-					String sub = Url.substring(Url.lastIndexOf("/"));
-					URL url = null;
-					if ( sub.length() != 1 )
-						url = new URL(Url.substring(0, Url.lastIndexOf("/")+1)+getTrueURL(Meta));
-					else
-						url = new URL(Url+getTrueURL(Meta));
-					Url = url.toString();
-				}
+			System.out.println(Link);
+			Document Doc = Jsoup.connect(Link)
+					  .userAgent("Mozilla")
+					  .cookie("auth", "token")
+					  .timeout(3000)
+					  .get();
+			Elements Meta = Doc.select("meta[http-equiv=REFRESH]");
+			
+			if ( Meta.size() == 0 )
+				return Link;
+			else {
+				String content = Meta.attr("content");
+				int firstindex = content.toUpperCase().indexOf("URL")+4;
+				String link = content.substring(firstindex);
+				if ( link.indexOf('\\') >= 0 )
+					link = link.replace('\\', '/');
+				if ( link.contains("http://") )
+					return link;
+				String sub = Link.substring(Link.lastIndexOf('/'));
+				if ( sub.length() != 1 ) 
+					return getTrueLink(Link.substring(0, Link.lastIndexOf('/')+1) + link);
 				else
-					break;
+					return getTrueLink(Link + link);
 			}
-			System.out.println("URL = " + Url);
-			Elements Areas = Doc.select("Area");
-			if ( Areas.size() == 0 )
-				return;		
-			
-			String UrlPath = new URL(Url).getPath();
-			int firstindex = UrlPath.indexOf("2");
-			String Date = UrlPath.substring(firstindex, firstindex+10);
-			Date = Date.replace('/', '-');
-			System.out.println("UrlPath = " + UrlPath+"\t"+"firstindex = " + firstindex);
-			System.out.println("Date = " + Date);
-			
-			Elements Nexts = Doc.select("a[href]");
-			for ( Element Next:Nexts ) {
-				if ( Next.text().contains("下一版") || Next.text().contains("下一页") ) {
-					System.out.println("Next = " + Next.attr("abs:href"));
-					String Layout = Next.parent().parent().parent().text();
-					firstindex = Layout.indexOf("版");
-					String LayoutTag = Layout.substring(firstindex-2, firstindex);
-					System.out.println(Layout);
-					System.out.println("第几版 = " + LayoutTag);
-					break;
-				}
-			}
-			
-			
-			forthFilter( Areas );
 		} catch( Exception e ) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
-		System.out.println();
-	}
-	
-	public void forthFilter( Elements Areas ) {
-		
-		if ( Areas.size() == 0 )
-			return;
-		
-		System.out.println("forthFilter");
-		
-		for ( Element Area:Areas ) {
-			//System.out.println(Area);
-			try {
-				System.out.println(Area.attr("abs:href"));
-				Document Doc = Jsoup.connect(Area.attr("abs:href")).get();
-				//System.out.println(extractor.parse(Doc.toString()));
-			} catch( Exception e ) {
-				System.out.println(e);
-			}
-			
-		}
-	}
-	
-	public String getTrueURL( Elements Meta ) {
-		String content = Meta.attr("content");
-		//System.out.println(content);
-		int firstindex = content.toUpperCase().indexOf("URL")+4;
-		String url = content.substring(firstindex);
-		if ( url.indexOf('\\') >= 0 )
-			url = url.replace('\\', '/');
-		//System.out.println(url);
-		return url;
-	}
-
-	public void getScriptAns( String script ) throws Exception {
-		
-		
-		System.out.println(script);
-		script = "function hello(name) { return 'Hello,' + name;}";
-		
-		ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-		ScriptEngine scrpitEngine = scriptEngineManager.getEngineByName("JavaScript");
-		scrpitEngine.eval(script);
-		Invocable inv = (Invocable) scrpitEngine;
-		String ans = (String) inv.invokeFunction("hello", "Scripting");
-		System.out.println(ans);
+		return Link;
 	}
 }
