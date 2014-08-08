@@ -1,6 +1,8 @@
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,6 +12,8 @@ import org.jsoup.select.Elements;
 
 public class Spider {
 
+	static int count = 0;
+	static int number = 0;
 	Extractor extractor = new Extractor();
 	HashMap<String,String> PaperLink = new HashMap<String,String>();
 	
@@ -20,7 +24,7 @@ public class Spider {
 		
 		obj.getAllURL(SeedURL);
 		obj.updateAllURL();
-		//obj.getAllPage();
+		System.out.println("final count = " + count);
 	}
 	
 	//从首页获取所有报刊的链接与报刊名
@@ -38,44 +42,84 @@ public class Spider {
 
 	//更新所有报刊对应的URL
 	public void updateAllURL() throws Exception {
+		@SuppressWarnings("unchecked")
 		HashMap<String,String> TempMap = (HashMap<String, String>) PaperLink.clone();
 		PaperLink.clear();
 		for ( String Link:TempMap.keySet() ) {
-			System.out.println("Old Link = " + Link);
+			String TrueLink = "";
+			String PageName = "";
 			URL LINK = new URL(Link);
 			if ( LINK.getHost().equals("paper.chinaso.com") ) {
 				try {
 					Document Doc = Jsoup.connect(Link).get();
 					Element JumpEle = Doc.select("div[class=newpaper_con]").first();
 					String JumpLink = JumpEle.select("a[href]").attr("abs:href");
-					String TrueLink = getTrueLink( JumpLink );
-					String PageName = TempMap.get(Link);
+					TrueLink = getTrueLink( JumpLink );
+					PageName = TempMap.get(Link);
 					PaperLink.put(TrueLink, PageName);
-					System.out.println("New Link = " + TrueLink);
 				} catch( Exception e ) {
-					e.printStackTrace();
+					System.out.println(e);
 				}
 			} 
 			else {
-				String TrueLink = getTrueLink( Link );
-				String PageName = TempMap.get(Link);
+				TrueLink = getTrueLink( Link );
+				PageName = TempMap.get(Link);
 				PaperLink.put(TrueLink, PageName);
-				System.out.println("New Link = " + TrueLink);
 			}
+			
+			getPage(TrueLink, PageName);
 		}
 		// 	获得所有跳转后的页面连接	
 	}
 	
-	public void getAllPage() {
-		for ( String Link:PaperLink.keySet() ) {
-			System.out.println(PaperLink.get(Link)+"\t\t"+Link);
+	//获取到所有版面链接
+	public void getPage( String Link, String Name ) {
+		try {
+			HashMap<String,String> NodeMap = new HashMap<String,String>();
+			NodeMap.clear();
+			Document Doc = Jsoup.connect(Link)
+					  .userAgent("Mozilla")
+					  .cookie("auth", "token")
+					  .timeout(3000)
+					  .get();
+			Elements Hrefs = Doc.select("a[href]");
+			for ( Element Href:Hrefs ) {
+				String HrefText = Href.text();
+				Pattern p = Pattern.compile(".*\\d+.*");
+				Matcher m = p.matcher(HrefText);
+				if ( Href.attr("href").contains("node") && !HrefText.contains("下一版") && !HrefText.contains("上一版") && HrefText.length()>0 && m.matches()) {
+					System.out.println(getDate(Link));
+					NodeMap.put(Href.attr("abs:href"), Href.text());
+				}
+			}
+			
+			for ( String NodeLink:NodeMap.keySet() ) {
+				getLayout( NodeLink, NodeMap.get(NodeLink), Link, Name );
+			}
+				
+		} catch( Exception e ) {
+			System.out.println(e);
 		}
+	}
+	
+	public void getLayout( String NodeLink, String NodeTitle, String PageLink, String PageName ) {
+		try {
+			Document Doc = Jsoup.connect(NodeLink)
+					  .userAgent("Mozilla")
+					  .cookie("auth", "token")
+					  .timeout(3000)
+					  .get();
+			
+		} catch( Exception e ) {
+			
+		}
+		
+		
 	}
 	
 	//获取Link对应的最终跳转链接，返回最终链接
 	public String getTrueLink( String Link ) {
 		try {
-			System.out.println(Link);
 			Document Doc = Jsoup.connect(Link)
 					  .userAgent("Mozilla")
 					  .cookie("auth", "token")
@@ -100,8 +144,21 @@ public class Spider {
 					return getTrueLink(Link + link);
 			}
 		} catch( Exception e ) {
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		return Link;
+	}
+	
+	public String getDate( String Link ) {
+		try {
+			String UrlPath = new URL(Link).getPath();
+			int firstindex = UrlPath.indexOf("2014");
+			String Date = UrlPath.substring(firstindex, firstindex+10);
+			Date = Date.replace('/', '-');
+			return Date;
+		} catch ( Exception e ) {
+			System.out.println(e);
+		}
+		return null;
 	}
 }
