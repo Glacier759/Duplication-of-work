@@ -52,23 +52,22 @@ public class SaveXML {
 				Element img = body.addElement("img");
 				img.addText(str);
 			}
-			System.out.println(xmlDoc.asXML());
+			/*System.out.println(xmlDoc.asXML());
 			OutputFormat format = OutputFormat.createPrettyPrint();
 			format.setEncoding("UTF-8"); //设置XML文档的编码类型
 			format.setSuppressDeclaration(true);
 			format.setIndent(true); //设置是否缩进
 			format.setIndent(" "); //以空格方式实现缩进
 			format.setNewlines(true); //设置是否换行
-			FileUtils.writeStringToFile(new File("a.xml"), xmlDoc.asXML());
 			System.exit(0);
 			Writer fileWriter = new FileWriter("output.xml");
 			XMLWriter output = new XMLWriter( fileWriter, format );
 			output.write(xmlDoc);
 			output.close();
-			String xml = FileUtils.readFileToString(new File("output.xml"));
+			String xml = FileUtils.readFileToString(new File("output.xml"));*/
 			//System.out.println(xml);
 			//System.out.println(format.source+"\n"+format.body.length());
-			//FileUtils.writeStringToFile(new File(new File(new File("Data"), format.newspaper), System.currentTimeMillis()+".xml"), str);
+			FileUtils.writeStringToFile(new File(new File(new File("Data"), format.newspaper), System.currentTimeMillis()+".xml"), xmlDoc.toString());
 		} catch( Exception e ) {
 			System.out.println(e);
 		}
