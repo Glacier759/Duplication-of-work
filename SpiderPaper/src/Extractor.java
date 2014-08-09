@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 
 public class Extractor {
@@ -46,13 +50,14 @@ public class Extractor {
 		return getText();
 	}
 	
-	private void preProcess() {
+	public String preProcess() {
 		html = html.replaceAll("(?is)<!DOCTYPE.*?>", "");
 		html = html.replaceAll("(?is)<!--.*?-->", "");				// remove html comment
 		html = html.replaceAll("(?is)<script.*?>.*?</script>", ""); // remove javascript
 		html = html.replaceAll("(?is)<style.*?>.*?</style>", "");   // remove css
 		html = html.replaceAll("&.{2,5};|&#.{2,5};", " ");			// remove special char
 		html = html.replaceAll("(?is)<.*?>", "");
+		return html;
 		//<!--[if !IE]>|xGv00|9900d21eb16fa4350a3001b3974a9415<![endif]--> 
 	}
 	
@@ -106,6 +111,22 @@ public class Extractor {
 			}
 		}
 		return text.toString();
+	}
+	
+	public String getPtag( String html ) {
+		this.html = html;
+		//preProcess();
+		Document Doc = Jsoup.parse(this.html);
+		//System.out.println(Doc.toString());
+		Elements PTags = Doc.select("p");
+		StringBuffer buffer = new StringBuffer();
+		for ( Element PTag:PTags ) {
+			String Text = PTag.text();
+			if (Text.toUpperCase().contains("COPYRIGHT")  || Text.contains("版权所有") ) continue;
+			buffer.append("\n"+Text);
+		}
+		buffer.append("\n");
+		return buffer.toString();
 	}
 
 }

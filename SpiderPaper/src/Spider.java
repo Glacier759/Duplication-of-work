@@ -1,6 +1,9 @@
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,19 +15,31 @@ import org.jsoup.select.Elements;
 
 public class Spider {
 
-	static int count = 0;
-	static int number = 0;
 	Extractor extractor = new Extractor();
 	HashMap<String,String> PaperLink = new HashMap<String,String>();
+	SaveXML savexml = new SaveXML();
 	
 	public static void main(String[] args) throws Exception {
 		
 		String SeedURL = "http://paper.chinaso.com/quanbubaokan.html";
 		Spider obj = new Spider();
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		obj.savexml.format.crawltime = sdf.format(new Date());
+		obj.savexml.format.encode = "UTF-8";
+		obj.savexml.format.language = "中文";
+		
 		obj.getAllURL(SeedURL);
 		obj.updateAllURL();
-		System.out.println("final count = " + count);
+		
+		//URL url = new URL("http://zjrb.zjol.com.cn/html/2014-08/09/content_2779543.htm?div=-1");
+		//System.out.println(url.toString().substring(0, url.toString().indexOf('?')));
+		
+		/*Document Doc = Jsoup.connect("http://epaper.jinghua.cn/html/2014-08/09/content_113078.htm").get();
+		String str = obj.extractor.parse(Doc.toString());
+		System.out.println(str);
+		//System.out.println(Doc.toString());*/
+		System.out.println("end");
 	}
 	
 	//从首页获取所有报刊的链接与报刊名
@@ -66,13 +81,14 @@ public class Spider {
 				PageName = TempMap.get(Link);
 				PaperLink.put(TrueLink, PageName);
 			}
-			
+			this.savexml.format.newspaper = PageName;
 			getPage(TrueLink, PageName);
 		}
 		// 	获得所有跳转后的页面连接	
 	}
 	
 	//获取到所有版面链接
+	//获取到一个报刊的所有版面
 	public void getPage( String Link, String Name ) {
 		try {
 			HashMap<String,String> NodeMap = new HashMap<String,String>();
@@ -88,22 +104,27 @@ public class Spider {
 				Pattern p = Pattern.compile(".*\\d+.*");
 				Matcher m = p.matcher(HrefText);
 				if ( Href.attr("href").contains("node") && !HrefText.contains("下一版") && !HrefText.contains("上一版") && HrefText.length()>0 && m.matches()) {
-					System.out.println(getDate(Link));
 					NodeMap.put(Href.attr("abs:href"), Href.text());
 				}
 			}
-			
+			HashSet<String> UrlBuffer = new HashSet<String>();
 			for ( String NodeLink:NodeMap.keySet() ) {
-				getLayout( NodeLink, NodeMap.get(NodeLink), Link, Name, getDate(Link) );
+				getLayout( NodeLink, NodeMap.get(NodeLink), getDate(Link), UrlBuffer );
 			}
+			UrlBuffer.clear();
 				
 		} catch( Exception e ) {
 			System.out.println(e);
 		}
 	}
 	
-	public void getLayout( String NodeLink, String NodeTitle, String PageLink, String PageName, String Date ) {
+	//获取到版面下的所有报刊正文
+	public void getLayout( String NodeLink, String NodeTitle,  String Date, HashSet<String> UrlBuffer ) {
 		try {
+			this.savexml.format.page = NodeTitle;
+			this.savexml.format.title = "标题";
+			this.savexml.format.publishtime = Date;
+			
 			Document Doc = Jsoup.connect(NodeLink)
 					  .userAgent("Mozilla")
 					  .cookie("auth", "token")
@@ -112,18 +133,28 @@ public class Spider {
 			Elements Areas = Doc.select("area");
 			for ( Element Area:Areas ) {
 				String AreaLink = Area.attr("abs:href");
+				if ( AreaLink.contains("?") )
+					AreaLink = AreaLink.substring(0, AreaLink.indexOf('?'));
+				UrlBuffer.add(AreaLink);
+			}
+			for ( String AreaLink:UrlBuffer ) {
+				this.savexml.format.source = AreaLink;
 				Document doc = Jsoup.connect(AreaLink)
 						  .userAgent("Mozilla")
 						  .cookie("auth", "token")
 						  .timeout(3000)
 						  .get();
-				String Text = extractor.parse(doc.toString());
+				//String Text = extractor.parse(doc.toString());
+				//if ( Text.length() == 0 )
+						String Text = extractor.getPtag(doc.toString());
+				//else
+					//System.out.println(extractor.preProcess());
+				this.savexml.format.body = Text;
+				this.savexml.save();
 			}
 		} catch( Exception e ) {
 			
-		}
-		
-		
+		}	
 	}
 	
 	//获取Link对应的最终跳转链接，返回最终链接
