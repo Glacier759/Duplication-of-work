@@ -24,7 +24,7 @@ public class SaveXML {
 			xstream.alias("root", Format.class);
 			String str = xstream.toXML(format);
 			System.out.println(format.source+"\n"+format.body.length());
-			FileUtils.writeStringToFile(new File("Data",System.currentTimeMillis()+".xml"), str);
+			FileUtils.writeStringToFile(new File(new File(new File("Data"), format.newspaper), System.currentTimeMillis()+".xml"), str);
 		} catch( Exception e ) {
 			System.out.println(e);
 		}
