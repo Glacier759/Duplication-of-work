@@ -21,7 +21,7 @@ public class Spider {
 	
 	public static void main(String[] args) throws Exception {
 		
-		String SeedURL = "http://paper.chinaso.com/quanbubaokan.html";
+		/*String SeedURL = "http://paper.chinaso.com/quanbubaokan.html";
 		Spider obj = new Spider();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -31,6 +31,10 @@ public class Spider {
 		
 		obj.getAllURL(SeedURL);
 		obj.updateAllURL();
+		*/
+		
+		RenminClass obj = new RenminClass();
+		obj.start("http://paper.people.com.cn/rmrbhwb/html/2014-08/09/node_865.htm");
 		
 		//URL url = new URL("http://zjrb.zjol.com.cn/html/2014-08/09/content_2779543.htm?div=-1");
 		//System.out.println(url.toString().substring(0, url.toString().indexOf('?')));
