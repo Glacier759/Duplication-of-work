@@ -39,3 +39,8 @@ Duplication-of-work
 >'encode'  编码格式(要求为utf-8)
 
 >'body'  文章内容
+
+###增加配置文件,网址按照对应的解析方式进行解析，各类别网址解析 方式待增加
+
+>RenminClass,	人民日报类解析方式
+
