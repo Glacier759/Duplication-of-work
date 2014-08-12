@@ -12,13 +12,7 @@ Duplication-of-work
 
 >结果组织为XML格式
 
->引入的jar文件有
-
->jsoup-1.7.2.jar
-
->commons-io-2.4.jar
-
->xstream-1.4.7.jar
+>IDEA+Maven开发
 
 ###XML组织格式
 
