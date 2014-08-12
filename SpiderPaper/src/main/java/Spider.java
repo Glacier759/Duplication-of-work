@@ -14,7 +14,8 @@ import java.util.List;
 public class Spider {
 
     private enum ExtractorClass {
-        RenminClass,BeijingDayClass;
+        RenminClass,BeijingDayClass,BinhaiClass,BeijingChen,BeijingQingnian,BingtuanClass,
+        ChangchunClass;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -24,8 +25,7 @@ public class Spider {
 
         Spider obj = new Spider();
         obj.start();
-        //String str = obj.getTrueLink("http://zqb.cyol.com/");
-        //System.out.println(str);
+       // new BinhaiClass("滨海").getNewsInfo("http://bhsb.tjbhnews.com/html/2014-08/12/content_2_4.htm");
     }
 
     public void start() throws Exception {
@@ -37,6 +37,11 @@ public class Spider {
             switch(toExtractor(line[0])) {
                 case RenminClass: new RenminClass(line[2]).start(TrueUrl); break;
                 case BeijingDayClass: new BeijingDayClass(line[2]).start(TrueUrl); break;
+                case BinhaiClass: new BinhaiClass(line[2]).start(TrueUrl); break;
+                case BeijingChen: new BeijingChen(line[2]).start(TrueUrl); break;
+                case BeijingQingnian: new BeijingQingnian(line[2]).start(TrueUrl); break;
+                case BingtuanClass: new BingtuanClass(line[2]).start(TrueUrl); break;
+                case ChangchunClass: new ChangchunClass(line[2]).start(TrueUrl); break;
             }
         }
     }
