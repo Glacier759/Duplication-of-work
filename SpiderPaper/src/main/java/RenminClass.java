@@ -48,8 +48,6 @@ public class RenminClass {
                     .cookie("auth", "token")
                     .timeout(3000)
                     .get();
-            Element TitleEle = Doc.select("title").first();
-            String Newspaper = TitleEle.text(); 			//获得报刊名称
             Elements Layouts = Doc.select("a[id=pageLink]");
             for ( Element Layout:Layouts ) {
                 LayoutMap.put(Layout.attr("abs:href"), Layout.text());

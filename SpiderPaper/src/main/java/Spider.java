@@ -14,15 +14,28 @@ import java.util.List;
 public class Spider {
 
     private enum ExtractorClass {
-        RenminClass;
+        RenminClass,BeijingDayClass;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
     }
 
     public static void main( String[] args ) throws Exception {
-        Spider obj = new Spider();
-        obj.start();
+        int count = 0;
+        while(true) {
+            String URL = "http://blog.csdn.net/sapphirestart/article/details/38492185";
+            Document Doc = Jsoup.connect(URL)
+                    .userAgent("Mozilla")
+                    .cookie("auth", "token")
+                    .timeout(3000)
+                    .get();
+            count ++;
+            if ( count > 10000 )
+                break;
+        }
+
+        //Spider obj = new Spider();
+        //obj.start();
         //String str = obj.getTrueLink("http://zqb.cyol.com/");
         //System.out.println(str);
     }
