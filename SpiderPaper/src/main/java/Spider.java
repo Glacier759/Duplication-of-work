@@ -21,21 +21,9 @@ public class Spider {
     }
 
     public static void main( String[] args ) throws Exception {
-        int count = 0;
-        while(true) {
-            String URL = "http://blog.csdn.net/sapphirestart/article/details/38492185";
-            Document Doc = Jsoup.connect(URL)
-                    .userAgent("Mozilla")
-                    .cookie("auth", "token")
-                    .timeout(3000)
-                    .get();
-            count ++;
-            if ( count > 10000 )
-                break;
-        }
 
-        //Spider obj = new Spider();
-        //obj.start();
+        Spider obj = new Spider();
+        obj.start();
         //String str = obj.getTrueLink("http://zqb.cyol.com/");
         //System.out.println(str);
     }
@@ -45,8 +33,10 @@ public class Spider {
         for ( String ConfLine:SpiderConf ) {
             String[] line = ConfLine.split(",");
             String TrueUrl = getTrueLink(line[1]);
+            System.out.println(TrueUrl);
             switch(toExtractor(line[0])) {
                 case RenminClass: new RenminClass(line[2]).start(TrueUrl); break;
+                case BeijingDayClass: new BeijingDayClass(line[2]).start(TrueUrl); break;
             }
         }
     }

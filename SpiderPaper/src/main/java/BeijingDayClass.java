@@ -1,7 +1,11 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Created by glacier on 14-8-12.
@@ -33,14 +37,87 @@ public class BeijingDayClass {
     }
 
     public HashMap<String,String> getLayout( String Link ) {
-        HashMap<String,String> LayoutMap = neW HashMap<String,String>();
+        HashMap<String,String> LayoutMap = new HashMap<String,String>();
         try {
-            Document Doc = Jsoup.connect(URL)
+            Document Doc = Jsoup.connect(Link)
                     .userAgent("Mozilla")
                     .cookie("auth", "token")
                     .timeout(3000)
                     .get();
-        }
+            //获取版面链接
+            Elements Layouts = Doc.select("a[id=pageLink]");
+            for (Element Layout:Layouts) {
+                LayoutMap.put(Layout.attr("abs:href"), Layout.text());
+            }
 
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return LayoutMap;
+    }
+
+    public HashSet<String> getNewsLinks( String LayoutLink ) {
+        HashSet<String> NewsLink = new HashSet<String>();
+        try {
+            Document Doc = Jsoup.connect(LayoutLink)
+                    .userAgent("Mozilla")
+                    .cookie("auth", "token")
+                    .timeout(3000)
+                    .get();
+            Elements Areas = Doc.select("area");
+            for ( Element Area:Areas ) {
+                NewsLink.add(Area.attr("abs:href"));
+            }
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return NewsLink;
+    }
+
+    public void getNewsInfo( String NewsUrl ) { 	//获得新闻来源URL
+        try {
+            System.out.println(NewsUrl);
+            Document Doc = Jsoup.connect(NewsUrl)
+                    .userAgent("Mozilla")
+                    .cookie("auth", "token")
+                    .timeout(3000)
+                    .get();
+            Element textDIV = Doc.select("div[style=height:800px; overflow-y:scroll; width:100%;]").first();
+            Element TitleEle = textDIV.select("strong").first();
+            String Title = TitleEle.text(); 		//获得文章title
+
+            String PublishTime = getDate(NewsUrl); 	//获得文章发表日期
+            Elements ContentPTags = textDIV.select("div[id=ozoom]").select("p");
+            String Content = "\r\n"; 						//获得文章正文内容
+            for ( Element ContentPTag:ContentPTags ) {
+                Content += ContentPTag.text() + "\r\n";
+            }
+            List<String> IMGList = new ArrayList<String>(); 		//获得图片地址列表
+            Elements IMGs = textDIV.select("td[align=center]").select("img[src]");
+            for ( Element IMG:IMGs ) {
+                IMGList.add(IMG.attr("abs:src"));
+            }
+            savexml.format.source = NewsUrl;
+            savexml.format.title = Title;
+            savexml.format.publishtime = PublishTime;
+            savexml.format.body = Content;
+            savexml.format.img = IMGList;
+            savexml.save();
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getDate( String Link ) {
+        try {
+            String UrlPath = new URL(Link).getPath();
+            int firstindex = UrlPath.indexOf("2014");
+            String Date = UrlPath.substring(firstindex, firstindex+10);
+            Date = Date.replace('/', '-');
+            return Date;
+        } catch ( Exception e ) {
+            System.out.println(e);
+        }
+        return null;
     }
 }
