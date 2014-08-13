@@ -66,7 +66,7 @@ public class FujianRibao {
                     .get();
             Elements Areas = Doc.select("area");
             for ( Element Area:Areas ) {
-                NewsLink.add(Area.attr("abs:href"));
+                NewsLink.add(Area.attr("abs:href").substring(0,Area.attr("abs:href").indexOf('?')));
             }
         } catch( Exception e ) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class FujianRibao {
             }
             Content = "\r\n" + TextContent.text() + "\r\n" + Content;
             List<String> IMGList = new ArrayList<String>(); 		//获得图片地址列表
-            Elements IMGs = Doc.select("a[class=thumbnail]").select("img[src]");
+            Elements IMGs = Doc.select("table[bgcolor=#efefef]").select("img[src]");
             for ( Element IMG:IMGs ) {
                 if ( !IMGList.contains(IMG.attr("abs:src")) )
                     IMGList.add(IMG.attr("abs:src"));

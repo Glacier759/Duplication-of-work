@@ -16,7 +16,7 @@ public class Spider {
     private enum ExtractorClass {
         RenminClass,BeijingDayClass,BinhaiClass,BeijingChen,BeijingQingnian,BingtuanClass,
         ChangchunClass,XianClass,ChongqingDayClass,ChengduShangbao,ChengduRibao,ChangjiangRibao,
-        ChongqingChenbao,DalianRibao,DazhongRibao,FazhiRibao;
+        ChongqingChenbao,DalianRibao,DazhongRibao,FazhiRibao,FujianRibao;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -52,6 +52,7 @@ public class Spider {
                 case DalianRibao: new DalianRibao(line[2]).start(TrueUrl); break;
                 case DazhongRibao: new DazhongRibao(line[2]).start(TrueUrl); break;
                 case FazhiRibao: new FazhiRibao(line[2]).start(TrueUrl); break;
+                case FujianRibao: new FujianRibao(line[2]).start(TrueUrl); break;
             }
         }
     }
