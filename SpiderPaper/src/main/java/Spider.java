@@ -15,7 +15,8 @@ public class Spider {
 
     private enum ExtractorClass {
         RenminClass,BeijingDayClass,BinhaiClass,BeijingChen,BeijingQingnian,BingtuanClass,
-        ChangchunClass,XianClass,ChongqingDayClass;
+        ChangchunClass,XianClass,ChongqingDayClass,ChengduShangbao,ChengduRibao,ChangjiangRibao,
+        ChongqingChenbao,DalianRibao,DazhongRibao,FazhiRibao;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -25,7 +26,7 @@ public class Spider {
 
         Spider obj = new Spider();
         obj.start();
-        //new ChongqingDayClass("测试").getNewsInfo("http://www.cqwb.com.cn/cqwb/html/2014-08/13/content_398112.htm");
+        //new DalianRibao("测试").getNewsInfo("http://szb.dlxww.com/dlrb/html/2014-08/13/content_1048291.htm");
     }
 
     public void start() throws Exception {
@@ -44,6 +45,13 @@ public class Spider {
                 case ChangchunClass: new ChangchunClass(line[2]).start(TrueUrl); break;
                 case XianClass: new XianClass(line[2]).start(TrueUrl); break;
                 case ChongqingDayClass: new ChongqingDayClass(line[2]).start(TrueUrl); break;
+                case ChengduShangbao: new ChengduShangbao(line[2]).start(TrueUrl); break;
+                case ChengduRibao: new ChengduRibao(line[2]).start(TrueUrl); break;
+                case ChangjiangRibao: new ChangjiangRibao(line[2]).start(TrueUrl); break;
+                case ChongqingChenbao: new ChongqingChenbao(line[2]).start(TrueUrl); break;
+                case DalianRibao: new DalianRibao(line[2]).start(TrueUrl); break;
+                case DazhongRibao: new DazhongRibao(line[2]).start(TrueUrl); break;
+                case FazhiRibao: new FazhiRibao(line[2]).start(TrueUrl); break;
             }
         }
     }

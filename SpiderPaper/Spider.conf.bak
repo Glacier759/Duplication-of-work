@@ -7,6 +7,7 @@ RenminClass,http://paper.chinaso.com/zgqnb.html,中国青年报
 BeijingDayClass,http://paper.chinaso.com/bjrb.html,北京日报
 BeijingDayClass,http://paper.chinaso.com/bjwb.html,北京晚报
 BinhaiClass,http://bhsb.tjbhnews.com/,滨海时报
+BinhaiClass,http://cswb.changsha.cn/,长沙晚报
 BeijingChen,http://bjcb.morningpost.com.cn/,北京晨报
 BeijingQingnian,http://paper.chinaso.com/bjqnb.html,北京青年报
 BingtuanClass,http://epaper.bingtuannet.com/,兵团日报
@@ -14,5 +15,13 @@ ChangchunClass,http://ccrb.1news.cc/,长春日报
 ChangchunClass,http://ccwb.1news.cc/,长春晚报
 XianClass,http://epaper.xiancn.com/xarb/,西安日报
 XianClass,http://epaper.xiancn.com/xawb/,西安晚报
+XianClass,http://www.cdwb.com.cn/,成都晚报
 ChongqingDayClass,http://paper.chinaso.com/cqrb.html,重庆日报
 ChongqingDayClass,http://paper.chinaso.com/cqwb.html,重庆晚报
+ChengduShangbao,http://e.chengdu.cn/,成都商报
+ChengduRibao,http://www.cdrb.com.cn/,成都日报
+ChangjiangRibao,http://cjrb.cjn.cn/,长江日报
+ChongqingChenbao,http://epaper.cqcb.com/,重庆晨报
+DalianRibao,http://szb.dlxww.com/dlrb/,大连日报
+DazhongRibao,http://paper.chinaso.com/dzrb.html,大众日报
+FazhiRibao,http://paper.chinaso.com/fzrb.html,法制日报
