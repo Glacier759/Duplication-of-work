@@ -67,7 +67,7 @@ public class SaveXML {
             //System.out.println(format.source+"\n"+format.body.length());
             FileUtils.writeStringToFile(new File(new File(new File(new File("Data"), format.crawltime), format.newspaper), System.currentTimeMillis() + ".xml"), xmlDoc.asXML());
         } catch( Exception e ) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 }

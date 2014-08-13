@@ -15,7 +15,7 @@ public class Spider {
 
     private enum ExtractorClass {
         RenminClass,BeijingDayClass,BinhaiClass,BeijingChen,BeijingQingnian,BingtuanClass,
-        ChangchunClass;
+        ChangchunClass,XianClass,ChongqingDayClass;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -25,7 +25,7 @@ public class Spider {
 
         Spider obj = new Spider();
         obj.start();
-       // new BinhaiClass("滨海").getNewsInfo("http://bhsb.tjbhnews.com/html/2014-08/12/content_2_4.htm");
+        //new ChongqingDayClass("测试").getNewsInfo("http://www.cqwb.com.cn/cqwb/html/2014-08/13/content_398112.htm");
     }
 
     public void start() throws Exception {
@@ -42,6 +42,8 @@ public class Spider {
                 case BeijingQingnian: new BeijingQingnian(line[2]).start(TrueUrl); break;
                 case BingtuanClass: new BingtuanClass(line[2]).start(TrueUrl); break;
                 case ChangchunClass: new ChangchunClass(line[2]).start(TrueUrl); break;
+                case XianClass: new XianClass(line[2]).start(TrueUrl); break;
+                case ChongqingDayClass: new ChongqingDayClass(line[2]).start(TrueUrl); break;
             }
         }
     }
