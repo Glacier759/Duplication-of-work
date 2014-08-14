@@ -5,6 +5,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +18,8 @@ public class Spider {
         RenminClass,BeijingDayClass,BinhaiClass,BeijingChen,BeijingQingnian,BingtuanClass,
         ChangchunClass,XianClass,ChongqingDayClass,ChengduShangbao,ChengduRibao,ChangjiangRibao,
         ChongqingChenbao,DalianRibao,DazhongRibao,FazhiRibao,FujianRibao,GansuRibao,
-        GuiyangDayClass,GuangxiRibao,GuangzhouRibao,GuizhouRibao,HaerbinRibao,HaikouWanbao;
+        GuiyangDayClass,GuangxiRibao,GuangzhouRibao,GuizhouRibao,HaerbinRibao,HaikouWanbao,
+        HainanRibao,HainanTequbao,HHHHClass;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -61,6 +63,9 @@ public class Spider {
                 case GuizhouRibao: new GuizhouRibao(line[2]).start(TrueUrl); break;
                 case HaerbinRibao: new HaerbinRibao(line[2]).start(TrueUrl); break;
                 case HaikouWanbao: new HaikouWanbao(line[2]).start(TrueUrl); break;
+                case HainanRibao: new HainanRibao(line[2]).start(TrueUrl); break;
+                case HainanTequbao: new HainanTequbao(line[2]).start(line[1]+"hntqb"+new URL(TrueUrl).getPath()); break;
+                case HHHHClass: new HHHHClass(line[2]).start(TrueUrl); break;
             }
         }
     }
