@@ -16,7 +16,8 @@ public class Spider {
     private enum ExtractorClass {
         RenminClass,BeijingDayClass,BinhaiClass,BeijingChen,BeijingQingnian,BingtuanClass,
         ChangchunClass,XianClass,ChongqingDayClass,ChengduShangbao,ChengduRibao,ChangjiangRibao,
-        ChongqingChenbao,DalianRibao,DazhongRibao,FazhiRibao,FujianRibao;
+        ChongqingChenbao,DalianRibao,DazhongRibao,FazhiRibao,FujianRibao,GansuRibao,
+        GuiyangDayClass,GuangxiRibao,GuangzhouRibao,GuizhouRibao,HaerbinRibao,HaikouWanbao;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -53,6 +54,13 @@ public class Spider {
                 case DazhongRibao: new DazhongRibao(line[2]).start(TrueUrl); break;
                 case FazhiRibao: new FazhiRibao(line[2]).start(TrueUrl); break;
                 case FujianRibao: new FujianRibao(line[2]).start(TrueUrl); break;
+                case GansuRibao: new GansuRibao(line[2]).start(TrueUrl); break;
+                case GuiyangDayClass: new GuiyangDayClass(line[2]).start(TrueUrl); break;
+                case GuangxiRibao: new GuangxiRibao(line[2]).start(TrueUrl); break;
+                case GuangzhouRibao: new GuangzhouRibao(line[2]).start(TrueUrl); break;
+                case GuizhouRibao: new GuizhouRibao(line[2]).start(TrueUrl); break;
+                case HaerbinRibao: new HaerbinRibao(line[2]).start(TrueUrl); break;
+                case HaikouWanbao: new HaikouWanbao(line[2]).start(TrueUrl); break;
             }
         }
     }
