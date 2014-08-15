@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: lib/xml-apis-1.0.b2.jar lib/commons-io-2.4.jar lib/dom4j-1
+ .6.1.jar lib/jsoup-1.7.2.jar
+Main-Class: Spider
+
