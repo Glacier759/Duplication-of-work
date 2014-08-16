@@ -25,7 +25,7 @@ public class Spider {
         GuiyangDayClass,GuangxiRibao,GuangzhouRibao,GuizhouRibao,HaerbinRibao,HaikouWanbao,
         HainanRibao,HainanTequbao,HHHHClass,HefeiWanbao,HenanRibao,HunanRibao,HuaxiDushibao,
         HeilongjiangClass,JinanRibao,JilinRibao,JianchaRibao,JiefangJunbao,JiefangRibao,
-        JinriZaobao,Jinwanbao;
+        JinriZaobao,Jinwanbao,JinghuaShibao,JingjiCankao,KejiRibao,KunmingRibao,LanzhouClass;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -86,6 +86,11 @@ public class Spider {
                 case JiefangRibao: new JiefangRibao(line[2]).start("http://newspaper.jfdaily.com/jfrb/html/"+format.format(date)+"/node_2.htm"); break;
                 case JinriZaobao: new JinriZaobao(line[2]).start(TrueUrl); break;
                 case Jinwanbao: new Jinwanbao(line[2]).start(TrueUrl); break;
+                case JinghuaShibao: new JinghuaShibao(line[2]).start(TrueUrl); break;
+                case JingjiCankao: new JingjiCankao(line[2]).start(TrueUrl); break;
+                case KejiRibao: new KejiRibao(line[2]).start(TrueUrl); break;
+                case KunmingRibao: new KunmingRibao(line[2]).start(TrueUrl); break;
+                case LanzhouClass: new LanzhouClass(line[2]).start(TrueUrl); break;
             }
         }
     }
