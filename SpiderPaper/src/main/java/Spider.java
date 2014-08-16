@@ -4,10 +4,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.security.sasl.SaslServer;
 import java.io.File;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by glacier on 14-8-12.
@@ -20,7 +24,8 @@ public class Spider {
         ChongqingChenbao,DalianRibao,DazhongRibao,FazhiRibao,FujianRibao,GansuRibao,
         GuiyangDayClass,GuangxiRibao,GuangzhouRibao,GuizhouRibao,HaerbinRibao,HaikouWanbao,
         HainanRibao,HainanTequbao,HHHHClass,HefeiWanbao,HenanRibao,HunanRibao,HuaxiDushibao,
-        HeilongjiangClass,JinanRibao,JilinRibao,JianchaRibao,JiefangJunbao;
+        HeilongjiangClass,JinanRibao,JilinRibao,JianchaRibao,JiefangJunbao,JiefangRibao,
+        JinriZaobao,Jinwanbao;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -34,6 +39,8 @@ public class Spider {
     }
 
     public void start() throws Exception {
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM/dd");
         List<String> SpiderConf = FileUtils.readLines(new File("Spider.conf"));
         for ( String ConfLine:SpiderConf ) {
             String[] line = ConfLine.split(",");
@@ -76,6 +83,9 @@ public class Spider {
                 case JilinRibao: new JilinRibao(line[2]).start(TrueUrl); break;
                 case JianchaRibao: new JianchaRibao(line[2]).start(TrueUrl); break;
                 case JiefangJunbao: new JiefangJunbao(line[2]).start(TrueUrl); break;
+                case JiefangRibao: new JiefangRibao(line[2]).start("http://newspaper.jfdaily.com/jfrb/html/"+format.format(date)+"/node_2.htm"); break;
+                case JinriZaobao: new JinriZaobao(line[2]).start(TrueUrl); break;
+                case Jinwanbao: new Jinwanbao(line[2]).start(TrueUrl); break;
             }
         }
     }
