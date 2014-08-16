@@ -20,7 +20,7 @@ public class Spider {
         ChongqingChenbao,DalianRibao,DazhongRibao,FazhiRibao,FujianRibao,GansuRibao,
         GuiyangDayClass,GuangxiRibao,GuangzhouRibao,GuizhouRibao,HaerbinRibao,HaikouWanbao,
         HainanRibao,HainanTequbao,HHHHClass,HefeiWanbao,HenanRibao,HunanRibao,HuaxiDushibao,
-        JinanRibao,JilinRibao,JianchaRibao;
+        HeilongjiangClass,JinanRibao,JilinRibao,JianchaRibao;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -71,6 +71,7 @@ public class Spider {
                 case HenanRibao: new HenanRibao(line[2]).start(TrueUrl); break;
                 case HunanRibao: new HunanRibao(line[2]).start(TrueUrl); break;
                 case HuaxiDushibao: new HuaxiDushibao(line[2]).start(TrueUrl); break;
+                case HeilongjiangClass: new HeilongjiangClass(line[2]).start(TrueUrl); break;
                 case JinanRibao: new JinanRibao(line[2]).start(TrueUrl); break;
                 case JilinRibao: new JilinRibao(line[2]).start(TrueUrl); break;
                 case JianchaRibao: new JianchaRibao(line[2]).start(TrueUrl); break;
