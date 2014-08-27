@@ -25,7 +25,8 @@ public class Spider {
         GuiyangDayClass,GuangxiRibao,GuangzhouRibao,GuizhouRibao,HaerbinRibao,HaikouWanbao,
         HainanRibao,HainanTequbao,HHHHClass,HefeiWanbao,HenanRibao,HunanRibao,HuaxiDushibao,
         HeilongjiangClass,JinanRibao,JilinRibao,JianchaRibao,JiefangJunbao,JiefangRibao,
-        JinriZaobao,Jinwanbao,JinghuaShibao,JingjiCankao,KejiRibao,KunmingRibao,LanzhouClass;
+        JinriZaobao,Jinwanbao,JinghuaShibao,JingjiCankao,KejiRibao,KunmingRibao,LanzhouClass,
+        NanchangRibao,NanfangRibao,NanjingRibao,NeimengguRibao,NingboRibao,NingxiaRibao;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -91,6 +92,12 @@ public class Spider {
                 case KejiRibao: new KejiRibao(line[2]).start(TrueUrl); break;
                 case KunmingRibao: new KunmingRibao(line[2]).start(TrueUrl); break;
                 case LanzhouClass: new LanzhouClass(line[2]).start(TrueUrl); break;
+                case NanchangRibao: new NanchangRibao(line[2]).start(TrueUrl); break;
+                case NanfangRibao: new NanfangRibao(line[2]).start(TrueUrl); break;
+                case NanjingRibao: new NanjingRibao(line[2]).start(TrueUrl); break;
+                case NeimengguRibao: new NeimengguRibao(line[2]).start(TrueUrl); break;
+                case NingboRibao: new NingboRibao(line[2]).start(TrueUrl); break;
+                case NingxiaRibao: new NingxiaRibao(line[2]).start(TrueUrl); break;
             }
         }
     }
