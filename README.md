@@ -42,3 +42,15 @@ Duplication-of-work
 >结果组织为XML格式
 
 >使用IDEA+Maven开发
+
+##[2014-08-27	SpiderCsdnBlog] (https://github.com/Glacier759/Duplication-of-work/tree/master/SpiderCsdnBlog)
+
+>抓取CSDN博客
+
+>以blog.csdn.net作为种子URL进行深度抓取
+
+>将每一篇博客中所包含的其他博客连接加入redis缓存队列
+
+>使用布隆过滤器对URL进行去重
+
+>使用IDEA+Maven开发
