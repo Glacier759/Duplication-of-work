@@ -66,7 +66,7 @@ public class HunanRibao {
                     .get();
             Elements Areas = Doc.select("area");
             for ( Element Area:Areas ) {
-                NewsLink.add(Area.attr("abs:href").substring(0,Area.attr("abs:href").indexOf('?')));
+                NewsLink.add(Area.attr("abs:href"));
             }
         } catch( Exception e ) {
             e.printStackTrace();

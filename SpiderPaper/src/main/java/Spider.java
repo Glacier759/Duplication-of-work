@@ -29,7 +29,7 @@ public class Spider {
         NanchangRibao,NanfangRibao,NanjingRibao,NeimengguRibao,NingboRibao,NingxiaRibao,
         RenminYoudian,RenminZhengxie,RenminFayuan,ShanxiRibao,ShenyangRibao,SichuanRibao,
         XiningWanbao,XinhuaMeiri,XinjingBao,YangziWanbao,YangchengWanbao,YinchuanWanbao,
-        ZhongguoFunv,ZhongguoJiaoyu;
+        ZhongguoFunv,ZhongguoJiaoyu,ZhongguoJingji,ZhongguoQiche;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -115,6 +115,8 @@ public class Spider {
                 case YinchuanWanbao: new YinchuanWanbao(line[2]).start(TrueUrl); break;
                 case ZhongguoFunv: new ZhongguoFunv(line[2]).start(TrueUrl); break;
                 case ZhongguoJiaoyu: new ZhongguoJiaoyu(line[2]).start(TrueUrl); break;
+                case ZhongguoJingji: new ZhongguoJingji(line[2]).start(TrueUrl); break;
+                case ZhongguoQiche: new ZhongguoQiche(line[2]).start(TrueUrl); break;
             }
         }
     }
@@ -127,6 +129,10 @@ public class Spider {
                     .cookie("auth", "token")
                     .timeout(3000)
                     .get();
+            if ( Doc.toString().contains("location.replace") ) {
+                String HTML = Doc.toString();
+                return getTrueLink(HTML.substring(HTML.indexOf("(\"")+2, HTML.indexOf("\")")));
+            }
             if ( Link.contains("paper.chinaso.com") ) {
                 Element JumpEle = Doc.select("div[class=newpaper_con]").first();
                 Link = JumpEle.select("a[href]").attr("abs:href");
