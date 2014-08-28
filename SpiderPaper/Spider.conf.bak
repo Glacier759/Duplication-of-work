@@ -1,7 +1,7 @@
 RenminClass,http://paper.people.com.cn/rmrb/,人民日报
 RenminClass,http://paper.chinaso.com/rmrbhwb.html,人民日报海外版
 RenminClass,http://paper.chinaso.com/gmrb.html,光明日报
-RenminClass,http://paper.chinaso.com/gjjrb.html,国家金融报
+RenminClass,http://paper.chinaso.com/gjjrb.html,国际金融报
 RenminClass,http://paper.people.com.cn/jksb/paperindex.htm,健康时报
 RenminClass,http://paper.chinaso.com/zgqnb.html,中国青年报
 BeijingDayClass,http://paper.chinaso.com/bjrb.html,北京日报
@@ -36,7 +36,7 @@ HaerbinRibao,http://hb.my399.com/,哈尔滨日报
 HaikouWanbao,http://szb.hkwb.net/szb/,海口晚报
 HainanRibao,http://hnrb.hinews.cn/,海南日报
 HainanTequbao,http://www.hntqb.com/,海南特区报
-HHHHClass,http://szb.hhhtnews.com/rb/page/node_4.htm,呼和浩特日报
+HHHHClass,http://szb.hhhtnews.com/rb/page/node_4.htm,呼和浩特市日报
 HHHHClass,http://szb.hhhtnews.com/wb/page/node_12.htm,呼和浩特晚报
 ChangjiangRibao,http://hzdaily.hangzhou.com.cn/hzrb/,杭州日报
 HefeiWanbao,http://epaper.hf365.com/hfwb/,合肥晚报
@@ -47,14 +47,14 @@ HeilongjiangClass,http://epaper.hljnews.cn/hljrb/,黑龙江日报
 HeilongjiangClass,http://epaper.hljnews.cn/cb/,黑龙江晨报
 JinanRibao,http://jnrb.e23.cn/,济南日报
 JilinRibao,http://paper.chinaso.com/jlrb.html,吉林日报
-JianchaRibao,http://newspaper.jcrb.com/,检察日报
+JianchaRibao,http://newspaper.jcrb.com/,检查日报
 HHHHClass,http://paper.chinaso.com/jxrb.html,江西日报
 JiefangJunbao,http://paper.chinaso.com/jfjb.html,解放军报
 JiefangRibao,http://newspaper.jfdaily.com/jfrb/,解放日报
 JinriZaobao,http://jrzb.zjol.com.cn/,今日早报
 Jinwanbao,http://paper.chinaso.com/jwb.html,今晚报
 JinghuaShibao,http://paper.chinaso.com/jinghuashibao.html,京华时报
-JingjiCankao,http://paper.chinaso.com/jingjicankao.html,经济参考
+JingjiCankao,http://paper.chinaso.com/jingjicankao.html,经济参考报
 KejiRibao,http://digitalpaper.stdaily.com/http_www.kjrb.com/kjrb/paperindex.htm,科技日报
 KunmingRibao,http://daily.clzg.cn/,昆明日报
 LanzhouClass,http://rb.lzbs.com.cn/,兰州日报
@@ -67,7 +67,6 @@ NeimengguRibao,http://paper.chinaso.com/nmgrb.html,内蒙古日报
 NingboRibao,http://daily.cnnb.com.cn/nbrb/,宁波日报
 NingxiaRibao,http://paper.chinaso.com/nxrb.html,宁夏日报
 JinriZaobao,http://paper.chinaso.com/qjwb.html,钱江晚报
-HefeiWanbao,http://epaper.tibet3.com/,青海日报
 RenminYoudian,http://paper.chinaso.com/rmydb.html,人民邮电报
 RenminZhengxie,http://paper.chinaso.com/rmzx.html,人民政协报
 RenminFayuan,http://rmfyb.chinacourt.org/paper/,人民法院报

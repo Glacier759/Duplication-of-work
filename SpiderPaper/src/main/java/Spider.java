@@ -5,11 +5,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.security.sasl.SaslServer;
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.SimpleFormatter;
 
@@ -46,8 +48,29 @@ public class Spider {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM/dd");
         List<String> SpiderConf = FileUtils.readLines(new File("Spider.conf"));
+
+        /*HashSet<String> netSet = new HashSet<String>();
+
+        Document Doc = Jsoup.connect("http://paper.chinaso.com/quanbubaokan.html")
+                .userAgent("Mozilla")
+                .cookie("auth", "token")
+                .timeout(3000)
+                .get();
+        Elements papers = Doc.select("div[class=bk_cd_zmxz_txt]").select("a[href]");
+        for ( Element paper:papers ) {
+            netSet.add(paper.text());
+        }
+
+        HashSet<String> fileSet = new HashSet<String>();*/
+
         for ( String ConfLine:SpiderConf ) {
             String[] line = ConfLine.split(",");
+
+
+            /*if ( fileSet.contains(line[2]) )
+                System.out.println(line[2]);
+            fileSet.add(line[2]);*/
+
             String TrueUrl = getTrueLink(line[1]);
             System.out.println(TrueUrl);
             switch(toExtractor(line[0])) {
@@ -119,7 +142,21 @@ public class Spider {
                 case ZhongguoQiche: new ZhongguoQiche(line[2]).start(TrueUrl); break;
             }
         }
+        /*System.out.println("fileSet = " + fileSet.size());
+        for ( String str:fileSet ) {
+            if ( !netSet.contains(str) ) {
+                System.out.println(str);
+            }
+        }
+        System.out.println("netSet = " + netSet.size());
+        for ( String str:netSet ) {
+            if ( !fileSet.contains(str) ) {
+                System.out.println(str);
+                FileUtils.writeStringToFile(new File("lack.txt"), str+"\r\n", true);
+            }
+        }*/
     }
+
 
     //获取Link对应的最终跳转链接，返回最终链接
     public String getTrueLink( String Link ) {
@@ -131,7 +168,7 @@ public class Spider {
                     .get();
             if ( Doc.toString().contains("location.replace") ) {
                 String HTML = Doc.toString();
-                return getTrueLink(HTML.substring(HTML.indexOf("(\"")+2, HTML.indexOf("\")")));
+                return getTrueLink(HTML.substring(HTML.indexOf("(\"") + 2, HTML.indexOf("\")")));
             }
             if ( Link.contains("paper.chinaso.com") ) {
                 Element JumpEle = Doc.select("div[class=newpaper_con]").first();
