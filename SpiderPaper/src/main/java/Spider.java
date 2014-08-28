@@ -28,7 +28,8 @@ public class Spider {
         JinriZaobao,Jinwanbao,JinghuaShibao,JingjiCankao,KejiRibao,KunmingRibao,LanzhouClass,
         NanchangRibao,NanfangRibao,NanjingRibao,NeimengguRibao,NingboRibao,NingxiaRibao,
         RenminYoudian,RenminZhengxie,RenminFayuan,ShanxiRibao,ShenyangRibao,SichuanRibao,
-        XiningWanbao,XinhuaMeiri,XinjingBao;
+        XiningWanbao,XinhuaMeiri,XinjingBao,YangziWanbao,YangchengWanbao,YinchuanWanbao,
+        ZhongguoFunv,ZhongguoJiaoyu;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -38,7 +39,7 @@ public class Spider {
 
         Spider obj = new Spider();
         obj.start();
-        //new DalianRibao("测试").getNewsInfo("http://szb.dlxww.com/dlrb/html/2014-08/13/content_1048291.htm");
+        //new YinchuanWanbao("测试").getNewsInfo("http://szb.ycen.com.cn/html/2014-08/28/content_129257.htm");
     }
 
     public void start() throws Exception {
@@ -109,6 +110,11 @@ public class Spider {
                 case XiningWanbao: new XiningWanbao(line[2]).start(TrueUrl); break;
                 case XinhuaMeiri: new XinhuaMeiri(line[2]).start(TrueUrl); break;
                 case XinjingBao: new XinjingBao(line[2]).start(TrueUrl); break;
+                case YangziWanbao: new YangziWanbao(line[2]).start(TrueUrl); break;
+                case YangchengWanbao: new YangchengWanbao(line[2]).start(TrueUrl); break;
+                case YinchuanWanbao: new YinchuanWanbao(line[2]).start(TrueUrl); break;
+                case ZhongguoFunv: new ZhongguoFunv(line[2]).start(TrueUrl); break;
+                case ZhongguoJiaoyu: new ZhongguoJiaoyu(line[2]).start(TrueUrl); break;
             }
         }
     }
