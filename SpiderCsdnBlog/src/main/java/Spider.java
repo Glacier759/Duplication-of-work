@@ -58,6 +58,7 @@ public class Spider {
 
     public void getBlog() throws Exception {
         String URL = redis.popValue();
+        //String URL = "http://blog.csdn.net/sweetvvck/article/details/38409861";
         System.out.println(URL);
         try {
             Document Doc = Jsoup.connect(URL)
@@ -66,12 +67,15 @@ public class Spider {
                     .timeout(3000)
                     .get();
             Elements content = Doc.select("div[id=article_content]").select("p");
-            String text = "";
+            String text = "\n";
             for (Element ptag : content) {
                 if ( ptag.text().length() > 0 )
-                    text += ptag.text() + "\r\n";
+                    text += ptag.text() + "\n";
             }
-            FileUtils.writeStringToFile(new File(new File("Data"), System.currentTimeMillis()+".txt"), text, "UTF-8");
+            String date = Doc.select("span[class=link_postdate]").text();
+            String XML = xmlFormat.start(text, date);
+            //System.out.println(XML);
+            FileUtils.writeStringToFile(new File(new File("Data"), System.currentTimeMillis()+".xml"), XML, "UTF-8");
             Elements linksEle = Doc.select("a[href]");
             for (Element linkEle : linksEle) {
                 String link = linkEle.attr("abs:href");
