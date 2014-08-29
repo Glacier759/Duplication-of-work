@@ -6,15 +6,16 @@ import org.jsoup.select.Elements;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.SimpleFormatter;
 
 /**
- * Created by glacier on 14-8-28.
+ * Created by glacier on 14-8-29.
  */
-public class ZhongguoJingji {
+public class FuzhouWanbao {
 
     SaveXML savexml = new SaveXML();
 
-    public ZhongguoJingji( String newspaper ) {
+    public FuzhouWanbao( String newspaper ) {
         savexml.format.newspaper = newspaper;
     }
 
@@ -25,11 +26,15 @@ public class ZhongguoJingji {
         savexml.format.language = "中文";
         savexml.format.encode = "UTF-8";
 
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+        URL += format.format(date)+"/";
+
         HashMap<String,String> LayoutMap = getLayout(URL);
-        for ( String LayoutPage:LayoutMap.keySet() ) {
-            String Page = LayoutPage; 			//获得版面
+        for ( String LayoutLink:LayoutMap.keySet() ) {
+            String Page = LayoutMap.get(LayoutLink); 			//获得版面
             savexml.format.page = Page;
-            HashSet<String> NewsLink = getNewsLinks( LayoutMap.get(LayoutPage) );
+            HashSet<String> NewsLink = getNewsLinks( LayoutLink );
             for ( String NewsUrl:NewsLink ) {
                 getNewsInfo(NewsUrl);
             }
@@ -45,9 +50,9 @@ public class ZhongguoJingji {
                     .timeout(3000)
                     .get();
             //获取版面链接
-            Elements Layouts = Doc.select("h1");
+            Elements Layouts = Doc.select("ul").select("a[href]");
             for (Element Layout:Layouts) {
-                LayoutMap.put(Layout.text(), Link);
+                LayoutMap.put(Layout.attr("abs:href"), Layout.text());
             }
 
         } catch( Exception e ) {
@@ -64,17 +69,10 @@ public class ZhongguoJingji {
                     .cookie("auth", "token")
                     .timeout(3000)
                     .get();
-            Elements Layouts = Doc.select("h1");
-            for ( Element Layout:Layouts ) {
-                if ( Layout.text().equals(savexml.format.page) ) {
-                    Elements Areas = Layout.nextElementSibling().select("a[href]");
-                    for ( Element Area:Areas ) {
-                        NewsLink.add(Area.attr("abs:href"));
-                    }
-                    break;
-                }
+            Elements Areas = Doc.select("area");
+            for ( Element Area:Areas ) {
+                NewsLink.add(Area.attr("abs:href"));
             }
-
         } catch( Exception e ) {
             e.printStackTrace();
         }
@@ -89,14 +87,13 @@ public class ZhongguoJingji {
                     .cookie("auth", "token")
                     .timeout(3000)
                     .get();
-            Element TitleEle = Doc.select("h1").first();
+            Element TitleEle = Doc.select("div[class=f-20]").first();
             String Title = TitleEle.text(); 		//获得文章title
-
-            String PublishTime = NewsUrl.substring(30,38); 	//获得文章发表日期
-            Elements ContentPTags = Doc.select("div[id=ozoom]").select("p");
+            String PublishTime = NewsUrl.substring(37,41)+"-"+NewsUrl.substring(41,43)+"-"+NewsUrl.substring(43,45); //获得文章发表日期
+            Elements ContentPTags = Doc.select("div[class=f-14 height-25]");
             String Content = "\r\n" + ContentPTags.text().replaceAll("　　", "\r\n") + "\r\n";	//获得文章正文内容
             List<String> IMGList = new ArrayList<String>(); 		//获得图片地址列表
-            Elements IMGs = Doc.select("div[id=ozoom]").select("img[src]");
+            Elements IMGs = Doc.select("div[class=f-14 height-25]").select("img[src]");
             for ( Element IMG:IMGs ) {
                 IMGList.add(IMG.attr("abs:src"));
             }
@@ -105,7 +102,6 @@ public class ZhongguoJingji {
             savexml.format.publishtime = PublishTime;
             savexml.format.body = Content;
             savexml.format.img = IMGList;
-
             savexml.save();
         } catch( Exception e ) {
             e.printStackTrace();

@@ -31,7 +31,8 @@ public class Spider {
         NanchangRibao,NanfangRibao,NanjingRibao,NeimengguRibao,NingboRibao,NingxiaRibao,
         RenminYoudian,RenminZhengxie,RenminFayuan,ShanxiRibao,ShenyangRibao,SichuanRibao,
         XiningWanbao,XinhuaMeiri,XinjingBao,YangziWanbao,YangchengWanbao,YinchuanWanbao,
-        ZhongguoFunv,ZhongguoJiaoyu,ZhongguoJingji,ZhongguoQiche;
+        ZhongguoFunv,ZhongguoJiaoyu,ZhongguoJingji,ZhongguoQiche,FuzhouWanbao,HubeiRibao,
+        QiluWanbao;
     }
     private ExtractorClass toExtractor( String ExtractorClass ) {
         return Spider.ExtractorClass.valueOf(ExtractorClass);
@@ -41,7 +42,7 @@ public class Spider {
 
         Spider obj = new Spider();
         obj.start();
-        //new YinchuanWanbao("测试").getNewsInfo("http://szb.ycen.com.cn/html/2014-08/28/content_129257.htm");
+        //new FuzhouWanbao("测试").getNewsInfo("http://epaper.fzen.com.cn/shtml/fzwb/20140829/160078.shtml");
     }
 
     public void start() throws Exception {
@@ -140,6 +141,9 @@ public class Spider {
                 case ZhongguoJiaoyu: new ZhongguoJiaoyu(line[2]).start(TrueUrl); break;
                 case ZhongguoJingji: new ZhongguoJingji(line[2]).start(TrueUrl); break;
                 case ZhongguoQiche: new ZhongguoQiche(line[2]).start(TrueUrl); break;
+                case FuzhouWanbao: new FuzhouWanbao(line[2]).start(TrueUrl); break;
+                case HubeiRibao: new HubeiRibao(line[2]).start(TrueUrl); break;
+                case QiluWanbao: new QiluWanbao(line[2]).start(TrueUrl); break;
             }
         }
         /*System.out.println("fileSet = " + fileSet.size());
