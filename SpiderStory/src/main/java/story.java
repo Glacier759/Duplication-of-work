@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.util.HashMap;
 
@@ -59,7 +60,7 @@ public class story {
                 typeMap.put(typeEle.attr("abs:href"), typeEle.text());
             }
         }catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return typeMap;
     }
@@ -75,18 +76,22 @@ public class story {
                 }
             }while( (URL = getNextPage(URL)) != null );
         }catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return nameMap;
     }
 
     public String getNextPage( String URL ) throws Exception {
-        Document Doc = getDoc(URL);
-        Elements aTags = Doc.select("ul[class=pagelist]").select("a[href]");
-        for ( Element aTag:aTags ) {
-            if ( aTag.text().equals("下一页") ) {
-                return aTag.attr("abs:href");
+        try {
+            Document Doc = getDoc(URL);
+            Elements aTags = Doc.select("ul[class=pagelist]").select("a[href]");
+            for (Element aTag : aTags) {
+                if (aTag.text().equals("下一页")) {
+                    return aTag.attr("abs:href");
+                }
             }
+        }catch(Exception e) {
+            System.out.println(e);
         }
         return null;
     }
@@ -100,15 +105,20 @@ public class story {
                 chapMap.put(chapEle.attr("abs:href"), chapEle.text());
             }
         }catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return chapMap;
     }
 
     public String getContent( String URL ) throws Exception {
-        Document Doc = getDoc(URL);
-        Elements contEles = Doc.select("div[id=main]").select("p");
-        String content = contEles.text().replaceAll("     ", "\n");
+        String content = null;
+        try {
+            Document Doc = getDoc(URL);
+            Elements contEles = Doc.select("div[id=main]").select("p");
+            content = contEles.text().replaceAll("     ", "\n");
+        }catch(Exception e) {
+            System.out.println(e);
+        }
         return content;
     }
 
