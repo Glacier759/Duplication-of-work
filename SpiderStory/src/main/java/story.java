@@ -41,9 +41,8 @@ public class story {
                 String nameDir = nameMap.get(nameURL);
                 HashMap<String,String> chapMap = getChapMap(nameURL);
                 for ( String chapURL:chapMap.keySet() ) {
-                    String chapDir = chapMap.get(chapURL);
                     String content = getContent(chapURL);
-                    File file = new File(new File(new File(new File("Data"),typeDir), nameDir), chapDir);
+                    File file = new File(new File(new File(new File("Data"),typeDir), nameDir), System.currentTimeMillis()+".txt");
                     System.out.println(file.getPath());
                     FileUtils.writeStringToFile(file,content);
                 }
@@ -68,15 +67,28 @@ public class story {
     public HashMap<String,String> getNameMap( String URL ) throws Exception {
         HashMap<String,String> nameMap = new HashMap<String, String>();
         try {
-            Document Doc = getDoc(URL);
-            Elements nameEles = Doc.select("div[class=leftbox]").select("a[href]");
-            for (Element nameEle : nameEles) {
-                nameMap.put(nameEle.attr("abs:href"), nameEle.text());
-            }
+            do {
+                Document Doc = getDoc(URL);
+                Elements nameEles = Doc.select("div[class=leftbox]").select("a[href]");
+                for (Element nameEle : nameEles) {
+                    nameMap.put(nameEle.attr("abs:href"), nameEle.text());
+                }
+            }while( (URL = getNextPage(URL)) != null );
         }catch(Exception e) {
             e.printStackTrace();
         }
         return nameMap;
+    }
+
+    public String getNextPage( String URL ) throws Exception {
+        Document Doc = getDoc(URL);
+        Elements aTags = Doc.select("ul[class=pagelist]").select("a[href]");
+        for ( Element aTag:aTags ) {
+            if ( aTag.text().equals("下一页") ) {
+                return aTag.attr("abs:href");
+            }
+        }
+        return null;
     }
 
     public HashMap<String,String> getChapMap( String URL ) throws Exception {
