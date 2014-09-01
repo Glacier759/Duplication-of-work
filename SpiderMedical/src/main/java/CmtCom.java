@@ -11,17 +11,18 @@ import java.io.File;
  */
 public class CmtCom {
     BloomFilter filter = new BloomFilter();
+    //SQL filter = new SQL();
     Redis redis = new Redis();
 
     public void init ( String SeedURL ) throws Exception {
         filter.clearBitset();
+        //filter.start();
         redis.ConnectRedis();
         redis.setKey("cmt");
         redis.clearRedis();
-
         start(SeedURL);
         int count = 0;
-        while( redis.getLength() > 0 ) {
+        do {
             if ( count % 20 == 0 ) {
                 System.out.println("redis length = " + redis.getLength());
                 count = 0;
@@ -29,7 +30,7 @@ public class CmtCom {
             count ++;
             System.out.print(count+"  ");
             getBlog();
-        }
+        }while( redis.getLength() > 0 );
     }
 
     public void start( String SeedURL ) throws Exception {
@@ -42,11 +43,12 @@ public class CmtCom {
             Elements linksEle = Doc.select("a[href]");
             for (Element linkEle : linksEle) {
                 String link = linkEle.attr("abs:href");
-                if (link.contains("/detail/") && !filter.isUniqueValue(link)) {
+                if (link.contains("/detail/") && !link.contains("#") && !filter.isUniqueValue(link)) {
+                //if (link.contains("/detail/") && !link.contains("#") && !filter.isUniqueURL(link)) {
                     redis.pushValue(link);
-                    filter.addValue(link);
                 }
             }
+            filter.addValue(SeedURL);
         } catch( Exception e ) {
             e.printStackTrace();
         }
@@ -77,11 +79,13 @@ public class CmtCom {
             Elements linksEle = Doc.select("a[href]");
             for (Element linkEle : linksEle) {
                 String link = linkEle.attr("abs:href");
-                if (link.contains("/detail/") && !filter.isUniqueValue(link)) {
+                if (link.contains("/detail/") && !link.contains("#") && !filter.isUniqueValue(link)) {
+                //if (link.contains("/detail/") && link.contains("#") && !filter.isUniqueURL(link)) {
                     redis.pushValue(link);
-                    filter.addValue(link);
+                    //filter.insertUrl(link);
                 }
             }
+            filter.addValue(URL);
         } catch ( Exception e ) {
             e.printStackTrace();
         }
