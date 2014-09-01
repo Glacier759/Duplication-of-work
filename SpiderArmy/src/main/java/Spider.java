@@ -7,8 +7,10 @@ public class Spider {
     public static void main(String[] args) throws Exception {
         //xinjunshi xjsobj = new xinjunshi();
         //xjsobj.start();
-        xinlangjunshi xljsobj = new xinlangjunshi();
-        xljsobj.start();
+        //xinlangjunshi xljsobj = new xinlangjunshi();
+        //xljsobj.start();
+        miercn mrobj = new miercn();
+        mrobj.init("http://www.miercn.com/");
     }
 
 
