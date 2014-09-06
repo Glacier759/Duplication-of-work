@@ -10,11 +10,13 @@ import java.io.File;
  * Created by glacier on 14-9-1.
  */
 public class miercn {
-    BloomFilter filter = new BloomFilter();
+    //BloomFilter filter = new BloomFilter();
+    SQL filter = new SQL();
     Redis redis = new Redis();
 
     public void init ( String SeedURL ) throws Exception {
-        filter.clearBitset();
+        //filter.clearBitset();
+        filter.start();
         redis.ConnectRedis();
         redis.setKey("miercn");
         redis.clearRedis();
@@ -42,11 +44,12 @@ public class miercn {
             Elements linksEle = Doc.select("a[href]");
             for (Element linkEle : linksEle) {
                 String link = linkEle.attr("abs:href");
-                if (link.contains("bbs.miercn.com/") && link.contains("/thread_") && !link.contains("#") && !filter.isUniqueValue(link)) {
+                if (link.contains("bbs.miercn.com/") && link.contains("/thread_") && !link.contains("#") && !filter.isUniqueURL(link)) {
                     redis.pushValue(link);
-                    filter.addValue(link);
+                    //filter.addValue(link);
                 }
             }
+            filter.insertUrl(SeedURL);
         } catch( Exception e ) {
             e.printStackTrace();
         }
@@ -77,11 +80,12 @@ public class miercn {
             Elements linksEle = Doc.select("a[href]");
             for (Element linkEle : linksEle) {
                 String link = linkEle.attr("abs:href");
-                if (link.contains("bbs.miercn.com/") && link.contains("/thread_") && !link.contains("#") && !filter.isUniqueValue(link)) {
+                if (link.contains("bbs.miercn.com/") && link.contains("/thread_") && !link.contains("#") && !filter.isUniqueURL(link)) {
                     redis.pushValue(link);
-                    filter.addValue(link);
+                    //filter.addValue(link);
                 }
             }
+            filter.insertUrl(URL);
         } catch ( Exception e ) {
             e.printStackTrace();
         }
