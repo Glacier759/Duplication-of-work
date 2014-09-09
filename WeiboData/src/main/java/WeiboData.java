@@ -89,10 +89,13 @@ public class WeiboData {
                 Element weiboForward = weiboDiv.select("span[class=cmt]").first();
                 Element weiboSpan = weiboDiv.select("span[class=ctt]").first();
                 if ( weiboSpan != null ) {
-                    if ( weiboForward != null )
+                    if ( weiboForward != null ) {
                         System.out.println(weiboUser.text() + weiboForward.text() + weiboSpan.text() + "\n");
+                        Element forwardReason = weiboDiv.select("span[class=cmt]").last().parent();
+                    }
                     else
-                        System.out.println(weiboUser.text() + weiboSpan.text() + "\n");
+                        System.out.println();
+                        //System.out.println(weiboUser.text() + weiboSpan.text() + "\n");
                 }
             }
         }catch(Exception e) {
