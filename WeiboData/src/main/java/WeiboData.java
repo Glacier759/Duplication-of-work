@@ -1,4 +1,5 @@
 
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -13,6 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +27,11 @@ public class WeiboData {
     private String searchURL = "http://weibo.cn/search/";
     private String username, password;
     private HttpClient httpclient = new DefaultHttpClient();
-    public static void main(String[] args) {
-        WeiboData obj = new WeiboData("l_ee_hom@msn.cn", "Rlx0825leehom");
+    public static void main(String[] args) throws Exception{
+        String userpass = FileUtils.readFileToString(new File("userpass.temp"));
+        String[] temp = userpass.split(",");
+        String username = temp[0], password = temp[1];
+        WeiboData obj = new WeiboData(username, password);
         obj.getSearchWeibo("java", 10);
     }
 
