@@ -17,7 +17,8 @@ import java.util.List;
 public class WeiboFormat {
     private Document xmlDoc = DocumentHelper.createDocument();
     private Element root = xmlDoc.addElement("root");
-    public void saveWeiboSearch(List<weiboSearch> weiboList, int pageCount) {
+    public void saveWeiboSearch(List<weiboSearch> weiboList, int pageCount, String question) {
+        root.addAttribute("question", question);
         Element page = root.addElement("page");
         page.addAttribute("count", pageCount+"");
         for ( weiboSearch obj:weiboList ) {
@@ -32,6 +33,18 @@ public class WeiboFormat {
             weiboForward.addText(obj.getWeiboForward());
             Element forwardReason = weibo.addElement("forwardReason");
             forwardReason.addText(obj.getForwardReason());
+        }
+    }
+
+    public void saveFansList(List<weiboFans> fansList, String userURL) {
+        root.addAttribute("userURL", userURL);
+        root.addAttribute("count", fansList.size()+"");
+        for ( weiboFans obj:fansList ) {
+            Element fans = root.addElement("fans");
+            Element fansName = fans.addElement("fansName");
+            fansName.addText(obj.getFansName());
+            Element fansURL = fans.addElement("fansURL");
+            fansURL.addText(obj.getFansURL());
         }
     }
 

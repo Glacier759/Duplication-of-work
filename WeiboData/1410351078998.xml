@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root question="java">
+  <page count="1">
+    <weibo>
+      <weiboSender>新媒沈阳</weiboSender>
+      <senderURL>http://weibo.cn/rost</senderURL>
+      <weiboText>:【招人啦！】博士后2名，传播学、计算机、数学、经济学等方向。条件：博士毕业不超2年；按照国家和清华大学博士后规定享受相关待遇。另外武汉小组招收全职兼职、实习生，从事新媒体研究；Java程序员，懂NLP；北京小组招收实习生。简历发 124739259@qq.com 查看文章《清华大学新闻与传播学院博士后招聘启事》</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>像海不曾怀疑天的蓝917</weiboSender>
+      <senderURL>http://weibo.cn/u/3037718043</senderURL>
+      <weiboText>:#233网校#小伙伴们,我正在233网校题库疯狂练习,233网校2014年计算机二级考试,MySQL数据程序设计,Web程序设计,MS Office高级应用,C语言,C++,Java,VB,VF,Access,公共基础知识,Delphi 每日一练（09月10日）练习,每日精选10道练习题并提供答案解析帮助考生提高考试水平。 http://t.cn/RPdfcRJ</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>我痒痒了</weiboSender>
+      <senderURL>http://weibo.cn/279225590</senderURL>
+      <weiboText>:【冒泡排序】package 算法; import java.util.*; 　　public class 冒泡排序 { 　　　　public void cal(){ 　　　　Scanner sc=new Scanner(System.in); 　　　　int a[]=new int[10]; 　　　　for(int i=0;i&lt;a.length;i++){//从键盘接受10个数字 　　　　　　a[i]=sc… http://t.cn/RhVThXQ</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>univercen</weiboSender>
+      <senderURL>http://weibo.cn/yinzhongboke</senderURL>
+      <weiboText>:当初还在用java手机应用的时候觉得opera好酷好炫好靓丽。一样的界面到了现在，再放到wp上各种违和各种丑。4G WIFI也普及了，opera mini还生存的下去么</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>NLPJob</weiboSender>
+      <senderURL>http://weibo.cn/nlpjob</senderURL>
+      <weiboText>:#NLP Job# 【美团网社招】美团外卖-数据平台开发工程师（java）http://t.cn/RhVY628</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>应庆室哲</weiboSender>
+      <senderURL>http://weibo.cn/sakurayama</senderURL>
+      <weiboText>:Java chip Fruppaccino,so long to see[馋嘴]</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>原味风味酸奶</weiboSender>
+      <senderURL>http://weibo.cn/u/3026395821</senderURL>
+      <weiboText>:唉[失望]咋就这么欠呢？人家宿舍早都弄好，等着验收呢！人家不会java...c++也可以完成呢！</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>Han_TYO</weiboSender>
+      <senderURL>http://weibo.cn/jiangsonghan</senderURL>
+      <weiboText>:#starbucks#星巴克#Java#Chip#Frappuccino#favourite#90's http://t.cn/RhVYtgg</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>大大卷小小圈</weiboSender>
+      <senderURL>http://weibo.cn/u/2739838531</senderURL>
+      <weiboText>:#233网校#小伙伴们,我正在233网校题库疯狂练习,233网校2014年计算机二级考试,MySQL数据程序设计,Web程序设计,MS Office高级应用,C语言,C++,Java,VB,VF,Access,公共基础知识,Delphi 每日一练（09月10日）练习,每日精选10道练习题并提供答案解析帮助考生提高考试水平。 http://t.cn/RPdfcRJ</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>会讯通</weiboSender>
+      <senderURL>http://weibo.cn/sokuda</senderURL>
+      <weiboText>:会讯通电话会议系统支持全系列API开发接口，支持WebService,java,DLL控件，方便与各种调度指挥，OA平台，呼叫中心，即时通讯系统整合，快速开发整合高效电话会议解决方案，会讯通提供接口部署深圳中级法院，浙江省公安厅,大连消防等大型调度指挥项目。http:www.sokuda.com</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>足球小将老刘</weiboSender>
+      <senderURL>http://weibo.cn/u/1877920595</senderURL>
+      <weiboText>:这条提问太有意思了，小伙伴们，你们能来回答一下吗？【问：我安装JAVA的JDK提示无法定位输入程序】（分享自@百度知道） http://t.cn/RhVjCkY</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+  </page>
+  <page count="2">
+    <weibo>
+      <weiboSender>当不成瘦子的雪哥要努力当学霸ww</weiboSender>
+      <senderURL>http://weibo.cn/u/3001431177</senderURL>
+      <weiboText>关爱老师，荣耀你我！以下为关爱老师节操指南，还望同学们多多学习，多多节操。</weiboText>
+      <weiboForward> 转发了 全球热门收集 的微博:</weiboForward>
+      <forwardReason>转发理由:以后java课我要坐到后排[害羞]  赞[0] 转发[0] 评论[0] 收藏 47分钟前 来自Android客户端</forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>刘跃说</weiboSender>
+      <senderURL>http://weibo.cn/euyuil</senderURL>
+      <weiboText>:#Oracle# 你能不能在 #Java# 升级的时候用更友好一点的提示方式？每次都弹个 UAC 问我要不要升级，总干扰正在做的事情。</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>齐天qt</weiboSender>
+      <senderURL>http://weibo.cn/u/2979809220</senderURL>
+      <weiboText>:【Java 打开一个文件夹并选中文件】       代码如下：        String targetDirectFileName = "E:\\soft\\e-comm.txt";        try {             //Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL explorer.ex http://t.cn/RhVl8io</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>足球小将老刘</weiboSender>
+      <senderURL>http://weibo.cn/u/1877920595</senderURL>
+      <weiboText>:【Java JDK8 Windows XP安装与“无... RegDeleteKeyExA 于... ADVAPI32.dll”的解决】 在Java JDK8安装时，我的Windows XP报“无... RegDeleteKeyExA 于... ADVAPI32.dll”错，原来是对于Windows XP不再支持了，只能手动安装。 值得期待的Java JD http://t.cn/RhVlSgr</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>王小涛Taodelongmao</weiboSender>
+      <senderURL>http://weibo.cn/u/3869146921</senderURL>
+      <weiboText>:掐指一算，国庆节快到了，……于是我决定狂吃一个月！！！目标110。@java-va [鄙视]</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>PyPINews</weiboSender>
+      <senderURL>http://weibo.cn/pypinews</senderURL>
+      <weiboText>:[PyPI Recent Update] collective.js.angular 1.2.14.1: AngularJS JavaScript Library Packaged for Plone http://t.cn/RhVlUEs</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>畅学电子网</weiboSender>
+      <senderURL>http://weibo.cn/eeskill</senderURL>
+      <weiboText>:#畅学精选资料#若水《Android开发从零开始》视频源代码与PPT！这套教程是为有一定Java基础的朋友制作的Android开发从零开始视频集合。http://t.cn/RhVWdXP</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>web开发_webkfa</weiboSender>
+      <senderURL>http://weibo.cn/u/1775111493</senderURL>
+      <weiboText>:Java中文字符串和Unicode编码互换 http://t.cn/RhVW8in</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>尼莫United</weiboSender>
+      <senderURL>http://weibo.cn/nemofq</senderURL>
+      <weiboText>:坐标杭州招人，岗位有研发管理、Windows工程师、后台工程师（PHP/JAVA）、Android工程师、前端工程师、运维工程师、交互设计。有意向的可以私聊详情~~（有内推奖励制度后太有动力了。。）</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+    <weibo>
+      <weiboSender>大-橡</weiboSender>
+      <senderURL>http://weibo.cn/u/3986770769</senderURL>
+      <weiboText>:离开了研究院和平台开发团队，加入核高基项目组。我不会Java也不懂什么招式，只是在九个月里磨了一把残缺的剑。</weiboText>
+      <weiboForward></weiboForward>
+      <forwardReason></forwardReason>
+    </weibo>
+  </page>
+</root>
