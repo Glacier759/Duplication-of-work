@@ -32,7 +32,8 @@ public class WeiboData {
         String[] temp = userpass.split(",");
         String username = temp[0], password = temp[1];
         WeiboData obj = new WeiboData(username, password);
-        obj.getSearchWeibo("java", 10);
+        obj.getSearchWeibo("java", 2);
+        //new WeiboFormat().saveWeiboSearch();
     }
 
     public WeiboData( String username, String password ) {
@@ -87,24 +88,59 @@ public class WeiboData {
             HttpResponse response = httpclient.execute(httpost);
             String searchHTML = EntityUtils.toString(response.getEntity());
 
-            Document Doc = Jsoup.parse(searchHTML);
-            Elements weiboDivs = Doc.select("div[id]");
-            for (Element weiboDiv:weiboDivs) {
-                Element weiboUser = weiboDiv.select("a[class=nk]").first();
-                Element weiboForward = weiboDiv.select("span[class=cmt]").first();
-                Element weiboSpan = weiboDiv.select("span[class=ctt]").first();
-                if ( weiboSpan != null ) {
-                    if ( weiboForward != null ) {
-                        System.out.println(weiboUser.text() + weiboForward.text() + weiboSpan.text() + "\n");
-                        Element forwardReason = weiboDiv.select("span[class=cmt]").last().parent();
+            int pageCount = 1;
+            List<weiboSearch> weiboList = new ArrayList<weiboSearch>();
+            WeiboFormat format = new WeiboFormat();
+            do {
+                Document Doc = Jsoup.parse(searchHTML);
+                Elements weiboDivs = Doc.select("div[id]");
+                for (Element weiboDiv : weiboDivs) {
+                    weiboSearch obj = new weiboSearch();
+                    Element weiboUser = weiboDiv.select("a[class=nk]").first();
+                    Element weiboForward = weiboDiv.select("span[class=cmt]").first();
+                    Element weiboSpan = weiboDiv.select("span[class=ctt]").first();
+                    if (weiboSpan != null) {
+                        if (weiboForward != null) {
+                            //System.out.println(weiboUser.text() + weiboForward.text() + weiboSpan.text() + "\n");
+                            Element forwardReason = weiboDiv.select("span[class=cmt]").last().parent();
+                            obj.setWeiboText(weiboSpan.text());
+                            obj.setWeiboSender(weiboUser.text());
+                            obj.setSenderURL(weiboUser.attr("href"));
+                            obj.setWeiboForward(weiboForward.text());
+                            obj.setForwardReason(forwardReason.text());
+                        } else {
+                            //System.out.println(weiboUser.text() + weiboSpan.text() + "\n");
+                            obj.setWeiboText(weiboSpan.text());
+                            obj.setWeiboSender(weiboUser.text());
+                            obj.setSenderURL(weiboUser.attr("href"));
+                            obj.setWeiboForward("");
+                            obj.setForwardReason("");
+                        }
+                        weiboList.add(obj);
                     }
-                    else
-                        System.out.println();
-                        //System.out.println(weiboUser.text() + weiboSpan.text() + "\n");
                 }
-            }
+                format.saveWeiboSearch(weiboList, pageCount);
+                weiboList.clear();
+                searchURL = getSearchNext(Doc);
+                pageCount = Integer.parseInt(searchURL.substring(searchURL.indexOf("page=")+5));
+                //System.out.println(pageCount);
+                if ( pageCount > page )
+                    break;
+                HttpGet httpget = new HttpGet(searchURL);
+                response = httpclient.execute(httpget);
+                searchHTML = EntityUtils.toString(response.getEntity());
+            }while(searchURL != null);
+            format.saveXML();
         }catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private String getSearchNext( Document Doc ) {
+        Element nextDiv = Doc.getElementById("pagelist");
+        Element nextEle = nextDiv.select("a[href]").first();
+        if ( nextEle.text().equals("下页") )
+            return "http://weibo.cn" + nextEle.attr("href");
+        return null;
     }
 }
