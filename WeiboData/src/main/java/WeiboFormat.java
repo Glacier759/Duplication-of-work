@@ -66,14 +66,15 @@ public class WeiboFormat {
         }
     }
 
-    public void saveFansList(List<weiboFans> fansList, String userURL) {
+    public void saveFansList(List<weiboFans> fansList, String userURL, String type) {
         root.addAttribute("userURL", userURL);
-        root.addAttribute("count", fansList.size()+"");
+        Element fanslist = root.addElement(type+"List");
+        fanslist.addAttribute("count", fansList.size()+"");
         for ( weiboFans obj:fansList ) {
-            Element fans = root.addElement("fans");
-            Element fansName = fans.addElement("fansName");
+            Element fans = root.addElement(type);
+            Element fansName = fans.addElement(type+"Name");
             fansName.addText(obj.getFansName());
-            Element fansURL = fans.addElement("fansURL");
+            Element fansURL = fans.addElement(type+"URL");
             fansURL.addText(obj.getFansURL());
         }
     }
