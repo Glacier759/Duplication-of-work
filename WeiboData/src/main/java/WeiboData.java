@@ -28,28 +28,44 @@ public class WeiboData {
     private String username, password;
     private HttpClient httpclient = new DefaultHttpClient();
     private WeiboFormat format = new WeiboFormat();
+    private String userID = "";
+    private int userPageCount = 0;
     public static void main(String[] args) throws Exception{
-        String userpass = FileUtils.readFileToString(new File("userpass.temp"));
-        String[] temp = userpass.split(",");
-        String username = temp[0], password = temp[1];
-        WeiboData obj = new WeiboData(username, password);
-        //obj.getSearchWeibo("java", 2);
 
-        //obj.getUserWeibo("http://weibo.cn/drsmile", 3);
-        //obj.getWatchList("http://weibo.cn/drsmile");
-        //obj.getFansList("http://weibo.cn/drsmile");
-        obj.getUserInfo("http://weibo.cn/drsmile");
-        //obj.format.saveXML();
+        WeiboData obj = new WeiboData();
+        //obj.getSearchWeibo("java", 2);
+        String weiboURL = "http://weibo.cn/drsmile";
+        obj.getUserAll(weiboURL, true, 1, 1);
     }
 
-    public WeiboData( String username, String password ) {
-        this.username = username;
-        this.password = password;
+    public WeiboData() {
+        getUserPass();
         login();
+    }
+
+    public void getUserPass( ) {
+        try {
+            List<String> userpassList = FileUtils.readLines(new File("userpass.temp"));
+            String userpass = userpassList.remove(0);
+            String[] temp = userpass.split(",");
+            String username = temp[0], password = temp[1];
+            this.username = username;
+            this.password = password;
+            userpassList.add(userpass);
+            String usernameText = "";
+            for ( String usernameLine:userpassList ) {
+                usernameText += "\n" + usernameLine;
+            }
+            usernameText = usernameText.substring(1);
+            FileUtils.writeStringToFile(new File("userpass.temp"), usernameText);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void login() {
         try {
+            System.out.println("正在登陆...");
             Document Doc = Jsoup.connect(loginURL).timeout(50000)
                     .userAgent("Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36")
                     .get();
@@ -76,8 +92,10 @@ public class WeiboData {
             String localtionURL = response.getFirstHeader("Location").getValue();
             HttpGet httpget = new HttpGet(localtionURL);
             response = httpclient.execute(httpget);
-            /*String LoginSuccessHTML = */EntityUtils.toString(response.getEntity());
-
+            String LoginSuccessHTML = EntityUtils.toString(response.getEntity());
+            Doc = Jsoup.parse(LoginSuccessHTML);
+            String idhref = Doc.select("div[class=tip2]").select("a[href]").first().attr("href");
+            userID = idhref.substring(idhref.indexOf("/")+1, idhref.lastIndexOf("/"));
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -85,6 +103,7 @@ public class WeiboData {
 
     public void getSearchWeibo( String question, int page ) {
         try {
+            System.out.println("正在处理微博搜索...");
             List<NameValuePair> nvps = new ArrayList<NameValuePair>();
             nvps.add(new BasicNameValuePair("keyword", question));
             nvps.add(new BasicNameValuePair("smblog", "搜微博"));
@@ -150,6 +169,7 @@ public class WeiboData {
 
     public List<weiboFans> getFansList( String userURL ) {
         try {
+            System.out.println("正在获取粉丝列表...");
             HttpGet httpget = new HttpGet(userURL);
             HttpResponse response = httpclient.execute(httpget);
             String userHTML = EntityUtils.toString(response.getEntity());
@@ -189,15 +209,32 @@ public class WeiboData {
         return null;
     }
 
-    public void getUserWeibo( String userURL, int page ) {
+    public void getUserWeibo( String userURL, String lastDate ) {
         try {
+            HttpGet httpget = new HttpGet(userURL);
+            HttpResponse response = httpclient.execute(httpget);
+            String userHTML = EntityUtils.toString(response.getEntity());
+
+            Document Doc = Jsoup.parse(userHTML);
+            Element maxPageEle = Doc.select("input[type=hidden]").first();
+            String maxPage = maxPageEle.attr("value");
+            getUserWeibo(userURL, Integer.parseInt(maxPage), lastDate);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void getUserWeibo( String userURL, int page, String lastDate ) {
+        try {
+            System.out.println("正在获取用户微博...");
             List<weiboSearch> weiboList = new ArrayList<weiboSearch>();
             int pageCount = 1;
+            breakDate:
             do {
+                userPageCount ++;
+                System.out.println("获取到微博第 "+pageCount+" 页 / " + page + " 页");
                 HttpGet httpget = new HttpGet(userURL);
                 HttpResponse response = httpclient.execute(httpget);
                 String userHTML = EntityUtils.toString(response.getEntity());
-
 
                 Document Doc = Jsoup.parse(userHTML);
                 String title = Doc.select("title").text();
@@ -251,6 +288,10 @@ public class WeiboData {
                         }
                         if (obj != null)
                             weiboList.add(obj);
+                        if ( weiboDate.contains(lastDate) )
+                            break breakDate;
+                    }catch(NullPointerException e) {
+
                     }catch (Exception e) {
                         e.printStackTrace();
                         continue;
@@ -270,6 +311,7 @@ public class WeiboData {
 
     public List<weiboFans> getWatchList( String userURL ) {
         try {
+            System.out.println("正在获取关注列表...");
             HttpGet httpget = new HttpGet(userURL);
             HttpResponse response = httpclient.execute(httpget);
             String userHTML = EntityUtils.toString(response.getEntity());
@@ -310,12 +352,26 @@ public class WeiboData {
 
     public void getUserInfo( String userURL ) {
         try {
-            /*HttpGet httpget = new HttpGet(userURL);
+            System.out.println("正在获取用户信息...");
+            userInfo obj = new userInfo();
+            HttpGet httpget = new HttpGet(userURL);
             HttpResponse response = httpclient.execute(httpget);
             String userHTML = EntityUtils.toString(response.getEntity());
             Document Doc = Jsoup.parse(userHTML);
-            Element infoDiv = Doc.select("div[class=ut]").first();
 
+            Element countEle = Doc.select("div[class=tip2]").first();
+            String countTemp = countEle.select("span").first().text();
+            String weiboCount = countTemp.substring(countTemp.indexOf("[")+1, countTemp.indexOf("]"));
+            countTemp = countEle.select("a[href]").get(0).text();
+            String watchCount = countTemp.substring(countTemp.indexOf("[")+1, countTemp.indexOf("]"));
+            countTemp = countEle.select("a[href]").get(1).text();
+            String fansCount = countTemp.substring(countTemp.indexOf("[")+1, countTemp.indexOf("]"));
+            obj.setWeiboCount(weiboCount);
+            obj.setFansCount(fansCount);
+            obj.setWatchCount(watchCount);
+
+
+            Element infoDiv = Doc.select("div[class=ut]").first();
             String infoURL = "";
             Elements atags = infoDiv.select("a[href]");
             for (Element atag:atags) {
@@ -323,14 +379,13 @@ public class WeiboData {
                     infoURL = "https://weibo.cn" + atag.attr("href");
                     break;
                 }
-            }*/
+            }
 
-            /*httpget = new HttpGet(infoURL);
+            httpget = new HttpGet(infoURL);
             response = httpclient.execute(httpget);
-            String infoHTML = EntityUtils.toString(response.getEntity());*/
-            String infoHTML = FileUtils.readFileToString(new File("test.html"));
-            Document Doc = Jsoup.parse(infoHTML);
-            userInfo obj = new userInfo();
+            String infoHTML = EntityUtils.toString(response.getEntity());
+            //String infoHTML = FileUtils.readFileToString(new File("test.html"));
+            Doc = Jsoup.parse(infoHTML);
 
             Element imageEle = Doc.select("img[alt=头像]").first();
             obj.setUserPicURL(imageEle.attr("src"));
@@ -342,20 +397,32 @@ public class WeiboData {
             Elements infoTagEles = infoEle.select("a[href]");
             for ( Element infoTagEle:infoTagEles ) {
                 if ( infoTagEle.text().equals("更多>>") ) {
-                    infoTagURL = infoTagEle.attr("href");
+                    infoTagURL = "http://weibo.cn" + infoTagEle.attr("href");
                 }
             }
-            /*
-            * httpget = new HttpGet(infoTagURL);
-            * response = httpclient.execute(httpget);
-            * String tagHTML = EntityUtils.toString(response.getEntity());
-            * */
+
+            httpget = new HttpGet(infoTagURL);
+            response = httpclient.execute(httpget);
+            String tagHTML = EntityUtils.toString(response.getEntity());
+            Doc = Jsoup.parse(tagHTML);
+            Elements infoTags = Doc.select("div[class=c]").get(2).select("a[href]");
+            String infoTagText = "";
+            for ( Element infoTag:infoTags ) {
+                infoTagText += "," + infoTag.text();
+            }
+            infoTagText = infoTagText.substring(1);
+            obj.setUserTag(infoTagText);
+            obj.setUserName("");
+            obj.setConfirmInfo("");
+            obj.setUserSex("");
+            obj.setUserAddr("");
+            obj.setUserBirth("");
+            obj.setUserResume("");
 
             String[] infoArry = infoText.split("\n");
             for ( String infoLine:infoArry ) {
                 String infoType = infoLine.substring(0, infoLine.indexOf(":"));
                 String infoData = infoLine.substring(infoLine.indexOf(":")+1);
-                System.out.println(infoType + "\t\t" + infoData);
                 switch (toInfoEnum(infoType)) {
                     case 昵称:obj.setUserName(infoData); break;
                     case 认证:obj.setConfirmInfo(infoData); break;
@@ -365,22 +432,33 @@ public class WeiboData {
                     case 简介:obj.setUserResume(infoData); break;
                     default:break;
                 }
-
             }
-
-            /*Elements spanDivs = infoDiv.select("span[class=ctt]");
-            for ( Element spanDiv:spanDivs ) {
-                System.out.println(spanDiv.text());
-            }*/
+            format.saveUserInfo(obj, userURL);
         }catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void getUserAll( String userURL ) {
+    public void getUserAll( String userURL, boolean isRecursion, int recursionCount, int targetCount ) {
         try {
+            getUserInfo(userURL);
+            getUserWeibo(userURL, "2012");
             List<weiboFans> fansList = getFansList(userURL);
             List<weiboFans> watchList = getWatchList(userURL);
+            format.saveXML();
+            if ( userPageCount >= 800 ) {
+                getUserPass();
+                login();
+                userPageCount = 0;
+            }
+            if ( isRecursion ) {
+                for (weiboFans watchUser : watchList) {
+                    if ( recursionCount >= targetCount )
+                        getUserAll(watchUser.getFansURL(), false, recursionCount+1, targetCount);
+                    else
+                        getUserAll(watchUser.getFansURL(), true, recursionCount+1, targetCount);
+                }
+            }
         }catch(Exception e) {
             e.printStackTrace();
         }

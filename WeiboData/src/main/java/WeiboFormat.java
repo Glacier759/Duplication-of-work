@@ -18,7 +18,8 @@ public class WeiboFormat {
     private Document xmlDoc = DocumentHelper.createDocument();
     private Element root = xmlDoc.addElement("root");
     public void saveWeiboSearch(List<weiboSearch> weiboList, int pageCount, String question) {
-        root.addAttribute("question", question);
+        Element questionEle = root.addElement("question");
+        questionEle.addAttribute("question", question);
         Element page = root.addElement("page");
         page.addAttribute("count", pageCount+"");
         for ( weiboSearch obj:weiboList ) {
@@ -37,7 +38,8 @@ public class WeiboFormat {
     }
 
     public void saveUserWeibo(List<weiboSearch> weiboList, String sender, String senderurl, int pageCount) {
-        Element page = root.addElement("page");
+        Element weibolist = root.addElement("weiboList");
+        Element page = weibolist.addElement("page");
         page.addAttribute("count", pageCount+"");
         Element weiboSender = page.addElement("weiboSender");
         weiboSender.addText(sender);
@@ -67,11 +69,11 @@ public class WeiboFormat {
     }
 
     public void saveFansList(List<weiboFans> fansList, String userURL, String type) {
-        root.addAttribute("userURL", userURL);
         Element fanslist = root.addElement(type+"List");
+        fanslist.addAttribute("userURL", userURL);
         fanslist.addAttribute("count", fansList.size()+"");
         for ( weiboFans obj:fansList ) {
-            Element fans = root.addElement(type);
+            Element fans = fanslist.addElement(type);
             Element fansName = fans.addElement(type+"Name");
             fansName.addText(obj.getFansName());
             Element fansURL = fans.addElement(type+"URL");
@@ -79,9 +81,37 @@ public class WeiboFormat {
         }
     }
 
+    public void saveUserInfo( userInfo obj, String userURL ) {
+        Element userinfo = root.addElement("userInfo");
+        userinfo.addAttribute("userURL", userURL);
+        Element userName = userinfo.addElement("userName");
+        userName.addText(obj.getUserName());
+        Element userPicURL = userinfo.addElement("userPicURL");
+        userPicURL.addText(obj.getUserPicURL());
+        Element weiboCount = userinfo.addElement("weiboCount");
+        weiboCount.addText(obj.getWeiboCount());
+        Element fansCount = userinfo.addElement("fansCount");
+        fansCount.addText(obj.getFansCount());
+        Element watchCount = userinfo.addElement("watchCount");
+        watchCount.addText(obj.getWatchCount());
+        Element confirmInfo = userinfo.addElement("confirmInfo");
+        confirmInfo.addText(obj.getConfirmInfo());
+        Element userSex = userinfo.addElement("userSex");
+        userSex.addText(obj.getUserSex());
+        Element userAddr = userinfo.addElement("userAddr");
+        userAddr.addText(obj.getUserAddr());
+        Element userBirth = userinfo.addElement("userBirth");
+        userBirth.addText(obj.getUserBirth());
+        Element userResume = userinfo.addElement("userResume");
+        userResume.addText(obj.getUserResume());
+        Element userTag = userinfo.addElement("userTag");
+        userTag.addText(obj.getUserTag());
+    }
+
     public void saveXML() {
         try {
             String fileName = System.currentTimeMillis() + ".xml";
+            System.out.println("正在进行格式整理并保存为 " + fileName + " ...");
             OutputFormat format = OutputFormat.createPrettyPrint();
             Writer fileWriter = new FileWriter(fileName);
             XMLWriter output = new XMLWriter( fileWriter, format );
