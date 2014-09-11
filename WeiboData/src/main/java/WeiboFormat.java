@@ -36,6 +36,36 @@ public class WeiboFormat {
         }
     }
 
+    public void saveUserWeibo(List<weiboSearch> weiboList, String sender, String senderurl, int pageCount) {
+        Element page = root.addElement("page");
+        page.addAttribute("count", pageCount+"");
+        Element weiboSender = page.addElement("weiboSender");
+        weiboSender.addText(sender);
+        Element senderURL = page.addElement("senderURL");
+        senderURL.addText(senderurl);
+        for ( weiboSearch obj:weiboList ) {
+            Element weibo = page.addElement("weibo");
+            Element weiboText = weibo.addElement("weiboText");
+            weiboText.addText(obj.getWeiboText());
+            Element weiboImage = weibo.addElement("weiboImage");
+            weiboImage.addText(obj.getWeiboImage());
+            Element weiboForward = weibo.addElement("weiboForward");
+            weiboForward.addText(obj.getWeiboForward());
+            Element forwardReason = weibo.addElement("forwardReason");
+            forwardReason.addText(obj.getForwardReason());
+            Element likeCount = weibo.addElement("likeCount");
+            likeCount.addText(obj.getWeiboLikeCount());
+            Element forwardCount = weibo.addElement("forwardCount");
+            forwardCount.addText(obj.getWeiboForwardCount());
+            Element commentCount = weibo.addElement("commentCount");
+            commentCount.addText(obj.getWeiboCommentCount());
+            Element weiboDate = weibo.addElement("weiboDate");
+            weiboDate.addText(obj.getWeiboDate());
+            Element weiboFrom = weibo.addElement("weiboFrom");
+            weiboFrom.addText(obj.getWeiboFrom());
+        }
+    }
+
     public void saveFansList(List<weiboFans> fansList, String userURL) {
         root.addAttribute("userURL", userURL);
         root.addAttribute("count", fansList.size()+"");

@@ -34,7 +34,7 @@ public class WeiboData {
         WeiboData obj = new WeiboData(username, password);
         //obj.getSearchWeibo("java", 2);
         //obj.getFansList("http://weibo.cn/u/1769127312");
-        obj.getUserWeibo("http://weibo.cn/drsmile");
+        obj.getUserWeibo("http://weibo.cn/drsmile", 3);
     }
 
     public WeiboData( String username, String password ) {
@@ -188,73 +188,82 @@ public class WeiboData {
         return null;
     }
 
-    public void getUserWeibo( String userURL ) {
+    public void getUserWeibo( String userURL, int page ) {
         try {
-            HttpGet httpget = new HttpGet(userURL);
-            HttpResponse response = httpclient.execute(httpget);
-            String userHTML = EntityUtils.toString(response.getEntity());
+            List<weiboSearch> weiboList = new ArrayList<weiboSearch>();
+            WeiboFormat format = new WeiboFormat();
+            int pageCount = 1;
+            do {
+                HttpGet httpget = new HttpGet(userURL);
+                HttpResponse response = httpclient.execute(httpget);
+                String userHTML = EntityUtils.toString(response.getEntity());
 
-            Document Doc = Jsoup.parse(userHTML);
-            String title = Doc.select("title").text();
-            String sender = title.substring(0, title.lastIndexOf("的"));
-            Elements weiboDivs = Doc.select("div[id]");
-            for ( Element weiboDiv:weiboDivs ) {
-                weiboSearch obj = new weiboSearch();
-                Element weiboText = weiboDiv.select("span[class=ctt]").first();
-                obj.setWeiboText(weiboText.text());
-                obj.setSenderURL(userURL);
-                obj.setWeiboSender(sender);
-                String imageURL = "";
-                String likeCount = "", forwardCount = "", commentCount = "";
-                String weiboFrom = "", weiboDate;
-                Elements imageEles = weiboDiv.select("a[href]");
-                if ( imageEles.size() > 0 ) {
-                    for ( Element imageEle:imageEles ) {
-                        String eleText = imageEle.text();
-                        if ( eleText.contains("原图") ) {
-                            imageURL = imageEle.attr("href");
+
+                Document Doc = Jsoup.parse(userHTML);
+                String title = Doc.select("title").text();
+                String sender = title.substring(0, title.lastIndexOf("的"));
+                Elements weiboDivs = Doc.select("div[id]");
+                for (Element weiboDiv : weiboDivs) {
+                    try {
+                        weiboSearch obj = new weiboSearch();
+                        Element weiboText = weiboDiv.select("span[class=ctt]").first();
+                        obj.setWeiboText(weiboText.text());
+                        obj.setSenderURL(userURL);
+                        obj.setWeiboSender(sender);
+                        String imageURL = "";
+                        String likeCount = "", forwardCount = "", commentCount = "";
+                        String weiboFrom = "", weiboDate;
+                        Elements imageEles = weiboDiv.select("a[href]");
+                        if (imageEles.size() > 0) {
+                            for (Element imageEle : imageEles) {
+                                String eleText = imageEle.text();
+                                if (eleText.contains("原图")) {
+                                    imageURL = imageEle.attr("href");
+                                } else if (eleText.contains("赞")) {
+                                    likeCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
+                                } else if (eleText.contains("转发")) {
+                                    forwardCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
+                                } else if (eleText.contains("评论")) {
+                                    commentCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
+                                }
+                            }
+                            obj.setWeiboImage(imageURL);
+                            obj.setWeiboLikeCount(likeCount);
+                            obj.setWeiboForwardCount(forwardCount);
+                            obj.setWeiboCommentCount(commentCount);
                         }
-                        else if ( eleText.contains("赞") ) {
-                            likeCount = eleText.substring(eleText.indexOf('[')+1, eleText.indexOf(']'));
+                        Element fromDate = weiboDiv.select("span[class=ct]").first();
+                        String fromDateText = fromDate.text();
+                        weiboDate = fromDateText.substring(0, fromDateText.indexOf("来自"));
+                        weiboFrom = fromDateText.substring(fromDateText.indexOf("来自"));
+                        obj.setWeiboDate(weiboDate);
+                        obj.setWeiboFrom(weiboFrom);
+
+                        Element weiboForward = weiboDiv.select("span[class=cmt]").first();
+                        if (weiboForward != null) {
+                            Element forwardReason = weiboDiv.select("span[class=cmt]").last().parent();
+                            String forwardReasonText = forwardReason.text();
+                            obj.setWeiboForward(weiboForward.text());
+                            obj.setForwardReason(forwardReasonText.substring(0, forwardReasonText.indexOf("赞[")));
+                        } else {
+                            obj.setWeiboForward("");
+                            obj.setForwardReason("");
                         }
-                        else if ( eleText.contains("转发") ) {
-                            forwardCount = eleText.substring(eleText.indexOf('[')+1, eleText.indexOf(']'));
-                        }
-                        else if ( eleText.contains("评论") ) {
-                            commentCount = eleText.substring(eleText.indexOf('[')+1, eleText.indexOf(']'));
-                        }
+                        if (obj != null)
+                            weiboList.add(obj);
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                        continue;
                     }
-                    obj.setWeiboImage(imageURL);
-                    obj.setWeiboLikeCount(likeCount);
-                    obj.setWeiboForwardCount(forwardCount);
-                    obj.setWeiboCommentCount(commentCount);
                 }
-                Element fromDate = weiboDiv.select("span[class=ct]").first();
-                String fromDateText = fromDate.text();
-                weiboDate = fromDateText.substring(0, fromDateText.indexOf("来自"));
-                weiboFrom = fromDateText.substring(fromDateText.indexOf("来自"));
-                obj.setWeiboDate(weiboDate);
-                obj.setWeiboFrom(weiboFrom);
-
-                Element weiboForward = weiboDiv.select("span[class=cmt]").first();
-                if ( weiboForward != null ) {
-                    Element forwardReason = weiboDiv.select("span[class=cmt]").last().parent();
-                    obj.setWeiboForward(weiboForward.text());
-                    obj.setForwardReason(forwardReason.text());
-                }
-                else {
-                    obj.setWeiboForward("");
-                    obj.setForwardReason("");
-                }
-                System.out.println("----------new weibo------------");
-                System.out.println(obj.getWeiboSender());
-                System.out.println(obj.getSenderURL());
-                System.out.println(obj.getWeiboText());
-                System.out.println(obj.getWeiboImage());
-                System.out.println(obj.getWeiboForward());
-                System.out.println(obj.getForwardReason());
-
-            }
+                format.saveUserWeibo(weiboList, sender, userURL,pageCount);
+                weiboList.clear();
+                userURL = getSearchNext(Doc);
+                pageCount = Integer.parseInt(userURL.substring(userURL.indexOf("page=")+5));
+                if ( pageCount > page )
+                    break;
+            }while(userURL != null);
+            format.saveXML();
         }catch(Exception e) {
             e.printStackTrace();
         }
