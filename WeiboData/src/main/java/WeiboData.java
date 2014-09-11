@@ -35,10 +35,11 @@ public class WeiboData {
         WeiboData obj = new WeiboData(username, password);
         //obj.getSearchWeibo("java", 2);
 
-        obj.getUserWeibo("http://weibo.cn/drsmile", 3);
-        obj.getWatchList("http://weibo.cn/drsmile");
-        obj.getFansList("http://weibo.cn/drsmile");
-        obj.format.saveXML();
+        //obj.getUserWeibo("http://weibo.cn/drsmile", 3);
+        //obj.getWatchList("http://weibo.cn/drsmile");
+        //obj.getFansList("http://weibo.cn/drsmile");
+        obj.getUserInfo("http://weibo.cn/drsmile");
+        //obj.format.saveXML();
     }
 
     public WeiboData( String username, String password ) {
@@ -307,6 +308,75 @@ public class WeiboData {
         return null;
     }
 
+    public void getUserInfo( String userURL ) {
+        try {
+            /*HttpGet httpget = new HttpGet(userURL);
+            HttpResponse response = httpclient.execute(httpget);
+            String userHTML = EntityUtils.toString(response.getEntity());
+            Document Doc = Jsoup.parse(userHTML);
+            Element infoDiv = Doc.select("div[class=ut]").first();
+
+            String infoURL = "";
+            Elements atags = infoDiv.select("a[href]");
+            for (Element atag:atags) {
+                if ( atag.text().contains("资料") ) {
+                    infoURL = "https://weibo.cn" + atag.attr("href");
+                    break;
+                }
+            }*/
+
+            /*httpget = new HttpGet(infoURL);
+            response = httpclient.execute(httpget);
+            String infoHTML = EntityUtils.toString(response.getEntity());*/
+            String infoHTML = FileUtils.readFileToString(new File("test.html"));
+            Document Doc = Jsoup.parse(infoHTML);
+            userInfo obj = new userInfo();
+
+            Element imageEle = Doc.select("img[alt=头像]").first();
+            obj.setUserPicURL(imageEle.attr("src"));
+            Element infoEle = Doc.select("div[class=tip]").first().nextElementSibling();
+            String infoText = infoEle.html().replaceAll("<br />", "");
+            infoText = infoText.replaceAll("：", ":");
+            infoText = infoText.substring(0, infoText.indexOf("标签:")-1);
+            String infoTagURL = "";
+            Elements infoTagEles = infoEle.select("a[href]");
+            for ( Element infoTagEle:infoTagEles ) {
+                if ( infoTagEle.text().equals("更多>>") ) {
+                    infoTagURL = infoTagEle.attr("href");
+                }
+            }
+            /*
+            * httpget = new HttpGet(infoTagURL);
+            * response = httpclient.execute(httpget);
+            * String tagHTML = EntityUtils.toString(response.getEntity());
+            * */
+
+            String[] infoArry = infoText.split("\n");
+            for ( String infoLine:infoArry ) {
+                String infoType = infoLine.substring(0, infoLine.indexOf(":"));
+                String infoData = infoLine.substring(infoLine.indexOf(":")+1);
+                System.out.println(infoType + "\t\t" + infoData);
+                switch (toInfoEnum(infoType)) {
+                    case 昵称:obj.setUserName(infoData); break;
+                    case 认证:obj.setConfirmInfo(infoData); break;
+                    case 性别:obj.setUserSex(infoData); break;
+                    case 地区:obj.setUserAddr(infoData); break;
+                    case 生日:obj.setUserBirth(infoData); break;
+                    case 简介:obj.setUserResume(infoData); break;
+                    default:break;
+                }
+
+            }
+
+            /*Elements spanDivs = infoDiv.select("span[class=ctt]");
+            for ( Element spanDiv:spanDivs ) {
+                System.out.println(spanDiv.text());
+            }*/
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void getUserAll( String userURL ) {
         try {
             List<weiboFans> fansList = getFansList(userURL);
@@ -314,5 +384,11 @@ public class WeiboData {
         }catch(Exception e) {
             e.printStackTrace();
         }
+    }
+    private enum infoEnum {
+        昵称,认证,性别,地区,生日,简介,标签,认证信息
+    }
+    private infoEnum toInfoEnum( String infoType ) {
+        return WeiboData.infoEnum.valueOf(infoType);
     }
 }
