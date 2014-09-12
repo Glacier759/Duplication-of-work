@@ -15,7 +15,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -30,12 +34,16 @@ public class WeiboData {
     private WeiboFormat format = new WeiboFormat();
     private String userID = "";
     private int userPageCount = 0;
+    private HashSet<String> userSet = new HashSet<String>();
+    private static PrintStream ps;
     public static void main(String[] args) throws Exception{
-
+    	ps = new PrintStream(new FileOutputStream("system.log")); 
+        System.setOut(ps); 
         WeiboData obj = new WeiboData();
         //obj.getSearchWeibo("java", 2);
         String weiboURL = "http://weibo.cn/drsmile";
-        obj.getUserAll(weiboURL, true, 1, 6);
+        obj.getUserAll(weiboURL, true, 1, 1);
+        System.out.println("抓取过程结束");
     }
 
     public WeiboData() {
@@ -60,7 +68,7 @@ public class WeiboData {
             FileUtils.writeStringToFile(new File("userpass.temp"), usernameText);
             System.out.println("获取新用户准备登陆 user: " + this.username);
         }catch(Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace(ps);
         }
     }
 
@@ -93,12 +101,13 @@ public class WeiboData {
             String localtionURL = response.getFirstHeader("Location").getValue();
             HttpGet httpget = new HttpGet(localtionURL);
             response = httpclient.execute(httpget);
+            userPageCount = 0;
             String LoginSuccessHTML = EntityUtils.toString(response.getEntity());
             Doc = Jsoup.parse(LoginSuccessHTML);
             String idhref = Doc.select("div[class=tip2]").select("a[href]").first().attr("href");
             userID = idhref.substring(idhref.indexOf("/")+1, idhref.lastIndexOf("/"));
         }catch(Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace(ps);
         }
     }
 
@@ -156,7 +165,7 @@ public class WeiboData {
                 searchHTML = EntityUtils.toString(response.getEntity());
             }while(searchURL != null);
         }catch(Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace(ps);
         }
     }
 
@@ -172,11 +181,12 @@ public class WeiboData {
             else
                 nextURL = pageURL.substring(0,pageURL.indexOf("?")) + "?page=" + (Integer.parseInt(thisPage)+1);
         }
-        System.out.println(nextURL);
+       // System.out.println(nextURL);
         return nextURL;
     }
 
-    public List<weiboFans> getFansList( String userURL ) {
+    public List<weiboFans> getFansList( String userURL ) throws IOException {
+    	Document countDoc = null;
         try {
             System.out.println("正在获取粉丝列表...");
             HttpGet httpget = new HttpGet(userURL);
@@ -184,6 +194,7 @@ public class WeiboData {
             String userHTML = EntityUtils.toString(response.getEntity());
 
             Document Doc = Jsoup.parse(userHTML);
+            countDoc = Doc;
             Element fansDiv = Doc.select("div[class=tip2]").first();
             Elements fansDivaTags = fansDiv.select("a[href]");
             String fansURL = "";
@@ -216,8 +227,14 @@ public class WeiboData {
             }while(fansURL != null);
             format.saveFansList(fansList, userURL, "fans");
             return fansList;
+        }catch(NullPointerException e) {
+        	e.printStackTrace(ps);
+        	getUserPass();
+        	login();
+        	return getFansList(userURL);
+        	//FileUtils.writeStringToFile(new File(System.currentTimeMillis() + "_fans.html"), countDoc.toString());
         }catch(Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace(ps);
         }
         return null;
     }
@@ -230,14 +247,20 @@ public class WeiboData {
 
             Document Doc = Jsoup.parse(userHTML);
             Element maxPageEle = Doc.select("input[type=hidden]").first();
-            String maxPage = maxPageEle.attr("value");
+            String maxPage = "";
+            if ( maxPageEle != null )
+            	maxPage = maxPageEle.attr("value");
+            else
+            	maxPage = "1";
             getUserWeibo(userURL, Integer.parseInt(maxPage), lastDate);
         }catch(Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace(ps);
         }
     }
     public void getUserWeibo( String userURL, int page, String lastDate ) {
         Document Doc = null;
+        Element errorEle = null;
+        Elements errorEles = null;
         try {
             System.out.println("正在获取用户微博...");
             List<weiboSearch> weiboList = new ArrayList<weiboSearch>();
@@ -248,7 +271,6 @@ public class WeiboData {
                 if ( userPageCount >= 1000 ) {
                     getUserPass();
                     login();
-                    userPageCount = 0;
                 }
                 System.out.println("获取到微博第 "+pageCount+" 页 / " + page + " 页\t当前用户抓取到第 " + userPageCount + " 页");
                 HttpGet httpget = new HttpGet(userURL);
@@ -262,13 +284,26 @@ public class WeiboData {
                     maxPage = maxPageEle.attr("value");
                 else
                     maxPage = "1";
-                String title = Doc.select("title").text();
-                String sender = title.substring(0, title.lastIndexOf("的"));
+                String title = "";
+                String sender = "";
+                try {
+	                errorEles = Doc.select("title");
+	                title = Doc.select("title").text();
+	                sender = title.substring(0, title.lastIndexOf("的"));
+                }catch( StringIndexOutOfBoundsException e ) {
+                	System.out.println("出现StringIndexOutOfBoundsException\tline: 294");
+                	System.out.println("第 " + pageCount + " 页被掠过");
+                	getUserPass();
+                	login();
+                	continue;
+                }
                 Elements weiboDivs = Doc.select("div[id]");
                 for (Element weiboDiv : weiboDivs) {
                     try {
                         weiboSearch obj = new weiboSearch();
                         Element weiboText = weiboDiv.select("span[class=ctt]").first();
+                        if ( weiboText == null )
+                        	continue;
                         obj.setWeiboText(weiboText.text());
                         obj.setSenderURL(userURL);
                         obj.setWeiboSender(sender);
@@ -278,15 +313,19 @@ public class WeiboData {
                         Elements imageEles = weiboDiv.select("a[href]");
                         if (imageEles.size() > 0) {
                             for (Element imageEle : imageEles) {
-                                String eleText = imageEle.text();
-                                if (eleText.contains("原图")) {
-                                    imageURL = imageEle.attr("href");
-                                } else if (eleText.contains("赞")) {
-                                    likeCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
-                                } else if (eleText.contains("转发")) {
-                                    forwardCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
-                                } else if (eleText.contains("评论")) {
-                                    commentCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
+                            	try {
+	                                String eleText = imageEle.text();
+	                                if (eleText.contains("原图")) {
+	                                    imageURL = imageEle.attr("href");
+	                                } else if (eleText.contains("赞")) {
+	                                    likeCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
+	                                } else if (eleText.contains("转发")) {
+	                                    forwardCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
+	                                } else if (eleText.contains("评论")) {
+	                                    commentCount = eleText.substring(eleText.indexOf('[') + 1, eleText.indexOf(']'));
+	                                }
+                            	}catch(StringIndexOutOfBoundsException e){
+                                	System.out.println("出现StringIndexOutOfBoundsException，可以弃之不理\tline: 317");
                                 }
                             }
                             obj.setWeiboImage(imageURL);
@@ -316,27 +355,26 @@ public class WeiboData {
                         if ( weiboDate.contains(lastDate) )
                             break breakDate;
                     }catch(NullPointerException e) {
-
+                    	e.printStackTrace(ps);
                     }catch (Exception e) {
-                        e.printStackTrace();
-                        continue;
+                    	e.printStackTrace(ps);
                     }
                 }
                 format.saveUserWeibo(weiboList, sender, userURL, pageCount);
                 weiboList.clear();
                 userURL = getSearchNext(userURL, page);
                 pageCount = Integer.parseInt(userURL.substring(userURL.indexOf("page=")+5));
-                System.out.println(maxPage);
                 if ( pageCount > page || pageCount >= Integer.parseInt(maxPage)  )
                     break;
             }while(userURL != null);
         }catch(Exception e) {
-            e.printStackTrace();
-            System.out.println(Doc);
+        	e.printStackTrace(ps);
+            //System.out.println(Doc);
         }
     }
 
-    public List<weiboFans> getWatchList( String userURL ) {
+    public List<weiboFans> getWatchList( String userURL ) throws IOException {
+    	Document countDoc = null;
         try {
             System.out.println("正在获取关注列表...");
             HttpGet httpget = new HttpGet(userURL);
@@ -344,6 +382,7 @@ public class WeiboData {
             String userHTML = EntityUtils.toString(response.getEntity());
 
             Document Doc = Jsoup.parse(userHTML);
+            countDoc = Doc;
             Element watchDiv = Doc.select("div[class=tip2]").first();
             Elements watchDivaTags = watchDiv.select("a[href]");
             String watchURL = "";
@@ -375,13 +414,20 @@ public class WeiboData {
             }while(watchURL != null);
             format.saveFansList(watchList, userURL, "watch");
             return watchList;
+        }catch(NullPointerException e) {
+        	e.printStackTrace(ps);
+        	getUserPass();
+        	login();
+        	return getWatchList(userURL);
+        	//FileUtils.writeStringToFile(new File(System.currentTimeMillis() + "_watch.html"), countDoc.toString());
         }catch(Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace(ps);
         }
         return null;
     }
 
-    public void getUserInfo( String userURL ) {
+    public void getUserInfo( String userURL ) throws IOException {
+    	Document countDoc = null;
         try {
             System.out.println("正在获取用户信息...");
             userInfo obj = new userInfo();
@@ -390,7 +436,8 @@ public class WeiboData {
             String userHTML = EntityUtils.toString(response.getEntity());
             Document Doc = Jsoup.parse(userHTML);
 
-            Element countEle = Doc.select("div[class=tip2]").first();
+            countDoc = Doc;
+            Element countEle = Doc.select("div[class=tip2]").first(); 	//div class=tip2
             String countTemp = countEle.select("span").first().text();
             String weiboCount = countTemp.substring(countTemp.indexOf("[")+1, countTemp.indexOf("]"));
             countTemp = countEle.select("a[href]").get(0).text();
@@ -423,25 +470,27 @@ public class WeiboData {
             Element infoEle = Doc.select("div[class=tip]").first().nextElementSibling();
             String infoText = infoEle.html().replaceAll("<br />", "");
             infoText = infoText.replaceAll("：", ":");
-            infoText = infoText.substring(0, infoText.indexOf("标签:")-1);
-            String infoTagURL = "";
-            Elements infoTagEles = infoEle.select("a[href]");
-            for ( Element infoTagEle:infoTagEles ) {
-                if ( infoTagEle.text().equals("更多>>") ) {
-                    infoTagURL = "http://weibo.cn" + infoTagEle.attr("href");
-                }
-            }
+        	String infoTagText = "";
+            if ( infoText.contains("标签") ) {
+            	infoText = infoText.substring(0, infoText.indexOf("标签:")-1);
+            	String infoTagURL = "";
+            	Elements infoTagEles = infoEle.select("a[href]");
+            	for ( Element infoTagEle:infoTagEles ) {
+            		if ( infoTagEle.text().equals("更多>>") ) {
+            			infoTagURL = "http://weibo.cn" + infoTagEle.attr("href");
+            		}
+            	}
 
-            httpget = new HttpGet(infoTagURL);
-            response = httpclient.execute(httpget);
-            String tagHTML = EntityUtils.toString(response.getEntity());
-            Doc = Jsoup.parse(tagHTML);
-            Elements infoTags = Doc.select("div[class=c]").get(2).select("a[href]");
-            String infoTagText = "";
-            for ( Element infoTag:infoTags ) {
-                infoTagText += "," + infoTag.text();
+            	httpget = new HttpGet(infoTagURL);
+            	response = httpclient.execute(httpget);
+            	String tagHTML = EntityUtils.toString(response.getEntity());
+            	Doc = Jsoup.parse(tagHTML);
+            	Elements infoTags = Doc.select("div[class=c]").get(2).select("a[href]");
+            	for ( Element infoTag:infoTags ) {
+            		infoTagText += "," + infoTag.text();
+            	}
+            	infoTagText = infoTagText.substring(1);
             }
-            infoTagText = infoTagText.substring(1);
             obj.setUserTag(infoTagText);
             obj.setUserName("");
             obj.setConfirmInfo("");
@@ -454,7 +503,7 @@ public class WeiboData {
             for ( String infoLine:infoArry ) {
                 String infoType = infoLine.substring(0, infoLine.indexOf(":"));
                 String infoData = infoLine.substring(infoLine.indexOf(":")+1);
-                switch (toInfoEnum(infoType)) {
+                switch (toInfoEnum(infoType)) { 	//除此之外 比如性取向
                     case 昵称:obj.setUserName(infoData); break;
                     case 认证:obj.setConfirmInfo(infoData); break;
                     case 性别:obj.setUserSex(infoData); break;
@@ -465,33 +514,44 @@ public class WeiboData {
                 }
             }
             format.saveUserInfo(obj, userURL);
+        }catch(NullPointerException e) {
+        	e.printStackTrace(ps);
+        	getUserPass();
+        	login();
+        	getUserInfo(userURL);
+        	//FileUtils.writeStringToFile(new File(System.currentTimeMillis() + "_info.html"), countDoc.toString());
         }catch(Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace(ps);
         }
     }
 
     public void getUserAll( String userURL, boolean isRecursion, int recursionCount, int targetCount ) {
         try {
+    		System.out.println("开始抓取: " + userURL);
             getUserInfo(userURL);
             getUserWeibo(userURL, "2012");
             List<weiboFans> fansList = getFansList(userURL);
             List<weiboFans> watchList = getWatchList(userURL);
             format.saveXML();
             format = new WeiboFormat();
+            userSet.add(userURL);
             if ( isRecursion ) {
                 for (weiboFans watchUser : watchList) {
-                    if ( recursionCount >= targetCount )
-                        getUserAll(watchUser.getFansURL(), false, recursionCount+1, targetCount);
-                    else
-                        getUserAll(watchUser.getFansURL(), true, recursionCount+1, targetCount);
+                	if ( !userSet.contains(watchUser)  ) {
+                		System.out.println("接下来开始抓取: " + watchUser.getFansURL());
+                		if ( recursionCount >= targetCount )
+                			getUserAll(watchUser.getFansURL(), false, recursionCount+1, targetCount);
+                		else
+                			getUserAll(watchUser.getFansURL(), true, recursionCount+1, targetCount);
+                	}
                 }
             }
         }catch(Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace(ps);
         }
     }
     private enum infoEnum {
-        昵称,认证,性别,地区,生日,简介,标签,认证信息
+        昵称,认证,性别,地区,生日,简介,标签,认证信息,性取向,达人,感情状况
     }
     private infoEnum toInfoEnum( String infoType ) {
         return WeiboData.infoEnum.valueOf(infoType);

@@ -117,7 +117,7 @@ public class WeiboFormat {
             XMLWriter output = new XMLWriter( fileWriter, format );
             output.write(xmlDoc);
             output.close();
-            System.out.println(FileUtils.readFileToString(new File(fileName)));
+           // System.out.println(FileUtils.readFileToString(new File(fileName)));
         }catch(Exception e) {
             e.printStackTrace();
         }
