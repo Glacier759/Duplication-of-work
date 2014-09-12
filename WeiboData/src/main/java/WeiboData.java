@@ -18,7 +18,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -39,11 +41,14 @@ public class WeiboData {
     public static void main(String[] args) throws Exception{
     	ps = new PrintStream(new FileOutputStream("system.log")); 
         System.setOut(ps); 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        System.out.println(dateFormat.format(new Date()));
         WeiboData obj = new WeiboData();
         //obj.getSearchWeibo("java", 2);
         String weiboURL = "http://weibo.cn/drsmile";
         obj.getUserAll(weiboURL, true, 1, 1);
         System.out.println("抓取过程结束");
+        System.out.println(dateFormat.format(new Date()));
     }
 
     public WeiboData() {
@@ -551,7 +556,7 @@ public class WeiboData {
         }
     }
     private enum infoEnum {
-        昵称,认证,性别,地区,生日,简介,标签,认证信息,性取向,达人,感情状况
+        昵称,认证,性别,地区,生日,简介,标签,认证信息,性取向,达人,感情状况,血型,个性域名
     }
     private infoEnum toInfoEnum( String infoType ) {
         return WeiboData.infoEnum.valueOf(infoType);
