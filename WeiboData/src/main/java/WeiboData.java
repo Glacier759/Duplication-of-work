@@ -21,7 +21,9 @@ import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,6 +40,7 @@ public class WeiboData {
     private int userPageCount = 0;
     private HashSet<String> userSet = new HashSet<String>();
     private static PrintStream ps;
+    private HashMap<String,Integer> userWeiboURL = new HashMap<String,Integer>();
     public static void main(String[] args) throws Exception{
     	ps = new PrintStream(new FileOutputStream("system.log")); 
         System.setOut(ps); 
@@ -46,7 +49,7 @@ public class WeiboData {
         WeiboData obj = new WeiboData();
         //obj.getSearchWeibo("java", 2);
         String weiboURL = "http://weibo.cn/drsmile";
-        obj.getUserAll(weiboURL, true, 1, 1);
+        obj.getUserAll(weiboURL, true, 1, 6);
         System.out.println("抓取过程结束");
         System.out.println(dateFormat.format(new Date()));
     }
@@ -532,24 +535,27 @@ public class WeiboData {
 
     public void getUserAll( String userURL, boolean isRecursion, int recursionCount, int targetCount ) {
         try {
-    		System.out.println("开始抓取: " + userURL);
-            getUserInfo(userURL);
-            getUserWeibo(userURL, "2012");
-            List<weiboFans> fansList = getFansList(userURL);
-            List<weiboFans> watchList = getWatchList(userURL);
-            format.saveXML();
-            format = new WeiboFormat();
-            userSet.add(userURL);
-            if ( isRecursion ) {
-                for (weiboFans watchUser : watchList) {
-                	if ( !userSet.contains(watchUser)  ) {
-                		System.out.println("接下来开始抓取: " + watchUser.getFansURL());
-                		if ( recursionCount >= targetCount )
-                			getUserAll(watchUser.getFansURL(), false, recursionCount+1, targetCount);
-                		else
-                			getUserAll(watchUser.getFansURL(), true, recursionCount+1, targetCount);
-                	}
-                }
+        	if ( isRecursion ) {
+	    		System.out.println("开始抓取: " + userURL);
+	            getUserInfo(userURL);
+	            getUserWeibo(userURL, "2012");
+	            List<weiboFans> fansList = getFansList(userURL);
+	            List<weiboFans> watchList = getWatchList(userURL);
+	            format.saveXML();
+	            format = new WeiboFormat();
+	            userSet.add(userURL);
+            	for ( weiboFans watchUser : watchList ) {
+            		if ( !userSet.contains(watchUser) )
+            			userWeiboURL.put(watchUser.getFansURL(), recursionCount);
+            	}
+            }
+            for ( String userurl:userWeiboURL.keySet() ) {
+            	int recursioncount = userWeiboURL.remove(userurl);
+            	System.out.println("接下来开始抓取: " + userurl + "\t深度即将达到 " + (recursioncount+1) + " 层");
+        		if ( recursionCount >= targetCount )
+        			getUserAll(userurl, false, recursioncount+1, targetCount);
+        		else
+        			getUserAll(userurl, true, recursioncount+1, targetCount);
             }
         }catch(Exception e) {
         	e.printStackTrace(ps);
