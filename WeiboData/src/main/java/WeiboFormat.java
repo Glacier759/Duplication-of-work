@@ -17,6 +17,7 @@ import java.util.List;
 public class WeiboFormat {
     private Document xmlDoc = DocumentHelper.createDocument();
     private Element root = xmlDoc.addElement("root");
+    public Integer recursionCount = null, targetCount = null;
     public void saveWeiboSearch(List<weiboSearch> weiboList, int pageCount, String question) {
         Element questionEle = root.addElement("question");
         questionEle.addAttribute("question", question);
@@ -110,6 +111,10 @@ public class WeiboFormat {
 
     public void saveXML() {
         try {
+            if ( recursionCount != null )
+                root.addAttribute("recursionCount", recursionCount.toString());
+            if ( targetCount != null )
+                root.addAttribute("targetCount", targetCount.toString());
             String fileName = System.currentTimeMillis() + ".xml";
             System.out.println("正在进行格式整理并保存为 " + fileName + " ...");
             OutputFormat format = OutputFormat.createPrettyPrint();

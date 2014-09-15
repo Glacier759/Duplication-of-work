@@ -41,6 +41,7 @@ public class WeiboData {
     private HashSet<String> userSet = new HashSet<String>();
     private static PrintStream ps;
     private HashMap<String,Integer> userWeiboURL = new HashMap<String,Integer>();
+    private File recordFile = new File("record.log");
     public static void main(String[] args) throws Exception{
     	ps = new PrintStream(new FileOutputStream("system.log")); 
         System.setOut(ps); 
@@ -57,6 +58,20 @@ public class WeiboData {
     public WeiboData() {
         getUserPass();
         login();
+    }
+
+    public boolean detectRecord() throws Exception{
+        if ( recordFile.exists() ) {
+            List<String> urlist = FileUtils.readLines(recordFile);
+            for ( String urline:urlist ) {
+                String[] urlarry = urline.split(",");
+                String userURL = urlarry[0];
+                String urlCount = urlarry[1];
+                userWeiboURL.put(userURL, Integer.parseInt(urlCount));
+            }
+            return true;
+        }
+        return false;
     }
 
     public void getUserPass( ) {
@@ -532,8 +547,22 @@ public class WeiboData {
         	e.printStackTrace(ps);
         }
     }
-
-    public void getUserAll( String userURL, boolean isRecursion, int recursionCount, int targetCount ) {
+    public void getUserAll( String userURL, boolean isRecursion, int recursionCount, int targetCount ) throws  Exception{
+        if( detectRecord() ) {
+            for ( String userurl:userWeiboURL.keySet() ) {
+                int recursioncount = userWeiboURL.remove(userurl);
+                System.out.println("按记录开始抓取： " + userurl + "\t深度及将达到 " + (recursioncount+1) + " 层");
+                if ( recursionCount >= targetCount )
+                    getUserAllStart(userurl, false, recursioncount+1, targetCount);
+                else
+                    getUserAllStart(userurl, true, recursioncount+1, targetCount);
+            }
+        }
+        else{
+        	getUserAllStart(userURL, true, 1, 6);
+        }
+    }
+    public void getUserAllStart( String userURL, boolean isRecursion, int recursionCount, int targetCount ) {
         try {
         	if ( isRecursion ) {
 	    		System.out.println("开始抓取: " + userURL);
@@ -541,21 +570,28 @@ public class WeiboData {
 	            getUserWeibo(userURL, "2012");
 	            List<weiboFans> fansList = getFansList(userURL);
 	            List<weiboFans> watchList = getWatchList(userURL);
+                format.recursionCount = recursionCount;
+                format.targetCount = targetCount;
 	            format.saveXML();
 	            format = new WeiboFormat();
 	            userSet.add(userURL);
             	for ( weiboFans watchUser : watchList ) {
             		if ( !userSet.contains(watchUser) )
-            			userWeiboURL.put(watchUser.getFansURL(), recursionCount);
+                        userWeiboURL.put(watchUser.getFansURL(), recursionCount);
             	}
+                recordFile.delete();
+                for ( String userurl:userWeiboURL.keySet() ) {
+                    int count = userWeiboURL.get(userurl);
+                    FileUtils.writeStringToFile(recordFile, userurl+","+count+"\n", "UTF-8", true);
+                }
             }
             for ( String userurl:userWeiboURL.keySet() ) {
             	int recursioncount = userWeiboURL.remove(userurl);
             	System.out.println("接下来开始抓取: " + userurl + "\t深度即将达到 " + (recursioncount+1) + " 层");
         		if ( recursionCount >= targetCount )
-        			getUserAll(userurl, false, recursioncount+1, targetCount);
+        			getUserAllStart(userurl, false, recursioncount+1, targetCount);
         		else
-        			getUserAll(userurl, true, recursioncount+1, targetCount);
+        			getUserAllStart(userurl, true, recursioncount+1, targetCount);
             }
         }catch(Exception e) {
         	e.printStackTrace(ps);
