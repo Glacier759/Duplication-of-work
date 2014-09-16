@@ -85,8 +85,11 @@ public class BingtuanClass {
                     .get();
             Element TitleEle = Doc.select("td[class=title_a]").first();
             String Title = TitleEle.text(); 		//获得文章title
-
             String PublishTime = Doc.select("span[class=blue2]").last().text(); 	//获得文章发表日期
+            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+            Date date = format.parse(PublishTime.substring(0, PublishTime.indexOf("星期")-1));
+            format = new SimpleDateFormat("yyyy-MM-dd");
+            PublishTime = format.format(date);
             Element TextContent = Doc.select("div[id=ozoom]").first();
             Elements ContentPTags = TextContent.select("p");
             String Content = "\r\n"; 						//获得文章正文内容

@@ -87,7 +87,10 @@ public class HuaxiDushibao {
             Element TitleEle = Doc.select("div[class=bt_title]").first();
             String Title = TitleEle.text(); 		//获得文章title
 
-            String PublishTime = getDate(NewsUrl); 	//获得文章发表日期
+            int dateIndex = NewsUrl.indexOf("2014");
+            String PublishTime = NewsUrl.substring(dateIndex,dateIndex+4)+"-"
+                    +NewsUrl.substring(dateIndex+4,dateIndex+6)+"-"
+                    +NewsUrl.substring(dateIndex+6,dateIndex+8); 	//获得文章发表日期
             Elements ContentPTags = Doc.select("div[class=bt_con]").select("p");
             String Content = "\r\n"; 						//获得文章正文内容
             for ( Element ContentPTag:ContentPTags ) {
