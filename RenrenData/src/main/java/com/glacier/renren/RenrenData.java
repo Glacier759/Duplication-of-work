@@ -15,7 +15,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import javax.print.Doc;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,8 +36,7 @@ public class RenrenData {
         //obj.login();
         String renren = FileUtils.readFileToString(new File("geren.html"));
         Document doc = Jsoup.parse(renren);
-        obj.getUserInfo(doc);
-        //FileUtils.writeStringToFile(new File("userinfo.html"), doc.toString());
+        obj.getUserStatus(doc);
 
     }
 
@@ -161,10 +159,10 @@ public class RenrenData {
         return doc;
     }
 
-    public String getTbodyTopic( Document doc, String topic ) {
+    public String getTbodyTopic( Document userPageDoc, String topic ) {
         String topicURL = null;
         try {
-            Elements topicDiv = doc.select("tbody").select("a[href]");
+            Elements topicDiv = userPageDoc.select("tbody").select("a[href]");
             for ( Element topicTag:topicDiv ) {
                 if ( topicTag.text().equals(topic) ) {
                     topicURL = topicTag.attr("href");
@@ -177,10 +175,10 @@ public class RenrenData {
         return topicURL;
     }
 
-    public void getUserInfo(Document doc) {
+    public void getUserInfo(Document userPageDoc) {
         HashMap<String,HashMap<String,String>> userInfoMap = new HashMap<String, HashMap<String,String>>();
         try {
-            String userInfoLink = getTbodyTopic(doc, "详细资料");
+            String userInfoLink = getTbodyTopic(userPageDoc, "详细资料");
             System.out.println(userInfoLink);
             Document userInfoDoc = Jsoup.parse(FileUtils.readFileToString(new File("userinfo.html")));
             //Document userInfoDoc = getDocument(userInfoLink);
@@ -208,13 +206,83 @@ public class RenrenData {
                 }
                 userInfoMap.put(infoType, infoTypeMap);
             }
-            for ( String key:userInfoMap.keySet() ) {
+            /*for ( String key:userInfoMap.keySet() ) {
                 System.out.println(key);
                 for ( String keyc:userInfoMap.get(key).keySet() ) {
                     System.out.println(keyc + " - " + userInfoMap.get(key).get(keyc));
                 }
+            }*/
+            RenrenFormat dataFormat = new RenrenFormat();
+            dataFormat.saveUserInfo(userInfoMap);
+            System.out.println(dataFormat.formatXML());
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getUserStatus(Document userPageDoc) {
+        try {
+            String userStatusLink = getTbodyTopic(userPageDoc, "状态");
+            //System.out.println(userStatusLink);
+            Document userStatusDoc = Jsoup.parse(FileUtils.readFileToString(new File("status.html")));
+            //Document userStatusDoc = getDocument(userStatusLink);
+            Element userStatusDiv = userStatusDoc.select("div[class=list]").first();
+            Elements userStatusEles = userStatusDiv.select("div");
+            userStatusEles.remove(0);
+            for ( Element userStatusEle:userStatusEles ) {
+                String time, forwardUser, forwardText;
+                Element timeEle = userStatusEle.select("p[class=time]").first();
+                if ( timeEle == null )
+                    continue;
+                time = timeEle.text();
+                System.out.println("time = " + time);
+                Element forwardEle = userStatusEle.select("p[class=forward]").first();
+                if ( forwardEle != null ) {
+                    Element forwardUserEle = forwardEle.select("a[href]").first();
+                    forwardUser = forwardUserEle.text();
+                    forwardUserEle.html("");
+                    forwardText = forwardEle.text();
+                    System.out.println("user = " + forwardUser);
+                    System.out.println("forward = " + forwardText.substring(2));
+                }
+                Elements aTagEles = userStatusEle.select("a[href]");
+                String replyLink = null;
+                for ( Element aTageEle:aTagEles ) {
+                    if ( aTageEle.text().contains("回复") ) {
+                        replyLink = aTageEle.attr("href");
+                        if ( !aTageEle.text().contains("(") )
+                            replyLink = null;
+                        break;
+                    }
+                }
+                List<String> replyList = null;
+                if ( replyLink != null ) {
+                    Document replyDoc = getDocument(replyLink);
+                    Element replyDiv = replyDoc.select("div[class=list]").first();
+                    Elements replyEles = replyDiv.select("div");
+                    replyEles.remove(0);
+                    replyList = new ArrayList<String>();
+                    for ( Element replyEle:replyEles ) {
+                        Elements replyHref = replyEle.select("a[href]");
+                        String replyUser = replyHref.remove(0).text();
+                        replyHref.html("");
+                        System.out.println("reply: " + replyEle.text());
+                        replyList.add(replyEle.text());
+                    }
+                }
+                timeEle.html("");
+                if ( forwardEle != null )
+                    forwardEle.html("");
+                aTagEles.html("");
+                Elements aTages = userStatusEle.select("a");
+                aTagEles.html("");
+                System.out.println(userStatusEle.html());
+
+
+                System.out.println();
+
             }
-            new RenrenFormat().saveUserInfo(userInfoMap);
+
         }catch (Exception e) {
             e.printStackTrace();
         }

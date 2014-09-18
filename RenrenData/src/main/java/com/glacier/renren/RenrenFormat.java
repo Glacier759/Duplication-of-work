@@ -26,12 +26,10 @@ public class RenrenFormat {
             HashMap<String,String> typeInfoMap = userInfoMap.get(pKey);
             for (String cKey : typeInfoMap.keySet()) {
                 Element infoText = infoType.addElement("infoText");
-                infoText.addAttribute("type",cKey);
+                infoText.addAttribute("name",cKey);
                 infoText.addText(typeInfoMap.get(cKey));
             }
         }
-        System.out.println(root.asXML());
-        formatXML();
     }
 
     public String formatXML() {
