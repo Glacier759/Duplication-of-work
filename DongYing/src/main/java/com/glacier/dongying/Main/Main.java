@@ -14,7 +14,7 @@ public class Main {
         jobSpider.setScheduler(new QueueScheduler()
         .setDuplicateRemover(new BloomFilterDuplicateRemover(10000000)));
         jobSpider.addUrl("http://club.dzwww.com/forum-223-1.html");
-        jobSpider.thread(1);
+        jobSpider.thread(10);
         jobSpider.run();
     }
 }

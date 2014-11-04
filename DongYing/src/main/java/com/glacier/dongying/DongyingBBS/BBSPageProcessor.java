@@ -21,7 +21,7 @@ public class BBSPageProcessor implements PageProcessor {
     {
         pageSpider.setScheduler(new QueueScheduler()
         .setDuplicateRemover(new BloomFilterDuplicateRemover(100000000)));
-        pageSpider.thread(1);
+        pageSpider.thread(10);
     }
 
     @Override
