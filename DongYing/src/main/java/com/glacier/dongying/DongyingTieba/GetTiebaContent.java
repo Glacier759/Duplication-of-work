@@ -31,7 +31,7 @@ public class GetTiebaContent implements PageProcessor {
     public void process(Page page) {
         String url = page.getUrl().toString();
         String content = getContent(url);
-        content = "<url>" + url + "</url>\n" + content;
+        content = "<url>" + url + "</url>\n<title>" + page.getHtml().getDocument().title() + "</title>\n" + content;
         try {
             File dir = new File("Data", "Tieba");
             String fileName = System.currentTimeMillis()+""+(Math.abs(content.hashCode()))+".xml";
