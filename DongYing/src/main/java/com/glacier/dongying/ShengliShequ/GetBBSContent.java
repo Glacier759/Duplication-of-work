@@ -24,14 +24,13 @@ public class GetBBSContent implements PageProcessor {
         content += "<title>" + page.getHtml().getDocument().getElementById("thread_subject").text() + "</title>\n";
 
         content += getContent(page.getUrl().toString());
-        System.out.println(content);
 
         try {
             File dir = new File("Data", "ShengliShequ");
             String fileName = System.currentTimeMillis()+""+(Math.abs(content.hashCode()))+".xml";
             File file = new File(dir, fileName);
             FileUtils.writeStringToFile(file, content);
-            System.out.println(page.getUrl()+"\tsaved "+fileName);
+            System.out.println(page.getUrl()+"\t\tsaved "+fileName);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,6 +49,8 @@ public class GetBBSContent implements PageProcessor {
                     .timeout(30000)
                     .get();
             Elements contentEles = document.select("div[class=t_fsz]");
+            if (contentEles.size() == 0)
+                contentEles = document.select("div[class=pcb]");
             String content = "";
             for ( Element contentEle:contentEles ) {
                 content += contentEle.toString() + "\n";

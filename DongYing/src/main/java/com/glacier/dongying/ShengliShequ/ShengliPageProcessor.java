@@ -23,7 +23,7 @@ public class ShengliPageProcessor implements PageProcessor {
     {
         pageSpider.setScheduler(new QueueScheduler()
                 .setDuplicateRemover(new BloomFilterDuplicateRemover(100000000)));
-        pageSpider.thread(1);
+        pageSpider.thread(10);
     }
 
     @Override
@@ -39,21 +39,10 @@ public class ShengliPageProcessor implements PageProcessor {
                 if ( !urlist.contains(url) ) {
                     urlist.add(url);
                     pageSpider.addUrl(url);
-                    //pageSpider.addUrl("http://www.slit.cn/bbs/forum-92-1.html");
-                    System.out.println(block.attr("abs:href") + "\t" + block.text());
                 }
             }
         }
         pageSpider.run();
-
-//        List<String> urlist = page.getHtml().$("a.xst").links().all();
-//        for ( String urline : urlist ) {
-//            pageSpider.addUrl(urline);
-//        }
-//        pageSpider.run();
-//
-//        String nexturl = page.getHtml().$("a.nxt").links().get();
-//        page.addTargetRequest(nexturl);
     }
 
     @Override
