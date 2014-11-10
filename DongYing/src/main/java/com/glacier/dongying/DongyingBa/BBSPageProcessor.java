@@ -19,7 +19,7 @@ public class BBSPageProcessor implements PageProcessor {
     Spider pageSpider = Spider.create(new GetBBSContent());
     {
         pageSpider.setScheduler(new QueueScheduler()
-                .setDuplicateRemover(new BloomFilterDuplicateRemover(100000000)));
+                .setDuplicateRemover(new BloomFilterDuplicateRemover(10000000)));
         pageSpider.thread(10);
     }
 
@@ -27,6 +27,7 @@ public class BBSPageProcessor implements PageProcessor {
     public void process(Page page) {
         Document document = page.getHtml().getDocument();
         Elements elements = document.select("a[class=s xst]");
+        System.out.println("size = " + elements.size());
         for ( Element element:elements ) {
             pageSpider.addUrl(element.attr("abs:href"));
         }

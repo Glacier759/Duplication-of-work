@@ -20,18 +20,20 @@ public class DongyingPageProcessor implements PageProcessor {
     Spider pageSpider = Spider.create(new BBSPageProcessor());
     {
         pageSpider.setScheduler(new QueueScheduler()
-                .setDuplicateRemover(new BloomFilterDuplicateRemover(100000000)));
+                .setDuplicateRemover(new BloomFilterDuplicateRemover(10000000)));
         pageSpider.thread(10);
     }
 
     @Override
     public void process(Page page) {
+        System.out.println("get homepage");
         Document document = page.getHtml().getDocument();
         Elements blockEles = document.select("div[class=fl_icn_g]");
         for ( Element blockEle:blockEles ) {
             String url = blockEle.select("a[href]").attr("href");
             pageSpider.addUrl(url);
         }
+        System.out.println("ok");
         pageSpider.run();
     }
 

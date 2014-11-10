@@ -30,7 +30,7 @@ public class GetBBSContent implements PageProcessor {
         content += getContent(page.getUrl().toString());
 
         try {
-            File dir = new File("Data", "BBS");
+            File dir = new File("Data", "DongyingBa");
             String fileName = System.currentTimeMillis()+""+(Math.abs(content.hashCode()))+".xml";
             File file = new File(dir, fileName);
             FileUtils.writeStringToFile(file, content);
