@@ -21,13 +21,24 @@ public class Spider {
     private static HashSet<String> hashSet = new HashSet<String>();
     private static List<String> dateList = new ArrayList<String>();
     static {
+        int count = 0;
+        Calendar calendar = Calendar.getInstance();
         Date date = new Date();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-        String date1 = format1.format(date);
-        String date2 = format2.format(date);
-        dateList.add(date1);
-        dateList.add(date2);
+        do {
+            calendar.setTime(date);
+            String date1 = format1.format(date);
+            String date2 = format2.format(date);
+            dateList.add(date1);
+            dateList.add(date2);
+            calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - 1);
+            date = calendar.getTime();
+            count ++;
+            if (count >= 10) {
+                break;
+            }
+        }while(true);
     }
 
     public static void main(String[] args) {
@@ -71,24 +82,27 @@ public class Spider {
             }
         }
         System.out.println(nextSet.size());
-        get(nextSet, type, 1, 2);
-        System.exit(1);
+        get(nextSet, type, 1, 3);
+        System.out.println("搞定 " + type);
     }
 
     public void get(HashSet<String> urlSet, String type, int now, int target) {
+        String host = null;
+        HashSet newSet = new HashSet();
         for ( Iterator itor = urlSet.iterator(); itor.hasNext(); ) {
             String url = (String)itor.next();
             try {
                 Document document = document(url);
+                host = new URL(url).getHost();
                 if (now < target) {
                     Elements elements = document.select("a[href$=.shtml]");
                     for (Element element : elements) {
                         try {
                             String href = element.attr("abs:href");
-                            if (!hashSet.contains(href) && href.contains(document.baseUri()) && hasDate(href)) {
-//                        System.out.println(element);
+                            if (!hashSet.contains(href) && href.contains(host) && hasDate(href)) {
                                 hashSet.add(href);
-                                urlSet.add(href);
+                                newSet.add(href);
+                                System.out.println("get new set - " + newSet.size());
                             }
                         }catch (Exception e) {
                             e.printStackTrace();
@@ -97,21 +111,22 @@ public class Spider {
                 }   //把新的地址加入队列
 
                 //提取正文内容
-                Element titleEle = document.select("meta[property=og:title]").first();
-                String title = titleEle.attr("content");
-                Element body = document.getElementById("artibody");
-                Elements pTags = body.select("p");
-                String content = "";
-                for (Element pTag : pTags) {
-                    content += pTag.text();
-                }
-                content = content.replaceAll("　　", "");
-                String save = title + "\t" + content;
-                System.out.println(title + "\t" + content);
-
                 try {
+                    Element titleEle = document.getElementById("artibodyTitle");
+                    String title = titleEle.text();
+                    Element body = document.getElementById("artibody");
+                    Elements pTags = body.select("p");
+                    String content = "";
+                    for (Element pTag : pTags) {
+                        content += pTag.text();
+                    }
+                    content = content.replaceAll("　　", "");
+                    String save = title + "：\t" + content;
+                    System.out.println(title + "\t" + content);
+
                     FileUtils.writeStringToFile(new File("Data", type + ".txt"), save + "\n", true);
                 } catch (Exception e) {
+                    System.out.println(document.baseUri());
                     e.printStackTrace();
                 }
 
@@ -120,8 +135,10 @@ public class Spider {
                 e.printStackTrace();
             }
         }
+        System.out.println("newSet = " + newSet.size());
         if ( now < target ) {
-            get(urlSet, type, now + 1, target);
+            System.out.println("深度增加");
+            get(newSet, type, now + 1, target);
         }
     }
 
