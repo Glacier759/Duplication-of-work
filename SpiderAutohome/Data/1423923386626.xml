@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <source>http://k.autohome.com.cn/3381/#pvareaid=103459</source>
+  <crawl_date>2015-02-14 22:16:26</crawl_date>
+  <car_type value="微型车" link="http://www.autohome.com.cn/a00/"/>
+  <car_classify brand_name="标致" detail_name="标致(进口)" model_name="标致108"/>
+  <car_info>
+    <car_score people_count=""/>
+    <car_rank total_count="21"/>
+    <car_price official_price="暂无" users_purchase="暂无"/>
+    <car_petrol/>
+    <other_type/>
+  </car_info>
+  <car_review/>
+</root>

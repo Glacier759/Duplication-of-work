@@ -1,6 +1,8 @@
 package com.glacier.spider;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.dom4j.DocumentHelper;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -9,12 +11,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,7 +44,7 @@ public class AutoHome {
                 String type = aTag.text();
                 String link = aTag.attr("abs:href");
                 System.out.println(type + " - " + link);
-                getCarList(link);
+                getCarList(link, type);
                 break;
             }
         }catch (Exception e) {
@@ -54,20 +54,29 @@ public class AutoHome {
         }
     }
 
-    private void getCarList(String link) {
+    private void getCarList(String link, String type) {
         try {
             Document document = document(link);
             Elements elements = document.select("div[class=tab-content-item]").first().select("div[class=uibox]");
 
+            logger.info("获取到 " + type + " 汽车 " + elements.size() + " 块");
+            int element_count = 0;
             for ( Element element:elements ) {
+                element_count ++;
+                logger.info("开始获取第 " + element_count + " 块 / " + elements.size() + " 块");
                 Elements typeList = element.select("dl");
                 for ( Element typeTag:typeList ) {
                     String name1 = typeTag.select("dt").first().text();
                     String name2 = typeTag.select("div[class=h3-tit]").first().text();
-
                     Elements carList = typeTag.select("ul").select("li");
+                    logger.info("当前块有 " + carList.size() + " 辆车");
+                    int car_count = 0;
                     for ( Element carTag:carList ) {
+                        car_count ++;
+                        CarInfo info = new CarInfo();
+
                         String name3 = carTag.select("h4").text();
+                        logger.info("开始获取第 " + car_count + " 辆 / " + carList.size() + " 辆" + "\tname1 = " + name1 + "\tname2 = " + name2 + "\tname3 = " + name3);
                         Elements temps = carTag.select("a[href]");
                         String url = null;
                         for ( Element temp:temps ) {
@@ -76,9 +85,19 @@ public class AutoHome {
                                 break;
                             }
                         }
-                        System.out.println("name1 = " + name1 + "\tname2 = " + name2 + "\tname3 = " + name3 + "\turl = " + url);
-                        getCarInfo("http://k.autohome.com.cn/2922/#pvareaid=104136");
-                        System.exit(1);
+                        info.car_type = type;
+                        info.type_link = link;
+
+                        info.source = url;
+                        info.name1 = name1;
+                        info.name2 = name2;
+                        info.name3 = name3;
+
+                        //getCarInfo("http://k.autohome.com.cn/3217/#pvareaid=103459", info);
+                        getCarInfo(url, info);
+                        logger.info("正在保存文件..");
+                        saveXML(info);
+                        logger.info("----------------------又一个搞定啦-----------------------");
                     }
                 }
             }
@@ -90,10 +109,12 @@ public class AutoHome {
         }
     }
 
-    private void getCarInfo(String link) {
+    private void getCarInfo(String link, CarInfo info) {
         try {
+            logger.info("获取车辆 " + link + " 的信息中..");
             Document document = document(link);
 
+            logger.info("开始获取车辆基础信息");
             //-----------获取当前车型的基础信息
             Elements carInfos = document.select("ul[class=list-ul font-14]").select("li");
             String score = carInfos.select("span[class=font-arial number-fen]").text();                     //用户评分
@@ -106,35 +127,49 @@ public class AutoHome {
             Matcher matcher = pattern.matcher(carInfos.toString());
             if ( matcher.find() )
                 total = matcher.group(1);
-            System.out.println("score = " + score + "\tpeopleNum = " + peopleNum + "\trank = " + rank + "\tprice = " + price + "\tdealerP = " + dealerPriceBox + "\ttotal = " + total);
+
+            info.score = score;
+            info.peopleNum = peopleNum;
+            info.rank = rank;
+            info.price = price;
+            info.dealerPriceBox = dealerPriceBox;
+            info.total = total;
+
+            logger.info("车辆基础信息获取完毕");
             //-----------获取完毕
 
             //-----------耗油情况
+            logger.info("开始获取车辆耗油情况");
             Elements petrolEles = document.select("div[class=tab-content]").first().select("div[style]");
             for ( Element petrolEle:petrolEles ) {
+                Petrol petrol = new Petrol();
                 String petrol_type = petrolEle.attr("class");
                 if (petrol_type.contains("manual-cont"))
                     petrol_type = "手动";
                 else if (petrol_type.contains("auto-cont"))
                     petrol_type = "自动";
-
                 String petrol_count = petrolEle.select("p[class=font-14]").text();
+
+                petrol.petrol_type = petrol_type;
+                petrol.petrol_count = petrol_count;
+
                 Elements temps = petrolEle.select("ul[class=manual-cont-left]").select("li");
-                List<String> petrol_info = new ArrayList<String>();
                 for (Element temp : temps) {
                     String name1 = temp.select("span[class=tit-txt]").remove().text();
                     String name2 = temp.select("span[class=c999]").remove().text();
                     String name3 = temp.text();
-                    System.out.println("name1 = " + name1 + "\tname2 = " + name2 + "\tname3 = " + name3);
-                    petrol_info.add(name1 + "," + name2 + "," + name3);
+
+                    petrol.petrols.add(name1 + "," + name2 + "," + name3);
                 }
-                System.out.println("petrol_type = " + petrol_type + "\tpetrol_count = " + petrol_count);
                 //---------耗油情况完毕
+                info.petrolList.add(petrol);
             }
+            logger.info("车辆耗油情况获取完毕");
             //---------所有车型评分情况
+            logger.info("开始获取车型评分情况");
             Elements carScores = document.getElementById("specListUL").select("li[data-value]");
-            List<String> emissList = new ArrayList<String>();
             for ( Element carScore:carScores ) {
+                Type type = new Type();
                 String emiss_title = carScore.select("div[class=emiss-title]").text();
                 String emiss_price = carScore.select("div[class=emiss-price]").select("a").text();
                 String emiss_fen = carScore.select("div[class=emiss-fen]").select("a").text();
@@ -143,13 +178,17 @@ public class AutoHome {
                     emiss_fen = " ";
                 if ( emiss_ren.length() == 0 )
                     emiss_ren = " ";
-                System.out.println("title = " + emiss_title + "\tprice = " + emiss_price + "\tfen = " + emiss_fen + "\tren = " + emiss_ren);
-                emissList.add(emiss_title + "," + emiss_price + "," + emiss_fen + "," + emiss_ren);
+                type.title = emiss_title;
+                type.price = emiss_price;
+                type.fen = emiss_fen;
+                type.ren = emiss_ren;
+                info.typeList.add(type);
             }
+            logger.info("车型评分情况获取完毕");
             //---------所有车型评分情况完毕
 
             //---------获取所有评论内容
-            getAllReview(link);
+            getAllReview(link, info);
 
         }catch (Exception e) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -158,13 +197,24 @@ public class AutoHome {
         }
     }
 
-    private void getAllReview(String link) {
+    private void getAllReview(String link, CarInfo info) {
         try {
-            do {
+            int count = 0;
+            String total = "0";
+            do {    //获取一页的评论信息
+                count ++;
+                logger.info("正在获取评论情况 page = " + count + "\tlink = " + link + "\ttotal = " + total);
                 Document document = document(link);
                 Elements reviewEles = document.select("div[class=mouthcon js-koubeidataitembox]");
-                for (Element reviewEle : reviewEles) {
+
+                int review_count = 0;
+                for (Element reviewEle : reviewEles) {  //单个用户的信息
+                    review_count ++;
+                    logger.info("正在获取第 " + review_count + " 个用户评论  本页共 " + reviewEles.size() + " 名用户");
+
+                    Review reviewObj = new Review();
                     String userID = reviewEle.select("div[class=name-pic]").select("img").attr("title");
+                    reviewObj.userID = userID;
                     Elements userEles = reviewEle.select("div[class=choose-con mt-10]").select("dl");
                     for (Element userEle : userEles) {
                         String dt = userEle.select("dt").text();
@@ -173,9 +223,11 @@ public class AutoHome {
                             value = userEle.select("span[class=font-arial]").text();
                         else if (dt.contains("购买地点") || dt.contains("购买时间") || dt.contains("裸车购买价") || dt.contains("空间") || dt.contains("动力"))
                             value = userEle.select("dd").text();
-                        else if (dt.contains("操控") || dt.contains("油耗") || dt.contains("舒适性") || dt.contains("外观") || dt.contains("内饰") || dt.contains("性价比"))
+                        else if (dt.contains("操控") || dt.contains("舒适性") || dt.contains("外观") || dt.contains("内饰") || dt.contains("性价比"))
                             value = userEle.select("dd").text();
-                        System.out.println("dt = " + dt + "\tvalue = " + value);
+                        else
+                            continue;
+                        reviewObj.reviewMap.put(dt, value);
                     }
 
                     Element add_dl = reviewEle.select("dl[class=add-dl]").first();
@@ -216,16 +268,24 @@ public class AutoHome {
                     System.out.println(add_dl.text());
                     System.out.println("str1 = " + str1 + "\nstr2 = " + str2 + "\nstr3 = " + str3 + "\nstr4 = " + str4 + "\nstr5 = " + str5);*/
                     }
-                    review += reviewEle.select("div[class=text-con height-list]").select("div").first().text();
-                    System.out.println(review);
+                    review += reviewEle.getElementsByClass("text-cont").text();
 
                     String support = reviewEle.select("label[class=supportNumber]").text();
                     String browse = reviewEle.select("a[class=orange]").text();
-                    System.out.println("support = " + support + "\tbrowse = " + browse);
 
+
+                    reviewObj.review = review;
+                    reviewObj.browse = browse;
+
+                    reviewObj.support = support;
+
+                    info.reviewList.add(reviewObj);
                 }//本页所有评论获取完毕
+                total = document.select("a[class=page-item-last]").attr("abs:href");
+                if ( total == null || total.length() == 0 )
+                    total = "null";
                 link = document.select("a[class=page-item-next]").attr("abs:href");
-                if ( link == null )
+                if ( link == null || link.length() == 0 )
                     break;
             }while(true);
         }catch (Exception e) {
@@ -235,8 +295,82 @@ public class AutoHome {
         }
     }
 
-    private void saveXML() {
+    private void saveXML(CarInfo info) {
         try {
+
+            org.dom4j.Document document = DocumentHelper.createDocument();
+            org.dom4j.Element root = document.addElement("root");
+
+            org.dom4j.Element sourceEle = root.addElement("source");
+            sourceEle.addText(info.source);
+            org.dom4j.Element crawlDate = root.addElement("crawl_date");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            crawlDate.addText(format.format(new Date()));
+
+            org.dom4j.Element typeEle = root.addElement("car_type");
+            typeEle.addAttribute("value", info.car_type);
+            typeEle.addAttribute("link", info.type_link);
+
+            org.dom4j.Element classifyEle = root.addElement("car_classify");
+            classifyEle.addAttribute("brand_name", info.name1);
+            classifyEle.addAttribute("detail_name", info.name2);
+            classifyEle.addAttribute("model_name", info.name3);
+
+            org.dom4j.Element infoEle = root.addElement("car_info");
+            org.dom4j.Element scoreEle = infoEle.addElement("car_score");
+            scoreEle.addText(info.score);
+            scoreEle.addAttribute("people_count", info.peopleNum);
+
+            org.dom4j.Element rankEle = infoEle.addElement("car_rank");
+            rankEle.addText(info.rank);
+            rankEle.addAttribute("total_count", info.total);
+
+            org.dom4j.Element priceEle = infoEle.addElement("car_price");
+            priceEle.addAttribute("official_price", info.price);
+            priceEle.addAttribute("users_purchase", info.dealerPriceBox);
+
+            org.dom4j.Element petrolEle = infoEle.addElement("car_petrol");
+            for ( Petrol petrol:info.petrolList ) {
+                org.dom4j.Element petrolInfo = petrolEle.addElement("petrol_info");
+                petrolInfo.addAttribute("petrol_type", petrol.petrol_type);
+                petrolInfo.addAttribute("petrol_count", petrol.petrol_count);
+                for ( String line:petrol.petrols ) {
+                    String[] array = line.split(",");
+                    org.dom4j.Element valuesEle = petrolInfo.addElement("values");
+                    valuesEle.addAttribute("consume", array[0]);
+                    valuesEle.addAttribute("proportion", array[1]);
+                    valuesEle.addAttribute("number", array[2]);
+                }
+            }
+
+            org.dom4j.Element otherEle = infoEle.addElement("other_type");
+            for ( Type type:info.typeList ) {
+                org.dom4j.Element valuesEle = otherEle.addElement("values");
+                valuesEle.addAttribute("car_type", type.title);
+                valuesEle.addAttribute("car_price", type.price);
+                valuesEle.addAttribute("car_score", type.fen);
+                valuesEle.addAttribute("people_count", type.ren);
+            }
+
+            org.dom4j.Element reviewEle = root.addElement("car_review");
+            for ( Review review:info.reviewList ) {
+                org.dom4j.Element review_user = reviewEle.addElement("review_user");
+                review_user.addAttribute("userID", review.userID);
+                for ( String key:review.reviewMap.keySet() ) {
+                    org.dom4j.Element review_table = review_user.addElement("review_table");
+                    review_table.addAttribute("key", key);
+                    review_table.addAttribute("value", review.reviewMap.get(key));
+                }
+                org.dom4j.Element review_text = review_user.addElement("review_text");
+                review_text.addText(review.review);
+                review_text.addAttribute("support", review.support);
+                review_text.addAttribute("browse", review.browse);
+            }
+
+            String xml = formatXML(root);
+
+            File savePath = new File(new File("Data"), System.currentTimeMillis() + ".xml");
+            FileUtils.writeStringToFile(savePath, xml, "utf-8");
 
         }catch (Exception e) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
