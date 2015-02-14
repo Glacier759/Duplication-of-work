@@ -45,7 +45,6 @@ public class AutoHome {
                 String link = aTag.attr("abs:href");
                 System.out.println(type + " - " + link);
                 getCarList(link, type);
-                break;
             }
         }catch (Exception e) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
