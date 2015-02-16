@@ -10,3 +10,4 @@ Duplication-of-work
 >执行程序java -jar BaiduZhidao.jar 种子URL 存储目录名
 
 >例如: java -jar BaiduZhidao.jar http://zhidao.baidu.com/browse/74 Internet
+
