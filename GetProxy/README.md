@@ -20,3 +20,4 @@ Duplication-of-work
 >getProxyList
 
 >>返回List<HttpHost> 为httpclient中提供的接口类
+
