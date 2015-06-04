@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:15:17</crawl_date>
+    <crawl_link>http://book.douban.com/subject/5263615/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>五天学会绘画</book_name>
+    <book_img>http://img6.douban.com/mpic/s4471040.jpg</book_img>
+    <author>[美] 贝蒂·艾德华</author>
+    <press>北方文艺出版社</press>
+    <original_name>The New Drawing On the Right Side of the Brain</original_name>
+    <translator>张索娃</translator>
+    <publish_date>2010-10-01</publish_date>
+    <page_count>215</page_count>
+    <price>39.00</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787531724834</isbn>
+    <tag_list>
+      <tag1>绘画</tag1>
+      <tag2>艺术</tag2>
+      <tag3>思维</tag3>
+      <tag4>入门</tag4>
+      <tag5>右脑</tag5>
+      <tag6>学习</tag6>
+      <tag7>丰富人生</tag7>
+      <tag8>美国</tag8>
+    </tag_list>
+  </book_info>
+</root>

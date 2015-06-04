@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:15:46</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3410759/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>隔江山色</book_name>
+    <book_img>http://img6.douban.com/mpic/s3934655.jpg</book_img>
+    <author>[美] 高居翰</author>
+    <press>生活·读书·新知三联书店</press>
+    <original_name>Hills Beyond a River: Chinese Painting of the Yuan Dynasty, 1279-1368</original_name>
+    <translator>宋伟航</translator>
+    <publish_date>2009-8</publish_date>
+    <page_count>207</page_count>
+    <price>40.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>高居翰作品系列</series>
+    <isbn>9787108030108</isbn>
+    <tag_list>
+      <tag1>高居翰</tag1>
+      <tag2>艺术史</tag2>
+      <tag3>艺术</tag3>
+      <tag4>绘画</tag4>
+      <tag5>中国美术史</tag5>
+      <tag6>中国</tag6>
+      <tag7>生活·读书·新知三联书店</tag7>
+      <tag8>历史</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:15:32</crawl_date>
+    <crawl_link>http://book.douban.com/subject/2090395/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>铅笔画技法</book_name>
+    <book_img>http://img6.douban.com/mpic/s2958205.jpg</book_img>
+    <author>[美] 大卫·里维斯</author>
+    <press>中国建筑工业出版社</press>
+    <translator>黄今声</translator>
+    <publish_date>1997-5</publish_date>
+    <page_count>144</page_count>
+    <price>48.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>绘画技法经典译丛</series>
+    <isbn>9787112032211</isbn>
+    <tag_list>
+      <tag1>铅笔画</tag1>
+      <tag2>绘画</tag2>
+      <tag3>素描</tag3>
+      <tag4>美术</tag4>
+      <tag5>基础绘画</tag5>
+      <tag6>艺术</tag6>
+      <tag7>绘画基础</tag7>
+      <tag8>画画</tag8>
+    </tag_list>
+  </book_info>
+</root>

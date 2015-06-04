@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:43</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3038328/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>浮世绘</book_name>
+    <book_img>http://img6.douban.com/mpic/s9116433.jpg</book_img>
+    <author>潘力</author>
+    <press>河北教育出版社</press>
+    <publish_date>2012-3</publish_date>
+    <page_count>343</page_count>
+    <price>158.00元</price>
+    <isbn>9787543465862</isbn>
+    <tag_list>
+      <tag1>浮世绘</tag1>
+      <tag2>日本</tag2>
+      <tag3>艺术</tag3>
+      <tag4>绘画</tag4>
+      <tag5>美术</tag5>
+      <tag6>文化</tag6>
+      <tag7>日本文学</tag7>
+      <tag8>绘本</tag8>
+    </tag_list>
+  </book_info>
+</root>

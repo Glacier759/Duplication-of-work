@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:11</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1174671/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>素描进阶教程</book_name>
+    <book_img>http://img6.douban.com/mpic/s1161172.jpg</book_img>
+    <author>基蒙・尼克莱代斯</author>
+    <press>上海人民美术出版社</press>
+    <translator>王毅</translator>
+    <publish_date>2004-7</publish_date>
+    <page_count>176</page_count>
+    <price>36.00元</price>
+    <binding_layout>平装(无盘)</binding_layout>
+    <series>西方经典美术技法译丛</series>
+    <isbn>9787532240371</isbn>
+    <tag_list>
+      <tag1>素描</tag1>
+      <tag2>绘画</tag2>
+      <tag3>艺术</tag3>
+      <tag4>素描进阶教程(尼克莱代斯教学法)</tag4>
+      <tag5>绘画基础</tag5>
+      <tag6>美术</tag6>
+      <tag7>手绘技法</tag7>
+      <tag8>绘画理论</tag8>
+    </tag_list>
+  </book_info>
+</root>

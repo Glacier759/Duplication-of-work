@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:19:08</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3464447/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>剑桥艺术史：文艺复兴艺术</book_name>
+    <book_img>http://img6.douban.com/mpic/s5982342.jpg</book_img>
+    <author>[英]罗萨·玛利亚·莱茨</author>
+    <press>译林出版社</press>
+    <translator>钱乘旦</translator>
+    <publish_date>2009-1</publish_date>
+    <page_count>109</page_count>
+    <price>22.00元</price>
+    <series>剑桥艺术史</series>
+    <isbn>9787544707268</isbn>
+    <tag_list>
+      <tag1>艺术史</tag1>
+      <tag2>艺术</tag2>
+      <tag3>文艺复兴</tag3>
+      <tag4>剑桥艺术史</tag4>
+      <tag5>历史</tag5>
+      <tag6>英国</tag6>
+      <tag7>西方艺术史</tag7>
+      <tag8>:文艺复兴</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:15:00</crawl_date>
+    <crawl_link>http://book.douban.com/subject/20411692/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>隐秘的知识</book_name>
+    <book_img>http://img6.douban.com/mpic/s24576249.jpg</book_img>
+    <author>大卫·霍克尼 David Hockney</author>
+    <press>浙江美术出版社</press>
+    <original_name>大卫·霍克尼</original_name>
+    <translator>万木春 张俊 兰游利等</translator>
+    <publish_date>2012-12</publish_date>
+    <page_count>300</page_count>
+    <price>250.00元</price>
+    <binding_layout>精装</binding_layout>
+    <isbn>9787534033155</isbn>
+    <tag_list>
+      <tag1>艺术</tag1>
+      <tag2>绘画</tag2>
+      <tag3>大卫-霍克尼</tag3>
+      <tag4>艺术史</tag4>
+      <tag5>绘画技巧</tag5>
+      <tag6>艺术理论</tag6>
+      <tag7>美术</tag7>
+      <tag8>透视</tag8>
+    </tag_list>
+  </book_info>
+</root>

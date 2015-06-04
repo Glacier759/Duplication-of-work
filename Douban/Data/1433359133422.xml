@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:48</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3324151/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>剑桥艺术史：19世纪艺术</book_name>
+    <book_img>http://img6.douban.com/mpic/s5969472.jpg</book_img>
+    <author>[英国]唐纳德·雷诺兹</author>
+    <press>译林出版社</press>
+    <translator>钱乘旦</translator>
+    <publish_date>2008-12</publish_date>
+    <page_count>137</page_count>
+    <price>25.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>剑桥艺术史</series>
+    <isbn>9787544705653</isbn>
+    <tag_list>
+      <tag1>艺术史</tag1>
+      <tag2>艺术</tag2>
+      <tag3>剑桥艺术史</tag3>
+      <tag4>历史</tag4>
+      <tag5>英国</tag5>
+      <tag6>19世纪</tag6>
+      <tag7>美术</tag7>
+      <tag8>西方艺术史</tag8>
+    </tag_list>
+  </book_info>
+</root>

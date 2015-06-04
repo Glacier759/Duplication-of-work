@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:15</crawl_date>
+    <crawl_link>http://book.douban.com/subject/26393558/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>水彩画的实质</book_name>
+    <book_img>http://img6.douban.com/mpic/s28076149.jpg</book_img>
+    <author>[英]哈泽尔·索安（Hazel Soan）</author>
+    <press>北京联合出版公司·后浪出版公司</press>
+    <translator>孙薇</translator>
+    <publish_date>2015-6</publish_date>
+    <page_count>132</page_count>
+    <price>60.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787550247703</isbn>
+    <tag_list>
+      <tag1>绘画</tag1>
+      <tag2>水彩</tag2>
+      <tag3>美术</tag3>
+      <tag4>***后浪***</tag4>
+      <tag5>【可信/不可信】</tag5>
+      <tag6>后浪</tag6>
+      <tag7>水彩画</tag7>
+      <tag8>艺术</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:13:55</crawl_date>
+    <crawl_link>http://book.douban.com/subject/25811462/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>小顾聊绘画·壹</book_name>
+    <book_img>http://img6.douban.com/mpic/s27274391.jpg</book_img>
+    <author>顾爷</author>
+    <press>中信出版社</press>
+    <publish_date>2014-3</publish_date>
+    <page_count>256</page_count>
+    <price>38.00元</price>
+    <binding_layout>裸背锁线</binding_layout>
+    <series>小顾聊绘画</series>
+    <isbn>9787508643939</isbn>
+    <tag_list>
+      <tag1>绘画</tag1>
+      <tag2>艺术</tag2>
+      <tag3>顾孟劼</tag3>
+      <tag4>说绘画</tag4>
+      <tag5>闲书</tag5>
+      <tag6>装逼犯</tag6>
+      <tag7>中国</tag7>
+      <tag8>画册/绘本</tag8>
+    </tag_list>
+  </book_info>
+</root>

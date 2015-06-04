@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:14:55</crawl_date>
+    <crawl_link>http://book.douban.com/subject/26276406/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>如何看一幅画Ⅱ</book_name>
+    <book_img>http://img6.douban.com/mpic/s27949830.jpg</book_img>
+    <author>[法]弗朗索瓦芭布·高尔</author>
+    <press>中信出版社</press>
+    <translator>郑柯</translator>
+    <publish_date>2015-1</publish_date>
+    <page_count>324</page_count>
+    <price>58.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>艺术眼</series>
+    <isbn>9787508649542</isbn>
+    <tag_list>
+      <tag1>艺术</tag1>
+      <tag2>绘画</tag2>
+      <tag3>赏析</tag3>
+      <tag4>文艺</tag4>
+      <tag5>如何看一幅画就很好看呢，期待呀</tag5>
+      <tag6>美术</tag6>
+      <tag7>随笔</tag7>
+      <tag8>中信出版社</tag8>
+    </tag_list>
+  </book_info>
+</root>

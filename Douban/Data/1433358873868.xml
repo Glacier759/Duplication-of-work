@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:14:31</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3111928/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>安迪·沃霍尔的哲学</book_name>
+    <book_img>http://img6.douban.com/mpic/s6564469.jpg</book_img>
+    <author>[美] 安迪·沃霍尔</author>
+    <press>广西师范大学出版社</press>
+    <original_name>The philosophy of Andy Warhol : from A to B and back again</original_name>
+    <translator>卢慈颖</translator>
+    <publish_date>2011-7</publish_date>
+    <page_count>348</page_count>
+    <price>45.00元</price>
+    <binding_layout>精装</binding_layout>
+    <isbn>9787563374779</isbn>
+    <tag_list>
+      <tag1>安迪•沃霍尔</tag1>
+      <tag2>波普艺术</tag2>
+      <tag3>传记</tag3>
+      <tag4>艺术</tag4>
+      <tag5>AndyWarhol</tag5>
+      <tag6>安迪.沃霍尔的哲学:波普启示录</tag6>
+      <tag7>波普</tag7>
+      <tag8>美国</tag8>
+    </tag_list>
+  </book_info>
+</root>

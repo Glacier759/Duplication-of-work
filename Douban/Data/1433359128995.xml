@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:45</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3830593/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>艺术家的真实</book_name>
+    <book_img>http://img6.douban.com/mpic/s3879251.jpg</book_img>
+    <author>马克·罗思科（Mark Rothko）</author>
+    <press>广西师范大学出版社</press>
+    <translator>岛子</translator>
+    <publish_date>2009.07</publish_date>
+    <page_count>247</page_count>
+    <price>30.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787563387519</isbn>
+    <tag_list>
+      <tag1>艺术</tag1>
+      <tag2>罗斯科</tag2>
+      <tag3>艺术理论</tag3>
+      <tag4>哲学</tag4>
+      <tag5>艺术的真实——马克·罗思科的艺术哲学</tag5>
+      <tag6>艺术哲学</tag6>
+      <tag7>美学</tag7>
+      <tag8>艺术家</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:17:20</crawl_date>
+    <crawl_link>http://book.douban.com/subject/4727293/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>理解漫画</book_name>
+    <book_img>http://img6.douban.com/mpic/s28014314.jpg</book_img>
+    <author>[美] 麦克劳德</author>
+    <press>人民邮电出版社</press>
+    <translator>万旻</translator>
+    <publish_date>2010-4</publish_date>
+    <page_count>215</page_count>
+    <price>49.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787115218261</isbn>
+    <tag_list>
+      <tag1>漫画</tag1>
+      <tag2>漫画理论</tag2>
+      <tag3>艺术</tag3>
+      <tag4>美国</tag4>
+      <tag5>Scott_McCloud</tag5>
+      <tag6>科普</tag6>
+      <tag7>理论</tag7>
+      <tag8>绘画</tag8>
+    </tag_list>
+  </book_info>
+</root>

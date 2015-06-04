@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:13:53</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3162991/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>艺术的故事</book_name>
+    <book_img>http://img6.douban.com/mpic/s3203767.jpg</book_img>
+    <author>[英] 贡布里希 (Sir E.H.Gombrich)</author>
+    <press>广西美术出版社</press>
+    <original_name>The Story of Art</original_name>
+    <translator>范景中 杨成凯</translator>
+    <publish_date>2008-04</publish_date>
+    <page_count>688</page_count>
+    <price>280.00</price>
+    <binding_layout>平装</binding_layout>
+    <series>贡布里希文集</series>
+    <isbn>9787807463726</isbn>
+    <tag_list>
+      <tag1>艺术</tag1>
+      <tag2>艺术史</tag2>
+      <tag3>贡布里希</tag3>
+      <tag4>艺术的故事</tag4>
+      <tag5>历史</tag5>
+      <tag6>文化</tag6>
+      <tag7>经典</tag7>
+      <tag8>美术学</tag8>
+    </tag_list>
+  </book_info>
+</root>

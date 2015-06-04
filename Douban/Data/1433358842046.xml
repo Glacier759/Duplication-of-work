@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:13:59</crawl_date>
+    <crawl_link>http://book.douban.com/subject/26366765/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>素描基本原理</book_name>
+    <book_img>http://img6.douban.com/mpic/s28048687.jpg</book_img>
+    <author>[英]巴林顿·巴伯（Barrington Barber）</author>
+    <press>北京联合出版公司·后浪出版公司</press>
+    <translator>梁嘉欣</translator>
+    <publish_date>2015-5</publish_date>
+    <page_count>208</page_count>
+    <price>49.80元</price>
+    <binding_layout>平装</binding_layout>
+    <series>艺术课</series>
+    <isbn>9787550250086</isbn>
+    <tag_list>
+      <tag1>素描</tag1>
+      <tag2>绘画</tag2>
+      <tag3>艺术</tag3>
+      <tag4>美术</tag4>
+      <tag5>巴林顿·巴伯</tag5>
+      <tag6>后浪</tag6>
+      <tag7>工具书</tag7>
+      <tag8>好绘画</tag8>
+    </tag_list>
+  </book_info>
+</root>

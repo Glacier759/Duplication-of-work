@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:25</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3529322/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>水彩画工作室 I</book_name>
+    <book_img>http://img6.douban.com/mpic/s4610472.jpg</book_img>
+    <author>[英] 格丽妮斯·巴恩斯·梅利什</author>
+    <press>中国文联出版社</press>
+    <translator>张景微</translator>
+    <publish_date>2009-1</publish_date>
+    <page_count>128</page_count>
+    <price>80.00元</price>
+    <binding_layout>精装</binding_layout>
+    <series>绘画艺术成功捷径丛书</series>
+    <isbn>9787505961562</isbn>
+    <tag_list>
+      <tag1>水彩</tag1>
+      <tag2>绘画</tag2>
+      <tag3>美术技法</tag3>
+      <tag4>艺术</tag4>
+      <tag5>美术</tag5>
+      <tag6>水彩画工作室1</tag6>
+      <tag7>绘本</tag7>
+      <tag8>水彩画</tag8>
+    </tag_list>
+  </book_info>
+</root>

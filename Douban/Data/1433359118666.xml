@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:37</crawl_date>
+    <crawl_link>http://book.douban.com/subject/26292822/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>沧海之后</book_name>
+    <book_img>http://img6.douban.com/mpic/s28051449.jpg</book_img>
+    <author>简繁</author>
+    <press>人民文学出版社</press>
+    <publish_date>2015-1</publish_date>
+    <page_count>234</page_count>
+    <price>52.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787020105939</isbn>
+    <tag_list>
+      <tag1>简繁</tag1>
+      <tag2>纪实</tag2>
+      <tag3>沧海</tag3>
+      <tag4>美术家</tag4>
+      <tag5>刘海粟</tag5>
+      <tag6>工具书</tag6>
+      <tag7>美术</tag7>
+      <tag8>范曾</tag8>
+    </tag_list>
+  </book_info>
+</root>

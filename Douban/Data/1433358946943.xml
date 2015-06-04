@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:15:44</crawl_date>
+    <crawl_link>http://book.douban.com/subject/5417093/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>水彩入门</book_name>
+    <book_img>http://img6.douban.com/mpic/s4613464.jpg</book_img>
+    <author>[美] 杰克·里德</author>
+    <press>上海人民美术出版社</press>
+    <original_name>Watercolor Basics: Let's Get Started</original_name>
+    <translator>刘静</translator>
+    <publish_date>2010-11</publish_date>
+    <page_count>127</page_count>
+    <price>45.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>西方经典美术技法译丛</series>
+    <isbn>9787532270019</isbn>
+    <tag_list>
+      <tag1>水彩</tag1>
+      <tag2>绘画</tag2>
+      <tag3>艺术</tag3>
+      <tag4>基础</tag4>
+      <tag5>技法</tag5>
+      <tag6>水彩入门</tag6>
+      <tag7>绘画基础</tag7>
+      <tag8>西方经典美术技法译丛</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:14:09</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1154707/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>素描的诀窍</book_name>
+    <book_img>http://img6.douban.com/mpic/s1436312.jpg</book_img>
+    <author>伯特·多德森</author>
+    <press>上海人民美术出版社</press>
+    <translator>蔡强</translator>
+    <publish_date>2005-3</publish_date>
+    <page_count>222</page_count>
+    <price>28.00元</price>
+    <binding_layout>简裝本</binding_layout>
+    <series>西方经典美术技法译丛</series>
+    <isbn>9787532228706</isbn>
+    <tag_list>
+      <tag1>素描</tag1>
+      <tag2>绘画</tag2>
+      <tag3>艺术</tag3>
+      <tag4>素描的诀窍</tag4>
+      <tag5>绘画基础</tag5>
+      <tag6>美术</tag6>
+      <tag7>绘画学习</tag7>
+      <tag8>设计</tag8>
+    </tag_list>
+  </book_info>
+</root>

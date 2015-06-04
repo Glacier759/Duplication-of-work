@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:14:58</crawl_date>
+    <crawl_link>http://book.douban.com/subject/20387173/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>30天学会绘画</book_name>
+    <book_img>http://img6.douban.com/mpic/s27384938.jpg</book_img>
+    <author>马克•凯斯特勒 (Mark Kistler)</author>
+    <press>上海人民美术出版社</press>
+    <publish_date>2013-1-1</publish_date>
+    <page_count>239</page_count>
+    <price>45.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787532280964</isbn>
+    <tag_list>
+      <tag1>绘画</tag1>
+      <tag2>画画</tag2>
+      <tag3>设计</tag3>
+      <tag4>美术</tag4>
+      <tag5>素描的诀窍</tag5>
+      <tag6>学习</tag6>
+      <tag7>Design</tag7>
+      <tag8>简单绘画</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:15:24</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1079708/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>写给大家的西方美术史</book_name>
+    <book_img>http://img6.douban.com/mpic/s4620028.jpg</book_img>
+    <author>蒋勋</author>
+    <press>湖南美术出版社</press>
+    <publish_date>2011-1</publish_date>
+    <page_count>272</page_count>
+    <price>48.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787535619969</isbn>
+    <tag_list>
+      <tag1>蒋勋</tag1>
+      <tag2>美术史</tag2>
+      <tag3>艺术</tag3>
+      <tag4>西方美术</tag4>
+      <tag5>美学</tag5>
+      <tag6>美术</tag6>
+      <tag7>历史</tag7>
+      <tag8>艺术普及</tag8>
+    </tag_list>
+  </book_info>
+</root>

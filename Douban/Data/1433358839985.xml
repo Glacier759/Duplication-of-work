@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:13:57</crawl_date>
+    <crawl_link>http://book.douban.com/subject/26348108/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>快乐禅绕画</book_name>
+    <book_img>http://img6.douban.com/mpic/s28030455.jpg</book_img>
+    <author>[美]托妮娅·珍妮（Tonia Jenny） 艾米·琼斯（Amy Jones） 编著</author>
+    <press>北京联合出版公司·后浪出版公司</press>
+    <original_name>Zen Doodle</original_name>
+    <translator>缪滢 高颖</translator>
+    <publish_date>2015-4</publish_date>
+    <page_count>128</page_count>
+    <price>49.80元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787550246898</isbn>
+    <tag_list>
+      <tag1>禅绕画</tag1>
+      <tag2>绘画</tag2>
+      <tag3>艺术</tag3>
+      <tag4>设计</tag4>
+      <tag5>美术</tag5>
+      <tag6>禅</tag6>
+      <tag7>绘本</tag7>
+      <tag8>画册</tag8>
+    </tag_list>
+  </book_info>
+</root>

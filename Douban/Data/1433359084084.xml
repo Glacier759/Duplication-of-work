@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:02</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1018925/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>玫瑰圣经</book_name>
+    <book_img>http://img6.douban.com/mpic/s1122601.jpg</book_img>
+    <author>[法]皮埃尔-约瑟夫·雷杜德 绘</author>
+    <press>陕西师范大学出版社</press>
+    <publish_date>2004-3-1</publish_date>
+    <page_count>215</page_count>
+    <price>58.00</price>
+    <binding_layout>精装</binding_layout>
+    <series>世界最伟大的图谱丛书</series>
+    <isbn>9787561325803</isbn>
+    <tag_list>
+      <tag1>植物</tag1>
+      <tag2>玫瑰</tag2>
+      <tag3>图谱</tag3>
+      <tag4>花卉图谱</tag4>
+      <tag5>绘本</tag5>
+      <tag6>法国</tag6>
+      <tag7>图鉴</tag7>
+      <tag8>自然</tag8>
+    </tag_list>
+  </book_info>
+</root>

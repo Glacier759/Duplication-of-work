@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:14:02</crawl_date>
+    <crawl_link>http://book.douban.com/subject/26265303/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>小顾聊绘画·贰</book_name>
+    <book_img>http://img6.douban.com/mpic/s27843738.jpg</book_img>
+    <author>顾爷</author>
+    <press>中信出版社</press>
+    <publish_date>2014-11</publish_date>
+    <page_count>256</page_count>
+    <price>39.80元</price>
+    <binding_layout>裸背锁线</binding_layout>
+    <series>小顾聊绘画</series>
+    <isbn>9787508648064</isbn>
+    <tag_list>
+      <tag1>艺术</tag1>
+      <tag2>绘画</tag2>
+      <tag3>顾爷</tag3>
+      <tag4>绘本</tag4>
+      <tag5>顾孟劼</tag5>
+      <tag6>很精辟有趣的一本书！~</tag6>
+      <tag7>中国</tag7>
+      <tag8>中信出版社</tag8>
+    </tag_list>
+  </book_info>
+</root>

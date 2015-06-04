@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:14:46</crawl_date>
+    <crawl_link>http://book.douban.com/subject/4251473/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>手绘的奇思妙想</book_name>
+    <book_img>http://img6.douban.com/mpic/s6634152.jpg</book_img>
+    <author>丹尼·格雷戈里</author>
+    <press>上海人民美术出版社</press>
+    <translator>姒一</translator>
+    <publish_date>2010-1</publish_date>
+    <page_count>266</page_count>
+    <price>68.00元</price>
+    <isbn>9787532264995</isbn>
+    <tag_list>
+      <tag1>手绘</tag1>
+      <tag2>设计</tag2>
+      <tag3>创意</tag3>
+      <tag4>艺术</tag4>
+      <tag5>绘本</tag5>
+      <tag6>绘本&amp;画集&amp;漫画</tag6>
+      <tag7>生活</tag7>
+      <tag8>Design</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:17:59</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3168709/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>风格与世变</book_name>
+    <book_img>http://img6.douban.com/mpic/s3424597.jpg</book_img>
+    <author>石守谦</author>
+    <press>北京大学出版社</press>
+    <publish_date>2008-7</publish_date>
+    <page_count>355</page_count>
+    <price>40.00元</price>
+    <binding_layout>平</binding_layout>
+    <series>北京大学艺术史丛书</series>
+    <isbn>9787301138694</isbn>
+    <tag_list>
+      <tag1>艺术史</tag1>
+      <tag2>石守谦</tag2>
+      <tag3>艺术</tag3>
+      <tag4>中国美术史</tag4>
+      <tag5>绘画</tag5>
+      <tag6>书画</tag6>
+      <tag7>中国</tag7>
+      <tag8>历史</tag8>
+    </tag_list>
+  </book_info>
+</root>

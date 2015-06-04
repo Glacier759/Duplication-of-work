@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:17:54</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3329950/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>剑桥艺术史：20世纪艺术</book_name>
+    <book_img>http://img6.douban.com/mpic/s4465031.jpg</book_img>
+    <author>[英国]罗斯玛丽·兰伯特</author>
+    <press>译林出版社</press>
+    <translator>钱乘旦</translator>
+    <publish_date>2008-12</publish_date>
+    <page_count>95</page_count>
+    <price>21.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>剑桥艺术史</series>
+    <isbn>9787544705660</isbn>
+    <tag_list>
+      <tag1>艺术史</tag1>
+      <tag2>艺术</tag2>
+      <tag3>剑桥艺术史</tag3>
+      <tag4>历史</tag4>
+      <tag5>英国</tag5>
+      <tag6>20世纪</tag6>
+      <tag7>西方艺术史</tag7>
+      <tag8>美术</tag8>
+    </tag_list>
+  </book_info>
+</root>

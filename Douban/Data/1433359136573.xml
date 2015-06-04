@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:18:54</crawl_date>
+    <crawl_link>http://book.douban.com/subject/6829264/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>Q版漫画技法从入门到精通</book_name>
+    <book_img>http://img6.douban.com/mpic/s8475778.jpg</book_img>
+    <author>C·C动漫社</author>
+    <press>中国水利水电出版社</press>
+    <publish_date>2011-9</publish_date>
+    <page_count>297</page_count>
+    <price>45.00元</price>
+    <series>漫画素描技法从入门到精通</series>
+    <isbn>9787508488790</isbn>
+    <tag_list>
+      <tag1>Q漫画</tag1>
+      <tag2>漫画入门</tag2>
+      <tag3>漫画</tag3>
+      <tag4>手绘</tag4>
+      <tag5>绘画</tag5>
+      <tag6>美术</tag6>
+      <tag7>创意</tag7>
+      <tag8>绘本</tag8>
+    </tag_list>
+  </book_info>
+</root>

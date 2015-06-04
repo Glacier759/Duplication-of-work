@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:14:28</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1092149/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>梵高传</book_name>
+    <book_img>http://img6.douban.com/mpic/s2279966.jpg</book_img>
+    <author>[美] 欧文·斯通</author>
+    <press>北京出版社</press>
+    <translator>常涛</translator>
+    <publish_date>2001-2</publish_date>
+    <page_count>556</page_count>
+    <price>25.00元</price>
+    <binding_layout>精装</binding_layout>
+    <isbn>9787200005844</isbn>
+    <tag_list>
+      <tag1>传记</tag1>
+      <tag2>梵高</tag2>
+      <tag3>梵高传</tag3>
+      <tag4>艺术</tag4>
+      <tag5>人物传记</tag5>
+      <tag6>外国文学</tag6>
+      <tag7>美术</tag7>
+      <tag8>人物</tag8>
+    </tag_list>
+  </book_info>
+</root>

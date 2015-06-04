@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-04 03:14:36</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1055088/?from=tag_all</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>像艺术家一样思考</book_name>
+    <book_img>http://img6.douban.com/mpic/s9788962.jpg</book_img>
+    <author>贝蒂・艾德华</author>
+    <press>海南出版社</press>
+    <original_name>The New Drawing on the Right Side of the Brain</original_name>
+    <translator>张索娃</translator>
+    <publish_date>2003-04</publish_date>
+    <page_count>234</page_count>
+    <price>28.00</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787544307819</isbn>
+    <tag_list>
+      <tag1>艺术</tag1>
+      <tag2>绘画</tag2>
+      <tag3>思维</tag3>
+      <tag4>像艺术家一样思考</tag4>
+      <tag5>设计</tag5>
+      <tag6>美术</tag6>
+      <tag7>自我學習</tag7>
+      <tag8>思考</tag8>
+    </tag_list>
+  </book_info>
+</root>
