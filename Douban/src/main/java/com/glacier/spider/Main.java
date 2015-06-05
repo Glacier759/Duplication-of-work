@@ -14,6 +14,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by glacier on 15-6-4.
@@ -42,10 +43,37 @@ public class Main {
         }
         Elements tag_eles = document.select("tbody").select("a[class=tag]");
         HashSet<String> tag_set = new HashSet<String>();
+
+        try {
+            List<String> set_list = FileUtils.readLines(new File("filter.rlx"));
+            for ( String tag_ : set_list ) {
+                tag_set.add(tag_);
+            }
+        }catch (Exception e) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            e.printStackTrace(new PrintStream(baos));
+            logger.error(baos.toString());
+        }
+
         for ( Element tag_ele : tag_eles ) {
             String href = tag_ele.attr("abs:href");
             href = href.split("\\?")[0] + "book";
             tag_set.add(href);
+        }
+
+        File tag_list_txt = new File("tag_list.rlx");
+        if ( tag_list_txt.exists() ) {
+            tag_set.clear();
+            try {
+                List<String> tag_list_txts = FileUtils.readLines(tag_list_txt);
+                for ( String tag_ : tag_list_txts ) {
+                    tag_set.add(tag_.substring(tag_.indexOf("[Tag] - ")+8, tag_.indexOf(" {")));
+                }
+            } catch (Exception e) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                e.printStackTrace(new PrintStream(baos));
+                logger.error(baos.toString());
+            }
         }
 
         for ( String tag_index : tag_set ) {
@@ -182,6 +210,7 @@ public class Main {
                                     logger.error(baos.toString());
                                     logger.error(document_book.toString());
                                 }
+                                FileUtils.writeStringToFile(new File("filter.rlx"), crawl_link + "\n", true);
                             } catch (Exception e) {
                                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                                 e.printStackTrace(new PrintStream(baos));
