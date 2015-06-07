@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:20</crawl_date>
+    <crawl_link>http://book.douban.com/subject/10553838/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>叶芝诗选</book_name>
+    <book_img>http://img3.douban.com/mpic/s9008731.jpg</book_img>
+    <author>（爱尔兰）叶芝</author>
+    <press>外语教学与研究出版社</press>
+    <translator>袁可嘉</translator>
+    <publish_date>2012-3</publish_date>
+    <page_count>265</page_count>
+    <price>18.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>英诗经典名家名译</series>
+    <isbn>9787513517324</isbn>
+    <tag_list>
+      <tag1>叶芝</tag1>
+      <tag2>诗歌</tag2>
+      <tag3>爱尔兰</tag3>
+      <tag4>外国文学</tag4>
+      <tag5>爱尔兰文学</tag5>
+      <tag6>诗</tag6>
+      <tag7>英国文学</tag7>
+      <tag8>英汉</tag8>
+    </tag_list>
+  </book_info>
+</root>

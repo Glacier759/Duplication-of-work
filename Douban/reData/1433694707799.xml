@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:31:47</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1085021/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>蝴蝶梦</book_name>
+    <book_img>http://img3.douban.com/mpic/s1229533.jpg</book_img>
+    <author>[英] 达夫妮·杜穆里埃</author>
+    <press>上海译文出版社</press>
+    <original_name>Rebecca</original_name>
+    <translator>林智玲 程德 译 陆谷孙 校</translator>
+    <publish_date>2002-3</publish_date>
+    <page_count>318</page_count>
+    <price>16.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>世界文学名著普及本（新版）</series>
+    <isbn>9787532727421</isbn>
+    <tag_list>
+      <tag1>外国文学</tag1>
+      <tag2>蝴蝶梦</tag2>
+      <tag3>小说</tag3>
+      <tag4>英国</tag4>
+      <tag5>悬疑</tag5>
+      <tag6>名著</tag6>
+      <tag7>经典</tag7>
+      <tag8>外国名著</tag8>
+    </tag_list>
+  </book_info>
+</root>

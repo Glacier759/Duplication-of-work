@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:31:53</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1366642/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>花火</book_name>
+    <book_img>http://img3.douban.com/mpic/s2142631.jpg</book_img>
+    <author>川內倫子</author>
+    <press>リトルモア</press>
+    <publish_date>2001-11-1</publish_date>
+    <price>NT$ 760</price>
+    <isbn>9784898150535</isbn>
+    <tag_list>
+      <tag1>摄影</tag1>
+      <tag2>川内伦子</tag2>
+      <tag3>川內倫子</tag3>
+      <tag4>日本</tag4>
+      <tag5>花火</tag5>
+      <tag6>攝影</tag6>
+      <tag7>写真集</tag7>
+      <tag8>Photography</tag8>
+    </tag_list>
+  </book_info>
+</root>

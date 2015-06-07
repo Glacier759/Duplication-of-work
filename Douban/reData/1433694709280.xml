@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:31:49</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1995655/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>演员自我修养(第一部)</book_name>
+    <book_img>http://img3.douban.com/mpic/s6452405.jpg</book_img>
+    <author>(苏)斯坦尼斯拉夫斯基</author>
+    <press>中国电影出版社</press>
+    <publish_date>2006-12</publish_date>
+    <page_count>421</page_count>
+    <price>54.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787106026073</isbn>
+    <tag_list>
+      <tag1>斯坦尼斯拉夫斯基</tag1>
+      <tag2>表演</tag2>
+      <tag3>艺术</tag3>
+      <tag4>演员自我修养</tag4>
+      <tag5>电影</tag5>
+      <tag6>戏剧</tag6>
+      <tag7>演员的自我修养1</tag7>
+      <tag8>周星驰</tag8>
+    </tag_list>
+  </book_info>
+</root>

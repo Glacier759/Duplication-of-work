@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:31:54</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1475128/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>人的潜能和价值</book_name>
+    <book_img>http://img3.douban.com/mpic/s1625613.jpg</book_img>
+    <author>[美]马斯洛(Maslow A.H) 等著</author>
+    <press>华夏出版社</press>
+    <translator>林方 主编</translator>
+    <publish_date>1987年2月一版一次</publish_date>
+    <page_count>515页</page_count>
+    <price>3.85元</price>
+    <binding_layout>32开本</binding_layout>
+    <series>二十世纪文库</series>
+    <isbn>9787800530593</isbn>
+    <tag_list>
+      <tag1>心理学</tag1>
+      <tag2>马斯洛</tag2>
+      <tag3>人的潜能和价值</tag3>
+      <tag4>人本主义</tag4>
+      <tag5>心理</tag5>
+      <tag6>人本心理学</tag6>
+      <tag7>多维思考-独立判断</tag7>
+      <tag8>思想</tag8>
+    </tag_list>
+  </book_info>
+</root>

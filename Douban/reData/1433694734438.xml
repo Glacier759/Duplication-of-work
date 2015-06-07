@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:14</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1077847/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>史记</book_name>
+    <book_img>http://img3.douban.com/mpic/s1953384.jpg</book_img>
+    <author>司马迁</author>
+    <press>中华书局</press>
+    <translator>（索引）司马贞，（正义）张守节</translator>
+    <publish_date>1982-11</publish_date>
+    <page_count>3356</page_count>
+    <price>125.00</price>
+    <binding_layout>平装</binding_layout>
+    <series>点校本二十四史·清史稿</series>
+    <isbn>9787101003048</isbn>
+    <tag_list>
+      <tag1>历史</tag1>
+      <tag2>史记</tag2>
+      <tag3>司马迁</tag3>
+      <tag4>中国历史</tag4>
+      <tag5>经典</tag5>
+      <tag6>古籍</tag6>
+      <tag7>国学</tag7>
+      <tag8>中国文学</tag8>
+    </tag_list>
+  </book_info>
+</root>

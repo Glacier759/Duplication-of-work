@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:30</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1926289/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>三国志</book_name>
+    <book_img>http://img4.douban.com/mpic/s9086187.jpg</book_img>
+    <author>[晉] 陈寿 (撰) [宋] 裴松之 (注)</author>
+    <press>中华书局</press>
+    <publish_date>2006-9</publish_date>
+    <page_count>867</page_count>
+    <price>36.00元</price>
+    <series>中华经典普及文库</series>
+    <isbn>9787101052978</isbn>
+    <tag_list>
+      <tag1>历史</tag1>
+      <tag2>三国志</tag2>
+      <tag3>三国</tag3>
+      <tag4>中国历史</tag4>
+      <tag5>二十四史</tag5>
+      <tag6>陈寿</tag6>
+      <tag7>史籍</tag7>
+      <tag8>中国</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:27</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1309469/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>三剑客</book_name>
+    <book_img>http://img3.douban.com/mpic/s1408281.jpg</book_img>
+    <author>大仲马</author>
+    <press>译林出版社</press>
+    <translator>罗国林 王学文</translator>
+    <publish_date>2004-1</publish_date>
+    <page_count>564</page_count>
+    <price>15.80</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787805673752</isbn>
+    <tag_list>
+      <tag1>大仲马</tag1>
+      <tag2>法国</tag2>
+      <tag3>小说</tag3>
+      <tag4>外国文学</tag4>
+      <tag5>三剑客</tag5>
+      <tag6>名著</tag6>
+      <tag7>外国名著</tag7>
+      <tag8>经典</tag8>
+    </tag_list>
+  </book_info>
+</root>

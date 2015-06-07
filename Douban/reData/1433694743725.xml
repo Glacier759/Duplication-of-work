@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:23</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3831788/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>逃离</book_name>
+    <book_img>http://img4.douban.com/mpic/s4037896.jpg</book_img>
+    <author>艾丽丝·门罗</author>
+    <press>北京十月文艺出版社</press>
+    <original_name>Runaway</original_name>
+    <translator>李文俊</translator>
+    <publish_date>2009-1-7</publish_date>
+    <page_count>368</page_count>
+    <price>28.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>新经典文库·桂冠文丛</series>
+    <isbn>9787530209837</isbn>
+    <tag_list>
+      <tag1>爱丽丝·门罗</tag1>
+      <tag2>小说</tag2>
+      <tag3>外国文学</tag3>
+      <tag4>加拿大</tag4>
+      <tag5>短篇小说</tag5>
+      <tag6>逃离</tag6>
+      <tag7>加拿大文学</tag7>
+      <tag8>艾丽丝-门罗</tag8>
+    </tag_list>
+  </book_info>
+</root>

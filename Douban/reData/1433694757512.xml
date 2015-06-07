@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:37</crawl_date>
+    <crawl_link>http://book.douban.com/subject/20416861/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>蜘蛛：社会网络分析技术</book_name>
+    <book_img>http://img4.douban.com/mpic/s24453317.jpg</book_img>
+    <author>沃特·德·诺伊 安德烈·姆尔瓦 弗拉迪米尔·巴塔盖尔吉</author>
+    <press>世界图书出版公司</press>
+    <translator>林枫</translator>
+    <publish_date>2012-10</publish_date>
+    <page_count>500</page_count>
+    <price>49.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>跨学科名作译著系列</series>
+    <isbn>9787510052880</isbn>
+    <tag_list>
+      <tag1>社会网络分析</tag1>
+      <tag2>社交网络</tag2>
+      <tag3>数据分析</tag3>
+      <tag4>复杂网络</tag4>
+      <tag5>社会学</tag5>
+      <tag6>社会关系</tag6>
+      <tag7>语言学</tag7>
+      <tag8>科普</tag8>
+    </tag_list>
+  </book_info>
+</root>

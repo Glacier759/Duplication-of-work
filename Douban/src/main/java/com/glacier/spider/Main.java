@@ -28,7 +28,160 @@ public class Main {
 
     public static void main(String[] args) {
         Main obj = new Main();
-        obj.start();
+        //obj.read();
+        obj.search(null);
+    }
+
+    public void read() {
+        try {
+            List<String> book_list = FileUtils.readLines(new File("test.txt"));
+            int count = 0;
+            for ( String book_name : book_list ) {
+                try {
+                    count ++;
+                    logger.info("[Books] - " + count + " / " + book_list.size());
+                    search(book_name);
+                }catch (Exception e) {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    e.printStackTrace(new PrintStream(baos));
+                    logger.error(baos.toString());
+                }
+            }
+        }catch (Exception e) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            e.printStackTrace(new PrintStream(baos));
+            logger.error(baos.toString());
+        }
+    }
+
+    public void search(String book_name) {
+        try {
+//            String search_url = "http://book.douban.com/subject_search?search_text=" + book_name;
+//            logger.info("[Search] - " + search_url);
+//            Document document = downloader.document(search_url);
+//            Element book_ele = document.getElementById("content").select("li[class=subject-item]").first().select("a[href]").first();
+//            String book_link = book_ele.attr("abs:href");
+            Document book_dom = downloader.document("http://book.douban.com/subject/6863077/");
+
+            String file_name = System.currentTimeMillis() + ".xml";
+            FileUtils.writeStringToFile(new File("reData", file_name), format(book_dom));
+            logger.info("[Save] - " + file_name);
+        }catch (Exception e) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            e.printStackTrace(new PrintStream(baos));
+            logger.error(baos.toString());
+        }
+    }
+
+    private String format(Document document_book) {
+
+        org.dom4j.Document dom = org.dom4j.DocumentHelper.createDocument();
+        org.dom4j.Element dom_root = dom.addElement("root");
+        org.dom4j.Element dom_crawler = dom_root.addElement("crawler_info");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dom_crawler.addElement("crawl_date").setText(format.format(new Date()));
+        dom_crawler.addElement("crawl_link").setText(document_book.baseUri());
+        dom_crawler.addElement("crawl_type").setText("douban_book");
+        dom_crawler.addElement("crawl_encode").setText("UTF-8");
+
+        Element title_pic_ele = document_book.getElementById("content").select("a[class=nbg]").first();
+        String book_name = title_pic_ele.attr("title");
+        String book_img = title_pic_ele.select("img").attr("abs:src");
+
+        Elements info_span_eles = document_book.getElementById("info").select("span");
+        String author = null, press = null, publish_date = null, page_count = null, price = null;
+        String binding_layout = null, series = null, isbn = null, original_name = null, translator = null;
+        for (Element info_span_ele : info_span_eles) {
+//                    System.out.println(info_span_ele);
+            if (info_span_ele.children().size() != 0) {
+                String span_text = info_span_ele.children().text();
+                if (span_text.contains("作者")) {
+                    author = span_text.replace("作者", "");
+                } else if (span_text.contains("译者")) {
+                    translator = span_text.replace("译者", "");
+                }
+//                        System.out.println(info_span_ele.children().text());
+            } else {
+                String span_text = info_span_ele.nextSibling().toString();
+                String span_name = info_span_ele.text();
+                if (span_name.contains("作者")) {
+                } else if (span_name.contains("译者")) {
+                } else if (span_name.contains("出版社")) {
+                    press = span_text;
+                } else if (span_name.contains("原作名")) {
+                    original_name = span_text;
+                } else if (span_name.contains("出版年")) {
+                    publish_date = span_text;
+                } else if (span_name.contains("页数")) {
+                    page_count = span_text;
+                } else if (span_name.contains("定价")) {
+                    price = span_text;
+                } else if (span_name.contains("装帧")) {
+                    binding_layout = span_text;
+                } else if (span_name.contains("ISBN")) {
+                    isbn = span_text;
+                }
+
+//                        System.out.println(info_span_ele.nextSibling());
+            }
+            if (info_span_ele.text().contains("丛书")) {
+                series = info_span_ele.nextElementSibling().text();
+            }
+        }
+
+        org.dom4j.Element dom_book = dom_root.addElement("book_info");
+        if (book_name != null) {
+            dom_book.addElement("book_name").setText(book_name);
+        }
+        if (book_img != null) {
+            dom_book.addElement("book_img").setText(book_img);
+        }
+        if (author != null) {
+            dom_book.addElement("author").setText(author);
+        }
+        if (press != null) {
+            dom_book.addElement("press").setText(press);
+        }
+        if (original_name != null) {
+            dom_book.addElement("original_name").setText(original_name);
+        }
+        if (translator != null) {
+            dom_book.addElement("translator").setText(translator);
+        }
+        if (publish_date != null) {
+            dom_book.addElement("publish_date").setText(publish_date);
+        }
+        if (page_count != null) {
+            dom_book.addElement("page_count").setText(page_count);
+        }
+        if (price != null) {
+            dom_book.addElement("price").setText(price);
+        }
+        if (binding_layout != null) {
+            dom_book.addElement("binding_layout").setText(binding_layout);
+        }
+        if (series != null) {
+            dom_book.addElement("series").setText(series);
+        }
+        if (isbn != null) {
+            dom_book.addElement("isbn").setText(isbn);
+        }
+
+        org.dom4j.Element dom_tag_list = dom_book.addElement("tag_list");
+        int index = 1;
+        try {
+            Elements book_tag_eles = document_book.getElementById("db-tags-section").select("a[href]");
+            for (Element book_tag_ele : book_tag_eles) {
+                dom_tag_list.addElement("tag" + index).addText(book_tag_ele.text());
+                index++;
+            }
+        }catch (Exception e) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            e.printStackTrace(new PrintStream(baos));
+            logger.error(baos.toString());
+        }
+
+        return formatXML(dom_root);
     }
 
     public void start( ) {

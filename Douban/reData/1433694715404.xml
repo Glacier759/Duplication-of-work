@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:31:55</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1909917/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>世界未解之谜</book_name>
+    <book_img>http://img3.douban.com/mpic/s10065103.jpg</book_img>
+    <author>陈丽辉</author>
+    <press>第1版 (2006年9月1日)</press>
+    <publish_date>2006-9</publish_date>
+    <page_count>223</page_count>
+    <price>100.0</price>
+    <binding_layout>精装</binding_layout>
+    <isbn>9787807142959</isbn>
+    <tag_list>
+      <tag1>百科</tag1>
+      <tag2>科普</tag2>
+      <tag3>未解之谜</tag3>
+      <tag4>神秘</tag4>
+      <tag5>百科未解</tag5>
+      <tag6>童年读物</tag6>
+      <tag7>童年</tag7>
+      <tag8>未解</tag8>
+    </tag_list>
+  </book_info>
+</root>

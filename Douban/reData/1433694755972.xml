@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:35</crawl_date>
+    <crawl_link>http://book.douban.com/subject/2994636/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>计算机组成原理</book_name>
+    <book_img>http://img3.douban.com/mpic/s4411273.jpg</book_img>
+    <author>唐朔飞</author>
+    <press>高等教育</press>
+    <publish_date>2008-1</publish_date>
+    <page_count>428</page_count>
+    <price>43.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787040223903</isbn>
+    <tag_list>
+      <tag1>计算机</tag1>
+      <tag2>计算机组成原理</tag2>
+      <tag3>考研</tag3>
+      <tag4>教科书</tag4>
+      <tag5>教材</tag5>
+      <tag6>计算机组成原理(第2版)（附光盘）</tag6>
+      <tag7>计算机科学</tag7>
+      <tag8>计算机系统</tag8>
+    </tag_list>
+  </book_info>
+</root>

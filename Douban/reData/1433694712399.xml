@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:31:52</crawl_date>
+    <crawl_link>http://book.douban.com/subject/3004255/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>编程之美</book_name>
+    <book_img>http://img4.douban.com/mpic/s9233126.jpg</book_img>
+    <author>《编程之美》小组 编</author>
+    <press>电子工业出版社</press>
+    <publish_date>2008-3</publish_date>
+    <page_count>327</page_count>
+    <price>40.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787121060748</isbn>
+    <tag_list>
+      <tag1>算法</tag1>
+      <tag2>编程之美</tag2>
+      <tag3>编程</tag3>
+      <tag4>面试</tag4>
+      <tag5>计算机</tag5>
+      <tag6>程序设计</tag6>
+      <tag7>微软</tag7>
+      <tag8>思维</tag8>
+    </tag_list>
+  </book_info>
+</root>

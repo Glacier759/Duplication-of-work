@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:33</crawl_date>
+    <crawl_link>http://book.douban.com/subject/5317075/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>蔡康永的说话之道</book_name>
+    <book_img>http://img3.douban.com/mpic/s4578461.jpg</book_img>
+    <author>蔡康永 著 熊宝 插图</author>
+    <press>沈阳出版社</press>
+    <publish_date>2010-10</publish_date>
+    <page_count>167</page_count>
+    <price>25.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>蔡康永的说话之道</series>
+    <isbn>9787544143158</isbn>
+    <tag_list>
+      <tag1>蔡康永</tag1>
+      <tag2>沟通技巧</tag2>
+      <tag3>社交</tag3>
+      <tag4>台湾</tag4>
+      <tag5>蔡康永的说话之道</tag5>
+      <tag6>随笔</tag6>
+      <tag7>生活</tag7>
+      <tag8>沟通</tag8>
+    </tag_list>
+  </book_info>
+</root>

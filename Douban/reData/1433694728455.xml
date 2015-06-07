@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:08</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1025643/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>全球通史</book_name>
+    <book_img>http://img4.douban.com/mpic/s1201128.jpg</book_img>
+    <author>[美] L. S. 斯塔夫里阿诺斯</author>
+    <press>上海社会科学院出版社</press>
+    <translator>吴象婴 梁赤民</translator>
+    <publish_date>1999-5</publish_date>
+    <page_count>546</page_count>
+    <price>20.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787805150901</isbn>
+    <tag_list>
+      <tag1>历史</tag1>
+      <tag2>世界史</tag2>
+      <tag3>斯塔夫里阿诺斯</tag3>
+      <tag4>全球通史</tag4>
+      <tag5>全球通史(1500年以前的世界)</tag5>
+      <tag6>世界历史</tag6>
+      <tag7>通史</tag7>
+      <tag8>History</tag8>
+    </tag_list>
+  </book_info>
+</root>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:05</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1089243/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>黄金时代</book_name>
+    <book_img>http://img3.douban.com/mpic/s1076372.jpg</book_img>
+    <author>王小波</author>
+    <press>花城出版社</press>
+    <publish_date>1999-3</publish_date>
+    <page_count>375</page_count>
+    <price>19.00元</price>
+    <binding_layout>平装</binding_layout>
+    <series>王小波《时代三部曲》</series>
+    <isbn>9787536025080</isbn>
+    <tag_list>
+      <tag1>王小波</tag1>
+      <tag2>黄金时代</tag2>
+      <tag3>小说</tag3>
+      <tag4>中国文学</tag4>
+      <tag5>经典</tag5>
+      <tag6>当代</tag6>
+      <tag7>文学</tag7>
+      <tag8>中国</tag8>
+    </tag_list>
+  </book_info>
+</root>

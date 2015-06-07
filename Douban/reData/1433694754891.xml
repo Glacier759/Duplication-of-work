@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:34</crawl_date>
+    <crawl_link>http://book.douban.com/subject/1097835/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>名人传</book_name>
+    <book_img>http://img3.douban.com/mpic/s1150361.jpg</book_img>
+    <author>罗曼·罗兰</author>
+    <press>译林出版社</press>
+    <translator>傅雷</translator>
+    <publish_date>2001-9</publish_date>
+    <page_count>452</page_count>
+    <price>20.50元</price>
+    <binding_layout>Hardcover</binding_layout>
+    <isbn>9787806572887</isbn>
+    <tag_list>
+      <tag1>传记</tag1>
+      <tag2>罗曼罗兰</tag2>
+      <tag3>名人传</tag3>
+      <tag4>外国文学</tag4>
+      <tag5>贝多芬</tag5>
+      <tag6>米开朗琪罗</tag6>
+      <tag7>人物传记</tag7>
+      <tag8>托尔斯泰</tag8>
+    </tag_list>
+  </book_info>
+</root>

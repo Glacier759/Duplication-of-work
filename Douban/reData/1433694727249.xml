@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:07</crawl_date>
+    <crawl_link>http://book.douban.com/subject/7059662/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>考拉小巫的英语学习日记</book_name>
+    <book_img>http://img3.douban.com/mpic/s7653652.jpg</book_img>
+    <author>考拉小巫</author>
+    <press>中国青年出版社</press>
+    <publish_date>2012-1</publish_date>
+    <page_count>224</page_count>
+    <price>25.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787515303505</isbn>
+    <tag_list>
+      <tag1>英语学习</tag1>
+      <tag2>励志</tag2>
+      <tag3>考拉小巫</tag3>
+      <tag4>英语</tag4>
+      <tag5>奋斗</tag5>
+      <tag6>学习</tag6>
+      <tag7>成长</tag7>
+      <tag8>英语学习达人</tag8>
+    </tag_list>
+  </book_info>
+</root>

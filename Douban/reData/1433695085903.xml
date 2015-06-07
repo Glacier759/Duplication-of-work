@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:38:05</crawl_date>
+    <crawl_link>http://book.douban.com/subject/6863077/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>点击上传封面图片</book_name>
+    <book_img>http://img3.douban.com/pics/book-default-medium.gif</book_img>
+    <price>25.00元</price>
+    <isbn>9787889331296</isbn>
+    <tag_list/>
+  </book_info>
+</root>

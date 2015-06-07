@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:31</crawl_date>
+    <crawl_link>http://book.douban.com/subject/4200822/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>Android应用开发揭秘</book_name>
+    <book_img>http://img4.douban.com/mpic/s4143787.jpg</book_img>
+    <author>杨丰盛</author>
+    <press>机械工业出版社</press>
+    <publish_date>2010-1</publish_date>
+    <page_count>515</page_count>
+    <price>69.00元</price>
+    <binding_layout>平装</binding_layout>
+    <isbn>9787111291954</isbn>
+    <tag_list>
+      <tag1>Android</tag1>
+      <tag2>Android开发</tag2>
+      <tag3>编程</tag3>
+      <tag4>Android应用开发揭秘</tag4>
+      <tag5>计算机</tag5>
+      <tag6>软件开发</tag6>
+      <tag7>android</tag7>
+      <tag8>移动开发</tag8>
+    </tag_list>
+  </book_info>
+</root>

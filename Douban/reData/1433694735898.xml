@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <crawler_info>
+    <crawl_date>2015-06-08 00:32:15</crawl_date>
+    <crawl_link>http://book.douban.com/subject/5399227/</crawl_link>
+    <crawl_type>douban_book</crawl_type>
+    <crawl_encode>UTF-8</crawl_encode>
+  </crawler_info>
+  <book_info>
+    <book_name>南渡北归（第一部）</book_name>
+    <book_img>http://img3.douban.com/mpic/s4572042.jpg</book_img>
+    <author>岳南</author>
+    <press>湖南文艺出版社</press>
+    <publish_date>2011-1</publish_date>
+    <page_count>440</page_count>
+    <price>39.80元</price>
+    <binding_layout>平装</binding_layout>
+    <series>南渡北归</series>
+    <isbn>9787540446918</isbn>
+    <tag_list>
+      <tag1>历史</tag1>
+      <tag2>民国</tag2>
+      <tag3>知识分子</tag3>
+      <tag4>大师</tag4>
+      <tag5>岳南</tag5>
+      <tag6>文化</tag6>
+      <tag7>抗战</tag7>
+      <tag8>历史人物</tag8>
+    </tag_list>
+  </book_info>
+</root>
